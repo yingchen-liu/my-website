@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title><%= title %></title>
+
+    <!-- Bootstrap -->
+    <link href="<%= base %>/css/semantic.css" rel="stylesheet">
+    <link href="<%= base %>/css/basic.css" rel="stylesheet">
+    <% var css = css ? css : [] %>
+    <% css.forEach((style) => { %>
+      <link href="<%= style %>" rel="stylesheet">
+    <% }); %>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <%# --- Top Menu --- %>
+    <div class="ui top fixed menu">
+      <div class="ui container">
+
+        <%# --- Logo --- %>
+        <a href="<%= base %>/" class="item">
+          <img class="logo" src="<%= base %>/images/logo.png">
+        </a>
+
+        <%# --- Links --- %>
+        <a href="<%= base %>/projects" class="item">
+          Projects
+        </a>
+        <div class="ui dropdown item">
+          Life
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <a href="<%= base %>/life/travel" class="item">Travel</a>
+            <a class="item">Music</a>
+          </div>
+        </div>
+        <div class="ui dropdown item">
+          Study
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <a class="item">Websites</a>
+          </div>
+        </div>
+      </div>
+    </div>

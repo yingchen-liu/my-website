@@ -1,0 +1,45 @@
+    
+    <%# --- Footer --- %>
+    <div class="ui inverted vertical footer segment">
+      <div class="ui container">
+        <div class="ui stackable inverted divided equal height stackable grid">
+
+          <%# --- About --- %>
+          <div class="three wide column">
+            <h4 class="ui inverted header">About</h4>
+            <div class="ui inverted link list">
+              <div class="item">Yingchen Liu (<i class="china flag" title="China"></i>刘盈琛)</div>
+              <a href="mailto:ytxiuxiu@gmail.com" class="item">ytxiuxiu@gmail.com</a>
+              <a href="mailto:yingchen.liu@monash.edu" class="item">yingchen.liu@monash.edu</a>
+              <a href="https://github.com/ytxiuxiu" class="item"><i class="github icon"></i>Github</a>
+            </div>
+          </div>
+
+          <%# --- Navigation --- %>
+          <div class="three wide column">
+            <h4 class="ui inverted header">Navigation</h4>
+            <div class="ui inverted link list">
+              <a href="<%= base %>/projects" class="item">Projects</a>
+            </div>
+          </div>
+
+          <%# --- Copyright --- %>
+          <div class="seven wide column">
+            <h4 class="ui inverted header">Yingchen Liu</h4>
+            <p>Copyright © Yingchen Liu's Official Website, 2014-2017. All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%# --- Scripts --- %>
+    <script src="<%= base %>/js/jquery.js"></script>
+    <script src="<%= base %>/js/semantic.js"></script>
+    <script src="<%= base %>/js/moment.js"></script>
+    <script src="<%= base %>/js/basic.js"></script>
+    <% var js = js ? js : [] %>
+    <% js.forEach((script) => { %>
+      <script src="<%= script %>"></script>
+    <% }); %>
+  </body>
+</html>

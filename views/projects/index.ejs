@@ -1,0 +1,81 @@
+<%- include('../header', {
+  css: [
+    `${base}/css/projects/index.css`
+  ]
+}); %>
+<div class="ui main grid container">
+  <%# --- Project Types Sticky --- %>
+  <div class="four wide column">
+    <div class="ui project-types sticky">
+      <div class="ui anchor-items secondary vertical pointing menu">
+        <div class="header item">Types</div>
+
+        <%# --- Loop Types --- %>
+        <% projectTypes.forEach((projectType, i) => { %>
+          <a data-anchor="<%= projectType.slug %>" class="<% if (i === 0) { %>active <% } %>item anchor-item">
+            <%= projectType.name %>
+          </a>
+        <% }); %>
+      </div>
+    </div>
+  </div>
+
+  <%# --- Main --- %>
+  <div class="main area projects twelve wide stretched column">
+
+    <%# --- Loop Projects --- %>
+    <% projectTypes.forEach((projectType) => { %>
+
+      <%# --- Project Type --- %>
+      <a class="anchor anchor-auto" name="<%= projectType.slug %>"></a>
+      <h2 class="ui dividing header">
+        <span><i class="<%= projectType.icon %> icon"></i><%= projectType.name %></span>
+        <div class="sub header"><%= projectType.subtitle %></div>
+      </h2>
+      <div class="ui projects items">
+
+        <%# --- Loop Projects --- %>
+        <% projectType.projects.forEach((project) => { %>
+          <div class="project item">
+
+            <%# --- Image --- %>
+            <a href="<%= base %>/projects/<%= project.slug %>" class="image">
+              <img src="<%= base %>/uploads/projects/<%= project.cover %>">
+            </a>
+            <div class="content">
+
+              <%# --- Name --- %>
+              <a href="<%= base %>/projects/<%= project.slug %>" class="header">
+                <%= project.name %>
+              </a>
+              <a class="ui right floated mini blue basic label"><%= project.lable %></a>
+
+              <%# --- Responsibilities --- %>
+              <div class="meta">
+                <span><%= project.responsibilities.join(' / ') %></span>
+              </div>
+
+              <%# --- Brief --- %>
+              <div class="description">
+                <p><%= project.brief %></p>
+              </div>
+
+              <%# --- Technologies --- %>
+              <div class="extra">
+                <% project.technologies.forEach((technology) => { %><div class="ui mini label"><%= technology %></div><% }); %>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    <% }); %>
+
+    <%# --- Bottom Image --- %>
+    <img src="<%= base %>/images/project-bottom.png" class="ui fluid image">
+  </div>
+</div>
+<%- include('../footer', {
+  js: [
+    `${base}/js/projects/index.js`
+  ]
+}); %>

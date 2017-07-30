@@ -1,0 +1,22 @@
+{
+  "name": "mywebsite",
+  "description": "",
+  "main": "",
+  "authors": [
+    "xiuxiu <ytxiuxiu@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "markdown-plus": "https://github.com/tylingsoft/markdown-plus.git#^2.5.0"
+  }
+}
