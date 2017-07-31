@@ -22,9 +22,9 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body class="my website">
     <%# --- Top Menu --- %>
-    <div class="ui top fixed menu">
+    <nav class="ui top fixed menu">
       <div class="ui container">
 
         <%# --- Logo --- %>
@@ -36,20 +36,8 @@
         <a href="<%= base %>/projects" class="item">
           Projects
         </a>
-        <div class="ui dropdown item">
-          Life
-          <i class="dropdown icon"></i>
-          <div class="menu">
-            <a href="<%= base %>/life/travel" class="item">Travel</a>
-            <a class="item">Music</a>
-          </div>
-        </div>
-        <div class="ui dropdown item">
-          Study
-          <i class="dropdown icon"></i>
-          <div class="menu">
-            <a class="item">Websites</a>
-          </div>
-        </div>
+        <a href="<%= base %>/life/travels" class="item">
+          Travels
+        </a>
       </div>
-    </div>
+    </nav>

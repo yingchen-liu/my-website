@@ -9,7 +9,7 @@ const db = require('../includes/db');
 /**
  * Index
  */
-router.get('/travel', (req, res, next) => {
+router.get('/travels', (req, res, next) => {
   db.travels
     .merge((travel) => {
       return {
@@ -24,7 +24,7 @@ router.get('/travel', (req, res, next) => {
       results.toArray((err, records) => {
         if (err) throw(err);
 
-        res.render('life/travel/index', f.data({ 
+        res.render('life/travels/index', f.data({ 
           title: f.title('Travel', 'Life'),
           travels: records
         }));

@@ -52,11 +52,11 @@ gulp.task('server', () => {
     './routes/**/*.js',
     './includes/**/*.js'
   ], (file) => {
-    server.start.bind(server)();
     setTimeout(() => {
+      server.start.bind(server)();
       server.notify.apply(server, [file]);
+      console.log('server reloaded');
     }, 4000);
-    console.log('server reloaded');
   });
 
   watch(vendor.css, ['vendor:css']);

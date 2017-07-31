@@ -1,5 +1,9 @@
-const c = require('./config.js');
+const path = require('path');
+
 const moment = require('moment');
+
+const c = require('./config.js');
+
 
 /**
  * Generate page title
@@ -14,11 +18,26 @@ const title = (...title) => {
 const data = (data) => {
   const system = {
     moment,
-    base: c.modes[c.mode].base
+    base: c.modes[c.mode].base,
+    process
   };
   return Object.assign(data, system);
 };
 
 const wrap = fn => (...args) => fn(...args).catch(args[2]);
 
-module.exports = { title, data, wrap };
+const fileInfo = (filename) => {
+  return {
+    ext: path.extname(filename),
+    base: path.basename(filename, path.extname(filename)),
+    name: path.basename(filename),
+    dir: path.dirname(filename)
+  };
+};
+
+const process = (base, ...processors) => {
+  const info = fileInfo(base);
+  return `${info.base}-jimp-${processors.join('-')}${info.ext}`;
+}
+
+module.exports = { title, data, wrap, fileInfo };

@@ -40,7 +40,7 @@
 
             <%# --- Image --- %>
             <a href="<%= base %>/projects/<%= project.slug %>" class="image">
-              <img src="<%= base %>/uploads/projects/<%= project.cover %>">
+              <img src="<%= base %>/uploads/projects/<%= process(project.cover, 'w300', 'c1.77') %>" alt="<%= project.title %>">
             </a>
             <div class="content">
 
