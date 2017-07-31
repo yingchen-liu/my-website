@@ -3,75 +3,77 @@
     `${base}/css/projects/index.css`
   ]
 }); %>
-<div class="ui main grid container">
-  <%# --- Project Types Sticky --- %>
-  <div class="four wide column">
-    <div class="ui project-types sticky">
-      <div class="ui anchor-items secondary vertical pointing menu">
-        <div class="header item">Types</div>
+<div class="page projects index">
+  <div class="ui main grid container">
+    <%# --- Project Types Sticky --- %>
+    <div class="four wide tablet computer only column">
+      <div class="ui project types sticky">
+        <div class="ui anchor items secondary vertical pointing menu">
+          <div class="header item">Types</div>
 
-        <%# --- Loop Types --- %>
-        <% projectTypes.forEach((projectType, i) => { %>
-          <a data-anchor="<%= projectType.slug %>" class="<% if (i === 0) { %>active <% } %>item anchor-item">
-            <%= projectType.name %>
-          </a>
-        <% }); %>
+          <%# --- Loop Types --- %>
+          <% projectTypes.forEach((projectType, i) => { %>
+            <a data-anchor="<%= projectType.slug %>" class="<% if (i === 0) { %>active <% } %>item anchor item">
+              <%= projectType.name %>
+            </a>
+          <% }); %>
+        </div>
       </div>
     </div>
-  </div>
 
-  <%# --- Main --- %>
-  <div class="main area projects twelve wide stretched column">
+    <%# --- Main --- %>
+    <div class="main projects area sixteen wide mobile twelve wide tablet twelve wide computer column">
 
-    <%# --- Loop Projects --- %>
-    <% projectTypes.forEach((projectType) => { %>
+      <%# --- Loop Projects --- %>
+      <% projectTypes.forEach((projectType) => { %>
 
-      <%# --- Project Type --- %>
-      <a class="anchor anchor-auto" name="<%= projectType.slug %>"></a>
-      <h2 class="ui dividing header">
-        <span><i class="<%= projectType.icon %> icon"></i><%= projectType.name %></span>
-        <div class="sub header"><%= projectType.subtitle %></div>
-      </h2>
-      <div class="ui projects items">
+        <%# --- Project Type --- %>
+        <a class="anchor auto" name="<%= projectType.slug %>"></a>
+        <h2 class="ui dividing header">
+          <span><i class="<%= projectType.icon %> icon"></i><%= projectType.name %></span>
+          <div class="sub header"><%= projectType.subtitle %></div>
+        </h2>
+        <div class="ui projects items">
 
-        <%# --- Loop Projects --- %>
-        <% projectType.projects.forEach((project) => { %>
-          <div class="project item">
+          <%# --- Loop Projects --- %>
+          <% projectType.projects.forEach((project) => { %>
+            <div class="project item">
 
-            <%# --- Image --- %>
-            <a href="<%= base %>/projects/<%= project.slug %>" class="image">
-              <img src="<%= base %>/uploads/projects/<%= process(project.cover, 'w300', 'c1.77') %>" alt="<%= project.title %>">
-            </a>
-            <div class="content">
-
-              <%# --- Name --- %>
-              <a href="<%= base %>/projects/<%= project.slug %>" class="header">
-                <%= project.name %>
+              <%# --- Image --- %>
+              <a href="<%= base %>/projects/<%= project.slug %>" class="image">
+                <img src="<%= base %>/uploads/projects/<%= process(project.cover, 'w500', 'c1.77') %>" alt="<%= project.title %>">
               </a>
-              <a class="ui right floated mini blue basic label"><%= project.lable %></a>
+              <div class="content">
 
-              <%# --- Responsibilities --- %>
-              <div class="meta">
-                <span><%= project.responsibilities.join(' / ') %></span>
-              </div>
+                <%# --- Name --- %>
+                <a href="<%= base %>/projects/<%= project.slug %>" class="header">
+                  <%= project.name %>
+                </a>
+                <a class="ui right floated mini blue basic label"><%= project.lable %></a>
 
-              <%# --- Brief --- %>
-              <div class="description">
-                <p><%= project.brief %></p>
-              </div>
+                <%# --- Responsibilities --- %>
+                <div class="meta">
+                  <span><%= project.responsibilities.join(' / ') %></span>
+                </div>
 
-              <%# --- Technologies --- %>
-              <div class="extra">
-                <% project.technologies.forEach((technology) => { %><div class="ui mini label"><%= technology %></div><% }); %>
+                <%# --- Brief --- %>
+                <div class="description">
+                  <p><%= project.brief %></p>
+                </div>
+
+                <%# --- Technologies --- %>
+                <div class="extra">
+                  <% project.technologies.forEach((technology) => { %><div class="ui mini label"><%= technology %></div><% }); %>
+                </div>
               </div>
             </div>
-          </div>
-        <% }); %>
-      </div>
-    <% }); %>
+          <% }); %>
+        </div>
+      <% }); %>
 
-    <%# --- Bottom Image --- %>
-    <img src="<%= base %>/images/project-bottom.png" class="ui fluid image">
+      <%# --- Bottom Image --- %>
+      <img src="<%= base %>/images/project-bottom.png" class="ui fluid image">
+    </div>
   </div>
 </div>
 <%- include('../footer', {

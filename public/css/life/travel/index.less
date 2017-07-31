@@ -1,41 +1,54 @@
-.marker {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-.marker.travel {
-  background-image: url('../../../images/pin-has-been-to.svg'), none;
-}
-.marker.plan {
-  background-image: url('../../../images/pin-plan.svg'), none;
-}
-.marker.move {
-  background-image: url('../../../images/pin-home.svg'), none;
-}
-
-.travels.ui.feed {
-  a.anchor {
-    display: block;
-    position: relative;
-    top: -60px;
-    visibility: hidden;
+.my.website .page.life.travels.index {
+  .map {
+    width: 100%;
+    height: 600px;
   }
 
-  .travel.event {
-    padding: 5px;
-    border-radius: 3px;
+  @media only screen and (max-width: 768px) {
+    .map {
+      display: none;
+    }
+  }
 
-    .extra.images {
-      margin-top: 20px;
-      img {
-        width: 11em;
+  .marker {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .marker.travel {
+    background-image: url('../../../images/pin-has-been-to.svg'), none;
+  }
+  .marker.plan {
+    background-image: url('../../../images/pin-plan.svg'), none;
+  }
+  .marker.move {
+    background-image: url('../../../images/pin-home.svg'), none;
+  }
+
+  .travels.ui.feed {
+    a.anchor {
+      display: block;
+      position: relative;
+      top: -60px;
+      visibility: hidden;
+    }
+
+    .travel.event {
+      padding: 5px;
+      border-radius: 3px;
+
+      .extra.images {
+        margin-top: 20px;
+        img {
+          width: 11em;
+        }
       }
     }
   }
-}
 
-.bottom-image {
-  position: relative;
-  top: 30px;
+  .bottom-image {
+    position: relative;
+    top: 30px;
+  }
 }

@@ -95,3 +95,10 @@
 2017-07-30T21:20:27.440900000 22.158429s info: Table 08363e69-a1e8-4bd3-874c-73ef9c19b841: This server is Raft leader for term 2. Latest log index is 2.
 2017-07-30T21:20:27.459960000 22.177489s info: Table 9a192c35-0316-4fe4-bc3e-63af98b8c423: Starting a new Raft election for term 3.
 2017-07-30T21:20:27.546064000 22.263593s info: Table 9a192c35-0316-4fe4-bc3e-63af98b8c423: This server is Raft leader for term 3. Latest log index is 5.
+2017-07-31T14:53:46.587944000 18556.257161s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2017-07-31T14:53:46.908877000 18556.578094s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2017-07-31T15:19:05.987397000 20075.626173s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2017-07-31T15:19:06.308284000 20075.947059s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2017-07-31T15:23:12.972065000 20322.605869s info: Table 6751e769-32b8-4096-b322-2db264d5604b: Starting a new Raft election for term 1.
+2017-07-31T15:23:12.972321000 20322.606124s info: Table 6751e769-32b8-4096-b322-2db264d5604b: Added replica on this server.
+2017-07-31T15:23:12.997466000 20322.631270s info: Table 6751e769-32b8-4096-b322-2db264d5604b: This server is Raft leader for term 1. Latest log index is 0.

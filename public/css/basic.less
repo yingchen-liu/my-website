@@ -11,18 +11,28 @@
     margin-top: 30px;
   }
 
-  .sticky {
+  @media only screen and (max-width: 768px) {
+    .ui.card {
+      width: auto;
+    }
+  }
+
+  .ui.sticky {
     padding-top: 31px;
     z-index: 0 !important;
     
-    .header {
-      background-color: #dddddd !important;
+    .ui.vertical.menu {
+      width: auto;
+
+      .header {
+        background-color: #dddddd !important;
+      }
     }
   }
 
   article.markdown-body {
     padding: 0;
-    margin: 30px 0;
+    margin-bottom: 30px;
 
     p {
       line-height: 1.6;

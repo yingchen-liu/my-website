@@ -4,127 +4,130 @@
     `${base}/css/life/travel/index.css`
   ]
 }); %>
-<div id='map' style='width: 100%; height: 600px;'></div>
-<div class="ui main grid container">
-  <%# --- Sticky Sidebar --- %>
-  <div class="four wide column">
-    <div class="ui travel-years sticky">
-      <div class="ui anchor-items secondary vertical pointing menu">
-        <div class="header item">Years</div>
+<div class="page life travels index">
+  <%# --- Map --- %>
+  <div id="map" class="map"></div>
 
-        <%# --- Loop Years --- %>
-        <% var lastYear = null;
-        var i = 0;
-        travels.forEach((travel) => {
-          var year = moment(travels[0].from).year();
-          if (year !== lastYear) { %>
-            <a data-anchor="<%= year %>" class="<% if (i === 0) { %>active <% } %>item anchor-item">
-              <%= year %>
-            </a>
-            <% lastYear = year;
-            i++;
-          }
-        }); %>
+  <div class="ui main grid container">
+    <%# --- Sticky Sidebar --- %>
+    <div class="four wide tablet computer only column">
+      <div class="ui travel years sticky">
+        <div class="ui anchor items secondary vertical pointing menu">
+          <div class="header item">Years</div>
+
+          <%# --- Loop Years --- %>
+          <% var lastYear = null;
+          var i = 0;
+          travels.forEach((travel) => {
+            var year = moment(travels[0].from).year();
+            if (year !== lastYear) { %>
+              <a data-anchor="<%= year %>" class="<% if (i === 0) { %>active <% } %>item anchor item">
+                <%= year %>
+              </a>
+              <% lastYear = year;
+              i++;
+            }
+          }); %>
+        </div>
       </div>
     </div>
-  </div>
 
-  <%# --- Main --- %>
-  <div class="main area twelve wide stretched column">
-    <div class="ui travels feed">
-      
-      <%# --- Loop Events --- %>
-      <% var lastYear = null;
-      travels.forEach((travel) => {
-        var year = moment(travels[0].from).year(); %>
+    <%# --- Main --- %>
+    <div class="main area sixteen wide mobile twelve wide tablet twelve wide computer stretched column">
+      <div class="ui travels feed">
+        
+        <%# --- Loop Events --- %>
+        <% var lastYear = null;
+        travels.forEach((travel) => {
+          var year = moment(travels[0].from).year(); %>
 
-        <%# --- Year --- %>
-        <% if (year !== lastYear) {%>
-          <a name="<%= year %>" class="anchor anchor-auto"></a>
-          <h2 class="ui dividing header"><%= year %></h2>
-        <% } 
-        lastYear = year; 
-        var date = travel.type === "travel" ? 
-                moment(travel.from).format("YYYY-MM-DD") : 
-            travel.type === "move" ? 
-                moment(travel.date).format("YYYY-MM-DD") : 
-            null; %>
+          <%# --- Year --- %>
+          <% if (year !== lastYear) {%>
+            <a name="<%= year %>" class="anchor auto"></a>
+            <h2 class="ui dividing header"><%= year %></h2>
+          <% } 
+          lastYear = year; 
+          var date = travel.type === "travel" ? 
+                  moment(travel.from).format("YYYY-MM-DD") : 
+              travel.type === "move" ? 
+                  moment(travel.date).format("YYYY-MM-DD") : 
+              null; %>
 
-        <%# --- Event --- %>
-        <a name="<%= travel.name %>-<%= moment(date).format('YYYY-MM-DD') %>" class="anchor"></a>
-        <div class="event travel">
-          <div class="label">
-            <img src="<%= base %>/uploads/avatars/<%= travel.people[0].avatar %>">
-          </div>
-          <div class="content">
-            <%# --- Summary --- %>
-            <div class="summary">
-              <a class="user">
-                <% const names = []; 
-                if (travel.people) {
-                  travel.people.map((person) => {
-                    names.push(person.firstName);
-                  });
-                } %>
-                <%= names.join(', ') %>
-              </a>
-              <%= travel.type === 'travel' ? 
-                      'traveled' : 
-                  travel.type === 'move' ?
-                      'moved our home' :
-                  'went' %> 
-              to
-              <a href="https://en.wikipedia.org/wiki/<%= travel.name %>,_<%= travel.country %>" target="_blank">
-                <%= travel.name %>
-              </a><%= travel.localName ? `(${travel.localName})` : '' %>, 
-              <a href="https://en.wikipedia.org/wiki/<%= travel.country %>" target="_blank">
-                &nbsp;<i class="<%= travel.country.toLowerCase() %> flag"></i><%= travel.country %>
-              </a>
-              <div class="date">
-                <%= moment(date).fromNow() %>
-              </div>
+          <%# --- Event --- %>
+          <a name="<%= travel.name %>-<%= moment(date).format('YYYY-MM-DD') %>" class="anchor"></a>
+          <div class="event travel">
+            <div class="label">
+              <img src="<%= base %>/uploads/avatars/<%= travel.people[0].avatar %>">
             </div>
-            
-            <%# --- Information --- %>
-            <% if (travel.type === 'travel') { %>
+            <div class="content">
+              <%# --- Summary --- %>
+              <div class="summary">
+                <a class="user">
+                  <% const names = []; 
+                  if (travel.people) {
+                    travel.people.map((person) => {
+                      names.push(person.firstName);
+                    });
+                  } %>
+                  <%= names.join(', ') %>
+                </a>
+                <%= travel.type === 'travel' ? 
+                        'traveled' : 
+                    travel.type === 'move' ?
+                        'moved our home' :
+                    'went' %> 
+                to
+                <a href="https://en.wikipedia.org/wiki/<%= travel.name %>,_<%= travel.country %>" target="_blank">
+                  <%= travel.name %>
+                </a><%= travel.localName ? `(${travel.localName})` : '' %>, 
+                <a href="https://en.wikipedia.org/wiki/<%= travel.country %>" target="_blank">
+                  &nbsp;<i class="<%= travel.country.toLowerCase() %> flag"></i><%= travel.country %>
+                </a>
+                <div class="date">
+                  <%= moment(date).fromNow() %>
+                </div>
+              </div>
+              
+              <%# --- Information --- %>
+              <% if (travel.type === 'travel') { %>
+                <div class="meta">
+                  <% var days = moment.duration(moment(travel.to).diff(moment(travel.from))).asDays();
+                  days = days > 0 ? days : 1; %>
+                  <p><i class="sun icon"></i><%= days %> days</p>
+                </div>
+              <% } %>
+
+              <%# --- Contents --- %>
+              <div class="extra text">
+                <%= travel.content %>
+              </div>
+              
+              <%# --- Photos --- %>
+              <% if (travel.photos) { %>
+                <div class="extra images">
+                  <% travel.photos.forEach((photo) => { %>
+                    <img src="<%= base %>/uploads/life/travels/<%= photo %>">
+                  <% }); %>
+                </div>
+              <% } %>
+              
+              <%# --- Likes --- %>
               <div class="meta">
-                <% var days = moment.duration(moment(travel.to).diff(moment(travel.from))).asDays();
-                days = days > 0 ? days : 1; %>
-                <p><i class="sun icon"></i><%= days %> days</p>
+                <a class="like">
+                  <i class="like icon"></i> <span><%= travel.likes %></span> Likes
+                </a>
               </div>
-            <% } %>
-
-            <%# --- Contents --- %>
-            <div class="extra text">
-              <%= travel.content %>
-            </div>
-            
-            <%# --- Photos --- %>
-            <% if (travel.photos) { %>
-              <div class="extra images">
-                <% travel.photos.forEach((photo) => { %>
-                  <img src="<%= base %>/uploads/life/travels/<%= photo %>">
-                <% }); %>
-              </div>
-            <% } %>
-            
-            <%# --- Likes --- %>
-            <div class="meta">
-              <a class="like">
-                <i class="like icon"></i> <span><%= travel.likes %></span> Likes
-              </a>
             </div>
           </div>
-        </div>
-        <div class="ui divider"></div>
-      <% }); %>
-    </div>
+          <div class="ui divider"></div>
+        <% }); %>
+      </div>
 
-    <%# --- Bottom Image --- %>
-    <img src="<%= base %>/images/travel-bottom.png" class="ui fluid image">
+      <%# --- Bottom Image --- %>
+      <img src="<%= base %>/images/travel-bottom.png" class="ui fluid image">
+    </div>
   </div>
 </div>
-
 
 <script>
   var geojson = {

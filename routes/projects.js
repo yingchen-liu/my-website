@@ -11,39 +11,36 @@ const db = require('../includes/db');
  * Index
  */
 router.get('/', f.wrap(async (req, res, next) => {
-  const results = await db.projectTypes
-    .innerJoin(db.projects, (type, project) => {
+  
+  const results = await db.projects
+    .innerJoin(db.projectTypes, (project, type) => {
       return project('type').eq(type('id'));
     })
-    .orderBy(
-      db.r.row('left')('sort'),
-      db.r.desc(db.r.row('right')('to')('year')),
-      db.r.desc(db.r.row('right')('to')('month'))
-    )
-    .run(db.conn).catch(next);
+    .orderBy(db.r.desc(db.r.row('right')('to')('year')),
+      db.r.desc(db.r.row('right')('to')('month'))) // order by skill sort
+    .group((record) => {
+      return record.pluck('right') // group by right (skill type)
+    }).map((project) => {
+      return project('left');
+    })
+    .ungroup()
+    .orderBy(db.r.row('group')('right')('sort')) // order by skill sort 
+    .map((group) => {
+      return db.r.object(
+        'id', group('group')('right')('id'),
+        'name', group('group')('right')('name'),
+        'subtitle', group('group')('right')('subtitle'),
+        'slug', group('group')('right')('slug'),
+        'icon', group('group')('right')('icon'),
+        'sort', group('group')('right')('sort'),
+        'projects', group('reduction')
+      );
+    }).run(db.conn).catch(next);
   const records = await results.toArray().catch(next);
-
-  const projectTypes = [];
-  records.forEach((record) => {
-    let indexOf = -1;
-    for (let i = 0; i < projectTypes.length; i++) {
-      if (projectTypes[i].id === record.left.id) {
-        indexOf = i;
-        break;
-      }
-    }
-
-    if (indexOf === -1) {
-      projectTypes.push(Object.assign({}, record.left, { projects: [] }));
-      indexOf = projectTypes.length - 1;
-    }
-
-    projectTypes[indexOf].projects.push(record.right);
-  });
 
   res.render('projects/index', f.data({ 
     title: f.title('Projects'),
-    projectTypes
+    projectTypes: records
   }));
 }));
 

@@ -2,10 +2,10 @@ $('.dropdown.item').dropdown();
 
 $('.ui.sticky').sticky({
   context: '.main.area',
-  offset: $('.ui.top.fixed.menu').height()
+  offset: $('.ui.top.fixed.menu').height() + 5
 });
 
-var $anchors = $('a.anchor-auto');
+var $anchors = $('a.anchor.auto');
 
 if ($anchors.length > 0) {
   var autoDetectAnchor = true;
@@ -29,8 +29,8 @@ if ($anchors.length > 0) {
   };
 
   var switchActive = function(anchorName) {
-    $('.anchor-items .active.anchor-item').removeClass('active');
-    $('.anchor-items .anchor-item[data-anchor="' + anchorName + '"]').addClass('active');
+    $('.anchor.items .active.anchor.item').removeClass('active');
+    $('.anchor.items .anchor.item[data-anchor="' + anchorName + '"]').addClass('active');
   };
 
   $(window).on('scroll', function() {
@@ -38,7 +38,7 @@ if ($anchors.length > 0) {
     switchActive(getCurrentAnchorName($anchors));
   });
 
-  $(document).delegate('.anchor-item', 'click', function() {
+  $(document).delegate('.anchor.item', 'click', function() {
     var anchorName = $(this).attr('data-anchor');
     switchActive(anchorName);
 

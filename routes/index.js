@@ -8,32 +8,37 @@ var jimp = require("jimp");
 
 const f = require('../includes/functions');
 const db = require('../includes/db');
+const imageProcessor = require('../includes/image-processor')
 
 
 router.get('/', f.wrap(async function (req, res, next) {
-  const langResults = await db.skills
-    .filter({ type: 'programming language' })
-    .orderBy('sort')
-    .run(db.conn).catch(next);
-  const langRecords = await langResults.toArray().catch(next);
+  
+  const results = await db.skills
+    .innerJoin(db.skillTypes, (skill, type) => {
+      return skill('type').eq(type('id'));
+    })
+    .orderBy(db.r.row('left')('sort')) // order by skill sort
+    .group((record) => {
+      return record.pluck('right') // group by right (skill type)
+    }).map((skill) => {
+      return skill('left');
+    })
+    .ungroup()
+    .orderBy(db.r.row('group')('right')('sort')) // order by skill sort 
+    .map((group) => {
+      return db.r.object(
+        'id', group('group')('right')('id'),
+        'name', group('group')('right')('name'),
+        'subtitle', group('group')('right')('subtitle'),
+        'sort', group('group')('right')('sort'),
+        'skills', group('reduction')
+      );
+    }).run(db.conn).catch(next);
+  const records = await results.toArray().catch(next);
 
-  const frameworkResults = await db.skills
-    .filter({ type: 'framework' })
-    .orderBy('sort')
-    .run(db.conn).catch(next);
-  const frameworkRecords = await frameworkResults.toArray().catch(next);
-              
-  const dbResults = await db.skills
-    .filter({ type: 'database' })
-    .orderBy('sort')
-    .run(db.conn).catch(next);
-  const dbRecords = await dbResults.toArray().catch(next);
-
-  res.render('index', f.data({ 
+  res.render('index', f.data({
     title: f.title(),
-    programmingLanguages: langRecords,
-    frameworks: frameworkRecords,
-    databases: dbRecords
+    skillTypes: records
   }));
 }));
 
@@ -52,40 +57,24 @@ router.get(/uploads\/.*/, (req, res, next) => {
     let processors = match[1];
     const oriFilename = filename.replace(`-jimp-${processors}`, '');
 
+    // loop through processors
     processors = processors.split('-');
     jimp.read(oriFilename).then((image) => {
       image = image.quality(80);
 
       processors.map((processor) => {
         if (processor.startsWith('w')) {
+          // with
           const width = parseInt(processor.replace('w', ''));
-          
-          image = image.resize(width, jimp.AUTO);
+          image = imageProcessor.width(image, width);
         } else if (processor.startsWith('c')) {
+          // crop
           const ratio = parseFloat(processor.replace('c', ''));
-
-          let _width = image.bitmap.width,
-            _height = image.bitmap.height,
-            width = _width,
-            height = _height,
-            x = 0,
-            y = 0;
-
-          if (_width / _height > ratio) {
-            width = _height * ratio;
-            x = (_width - width) / 2;
-          } else {
-            height = _width / ratio;
-            y = (_height - height) / 2;
-          }
-          
-          image = image.crop(x, y, width, height);
+          image = imageProcessor.crop(image, ratio);
         }
       });
       
-      console.log('save')
       image.write(filename, () => {
-        console.log('done')
         res.sendFile(filename);
       });
       

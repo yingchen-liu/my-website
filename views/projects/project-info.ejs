@@ -1,0 +1,41 @@
+<div class="ui segments">
+  <div class="ui segment">
+    <p>Project Information</p>
+  </div>
+  <div class="ui secondary segment">
+    <div class="ui list">
+
+      <%# --- Lable --- %>
+      <div class="item">
+        <i class="tag icon"></i>
+        <div class="content">
+          <%= project.lable %>
+        </div>
+      </div>
+
+      <%# --- Responsibilities --- %>
+      <div class="item">
+        <i class="crop icon"></i>
+        <div class="content">
+          <%= project.responsibilities.join(', ') %>
+        </div>
+      </div>
+
+      <%# --- Time --- %>
+      <div class="item">
+        <i class="calendar icon"></i>
+        <div class="content">
+          <%= project.from.month %>/<%= project.from.year %> - <%= project.to.month %>/<%= project.to.year %>
+        </div>
+      </div>
+
+      <%# --- Technologies --- %>
+      <div class="item">
+        <i class="code icon"></i>
+        <div class="content">
+          <%= project.technologies.join(', ') %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

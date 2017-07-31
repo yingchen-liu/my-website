@@ -3,148 +3,112 @@
     `${base}/css/index.css`
   ]
 }); %>
-<div class="ui main grid container">
-  <%# --- Photo Card --- %>
-  <div class="five wide column">
-    <div class="ui card">
+<div class="page index">
+  <div class="ui main grid container">
+    <%# --- Photo Card --- %>
+    <div class="sixteen wide mobile five wide tablet five wide computer column">
+      <div class="ui card">
 
-      <%# --- Photo --- %>
-      <div class="image">
-        <img src="<%= base %>/images/me.png">
-      </div>
-      <div class="content">
-
-        <%# --- Name --- %>
-        <div class="header">Yingchen Liu</div>
-        <div class="meta">
-          <i class="china flag" title="China"></i> 刘盈琛
+        <%# --- Photo --- %>
+        <div class="image">
+          <img src="<%= base %>/images/me.png">
         </div>
+        <div class="content">
 
-        <%# --- Description --- %>
-        <div class="description">
-          He is a Geek living in Melbourne, AU.
-        </div>
-      </div>
+          <%# --- Name --- %>
+          <div class="header">Yingchen Liu</div>
+          <div class="meta">
+            <i class="china flag" title="China"></i> 刘盈琛
+          </div>
 
-      <%# --- Extra Information --- %>
-      <div class="extra content">
-        <a>
-          <i class="birthday icon"></i>
-          25 years old
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <%# --- Introduction --- %>
-  <div class="eleven wide column introduction">
-    <h1 class="ui dividing header">
-      <span><i class="id card icon"></i>Introduction</span>
-      <span class="sub header">简单的介绍</span>
-    </h1>
-    <p class="en">Yingchen Liu - a geek who is keen on programming. He enjoys experimenting to find intersections in technology and daily life. His interests include website development and optimisation, code refactoring as well as robotics.</p>
-    <p class="ch">劉盈琛 - 一個熱愛編程的極客。沉醉于不斷尋求科技與生活的交匯點。熱衷於網站开发和優化、代碼重構與機器人科學。</p>
-    <p class="en">He is currently doing a Masters degree at Monash University (Melbourne, AU) and working at <a href="http://sensilab.monash.edu" target="_blank">sensiLab</a> as a research assistant.</p>
-    <p class="ch">他目前在莫納什大學（澳大利亚，墨爾本）攻讀研究生學位，同時也是 <a href="http://sensilab.monash.edu" target="_blank">sensiLab</a> 的一名研究助理。</p>
-    <p class="en">In his leisure time, he loves travelling to different places, taking photos and enjoying the local delicious.</p>
-    <p class="ch">業餘時間，到處逛逛，拍些照片，品嘗一下當地的美食就是他的愛好。</p>
-  </div>
-
-  <%# --- Featured Project --- %>
-  <div class="sixteen wide column featured project">
-    <a href="<%= base %>/projects/robotic-3d-printing" class="ui image">
-      <img src="<%= base %>/uploads/projects/0M2A4104_meitu_2.jpg">
-      <div class="overlay">
-        <h2>Robotic 3D Printing - Minor Thesis Project</h2>
-        Click to view this featured project
-      </div>
-    </a>
-  </div>
-
-  <%# --- Programming Languages --- %>
-  <div class="sixteen wide column">
-    <h3 class="ui center aligned icon header">
-      <i class="circular code icon"></i>
-      Programming Languages
-      <span class="sub header">In addition to Mandarin and English, I also speak ...</span>
-    </h3>
-  </div>
-  <div class="two wide column"></div>
-  <div class="thirteen wide column">
-    <div class="ui grid lang content">
-      <% programmingLanguages.forEach((lang) => { %>
-        <div class="four wide column">
-          <div class="ui large list">
-            <div class="item">
-              <img class="ui avatar image" src="<%= base %>/uploads/site/<%= lang.icon %>">
-              <div class="content">
-                <a class="header"><%= lang.name %></a>
-                <%= lang.fluency %>
-              </div>
-            </div>
+          <%# --- Description --- %>
+          <div class="description">
+            He is a Geek living in Melbourne, AU.
           </div>
         </div>
-      <% }); %>
-    </div>
-  </div>
 
-  <%# --- Frameworks --- %>
-  <div class="sixteen wide column">
-    <h3 class="ui center aligned icon header">
-      <i class="circular cubes icon"></i>
-      Frameworks
-      <span class="sub header">They made me focus more on business logic.</span>
-    </h3>
-  </div>
-  <div class="two wide column"></div>
-  <div class="thirteen wide column">
-    <div class="ui grid framework content">
-      <% frameworks.forEach((framework) => { %>
-        <div class="four wide column">
-          <div class="ui large list">
-            <div class="item">
-              <img class="ui avatar image" src="<%= base %>/uploads/site/<%= framework.icon %>">
-              <div class="content">
-                <a href="<%= framework.website %>" target="_blank" class="header"><%= framework.name %></a>
-                <%= framework.fluency %>
+        <%# --- Extra Information --- %>
+        <div class="extra content">
+          <a>
+            <i class="birthday icon"></i>
+            25 years old
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <%# --- Introduction --- %>
+    <div class="sixteen wide mobile eleven wide tablet eleven wide computer column introduction">
+      <h1 class="ui dividing header">
+        <span><i class="id card icon"></i>Introduction</span>
+        <span class="sub header">简单的介绍</span>
+      </h1>
+      <p class="en">Yingchen Liu - a geek who is keen on programming. He enjoys experimenting to find intersections in technology and daily life. His interests include website development and optimisation, code refactoring as well as robotics.</p>
+      <p class="ch">劉盈琛 - 一個熱愛編程的極客。沉醉于不斷尋求科技與生活的交匯點。熱衷於網站开发和優化、代碼重構與機器人科學。</p>
+      <p class="en">He is currently doing a Masters degree at Monash University (Melbourne, AU) and working at <a href="http://sensilab.monash.edu" target="_blank">sensiLab</a> as a research assistant.</p>
+      <p class="ch">他目前在莫納什大學（澳大利亚，墨爾本）攻讀研究生學位，同時也是 <a href="http://sensilab.monash.edu" target="_blank">sensiLab</a> 的一名研究助理。</p>
+      <p class="en">In his leisure time, he loves travelling to different places, taking photos and enjoying the local delicious.</p>
+      <p class="ch">業餘時間，到處逛逛，拍些照片，品嘗一下當地的美食就是他的愛好。</p>
+    </div>
+
+    <%# --- Featured Project --- %>
+    <div class="mobile tablet only sixteen wide column">
+      <div class="ui divider"></div>
+      <h3 class="ui center aligned header">Robotic 3D Printing - Minor Thesis Project</h3>
+      <a href="<%= base %>/projects/robotic-3d-printing" class="ui image">
+        <img src="<%= base %>/uploads/projects/0M2A4104_meitu_2.jpg">
+      </a>
+    </div>
+    <div class="computer only sixteen wide column featured project">
+      <a href="<%= base %>/projects/robotic-3d-printing" class="ui image">
+        <img src="<%= base %>/uploads/projects/0M2A4104_meitu_2.jpg">
+        <div class="overlay">
+          <h2>Robotic 3D Printing - Minor Thesis Project</h2>
+          Click to view this featured project
+        </div>
+      </a>
+    </div>
+
+    <%# --- Skills --- %>
+    <% skillTypes.forEach((skillType) => { %>
+      <%# --- Skill Type --- %>
+      <div class="sixteen wide column">
+        <h3 class="ui center aligned icon header">
+          <i class="circular code icon"></i>
+          <span style="text-transform: capitalize;"><%= skillType.name %></span>
+          <span class="sub header"><%= skillType.subtitle %></span>
+        </h3>
+      </div>
+
+      <%# --- Skill Items --- %>
+      <div class="two wide computer only column"></div>
+      <div class="sixteen wide mobile sixteen wide tablet thirteen wide computer column">
+        <div class="ui grid content">
+          <% skillType.skills.forEach((skill) => { %>
+            <div class="eight wide mobile four wide tablet four wide computer column">
+              <div class="ui large list">
+                <div class="item">
+                  <img class="ui avatar image" src="<%= base %>/uploads/site/<%= skill.icon %>">
+                  <div class="content">
+                    <% if (skill.website) { %>
+                      <a href="<%= skill.website %>" class="header"><%= skill.name %></a>
+                    <% } else { %>
+                      <span class="header"><%= skill.name %></span>
+                    <% } %>
+                    <%= skill.fluency %>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          <% }); %>
         </div>
-      <% }); %>
-    </div>
-  </div>
+      </div>
+    <% }); %>
 
-  <%# --- Databases --- %>
-  <div class="sixteen wide column">
-    <h3 class="ui center aligned icon header">
-      <i class="circular database icon"></i>
-      Databases
-      <span class="sub header">/ˈdeɪtəbeɪs/</span>
-    </h3>
-  </div>
-  <div class="two wide column"></div>
-  <div class="thirteen wide column">
-    <div class="ui grid db content">
-      <% databases.forEach((database) => { %>
-        <div class="four wide column">
-          <div class="ui large list">
-            <div class="item">
-              <img class="ui avatar image" src="<%= base %>/uploads/site/<%= database.icon %>">
-              <div class="content">
-                <a href="<%= database.website %>" target="_blank" class="header"><%= database.name %></a>
-                <%= database.fluency %>
-              </div>
-            </div>
-          </div>
-        </div>
-      <% }); %>
+    <%# --- Bottom Image --- %>
+    <div class="sixteen wide column">
+      <img src="<%= base %>/images/index-bottom.png" class="ui fluid image">
     </div>
-  </div>
-
-  <%# --- Bottom Image --- %>
-  <div class="sixteen wide column">
-    <img src="<%= base %>/images/index-bottom.png" class="ui fluid image">
   </div>
 </div>
 <%- include('footer', {
