@@ -55,7 +55,7 @@
 
           <%# --- Event --- %>
           <a name="<%= travel.name %>-<%= moment(date).format('YYYY-MM-DD') %>" class="anchor"></a>
-          <div class="event travel">
+          <div class="travel event">
             <div class="label">
               <img src="<%= base %>/uploads/avatars/<%= travel.people[0].avatar %>">
             </div>
@@ -77,9 +77,11 @@
                         'moved our home' :
                     'went' %> 
                 to
-                <a href="https://en.wikipedia.org/wiki/<%= travel.name %>,_<%= travel.country %>" target="_blank">
-                  <%= travel.name %>
-                </a><%= travel.localName ? `(${travel.localName})` : '' %>, 
+                <span class="place name">
+                  <a href="https://en.wikipedia.org/wiki/<%= travel.name %>,_<%= travel.country %>" target="_blank">
+                    <%= travel.name %>
+                  </a><%= travel.localName ? `(${travel.localName})` : '' %>
+                </span>,
                 <a href="https://en.wikipedia.org/wiki/<%= travel.country %>" target="_blank">
                   &nbsp;<i class="<%= travel.country.toLowerCase() %> flag"></i><%= travel.country %>
                 </a>
@@ -127,6 +129,17 @@
 
       <%# --- Bottom Image --- %>
       <img src="<%= base %>/images/travel-bottom.png" class="ui fluid image">
+    </div>
+  </div>
+
+  <%# --- Fullscreen Image --- %>
+  <div class="ui fullscreen image modal">
+    <i class="close icon"></i>
+    <div class="header">
+      
+    </div>
+    <div class="content">
+      <img src="" class="ui fluid image">
     </div>
   </div>
 </div>

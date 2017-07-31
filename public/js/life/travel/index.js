@@ -1,3 +1,5 @@
+/* ---- Map ---- */
+
 mapboxgl.accessToken = 'pk.eyJ1IjoieXR4aXV4aXUiLCJhIjoiY2l4NnByYTZkMDEyOTJ5bXN2OGNyMzU0YSJ9.2XjIDOvVVsT4-WWcdNuBIA';
 
 var map = new mapboxgl.Map({
@@ -51,4 +53,14 @@ map.on('load', function() {
       .setLngLat(marker.geometry.coordinates)
       .addTo(map);
   });
+});
+
+/* ---- Feed Image ---- */
+$('.travel.event .extra.images .image img').click(function() {
+  var $event = $(this).parents('.travel.event');
+  
+  var $modal = $('.ui.fullscreen.image.modal');
+  $modal.find('.header').html($event.find('.place.name').html());
+  $modal.find('.content img').attr('src', $(this).attr('src'));
+  $modal.modal('show');
 });
