@@ -16,15 +16,17 @@ router.get('/', f.wrap(async (req, res, next) => {
     .innerJoin(db.projectTypes, (project, type) => {
       return project('type').eq(type('id'));
     })
-    .orderBy(db.r.desc(db.r.row('right')('to')('year')),
-      db.r.desc(db.r.row('right')('to')('month'))) // order by skill sort
+    .orderBy(
+      db.r.desc(db.r.row('left')('to')('year')),
+      db.r.desc(db.r.row('left')('to')('month'))
+    ) // order by project finish time
     .group((record) => {
-      return record.pluck('right') // group by right (skill type)
+      return record.pluck('right') // group by right (project type)
     }).map((project) => {
       return project('left');
     })
     .ungroup()
-    .orderBy(db.r.row('group')('right')('sort')) // order by skill sort 
+    .orderBy(db.r.row('group')('right')('sort')) // order by project type sort 
     .map((group) => {
       return db.r.object(
         'id', group('group')('right')('id'),

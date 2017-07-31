@@ -24,7 +24,7 @@ router.get('/', f.wrap(async function (req, res, next) {
       return skill('left');
     })
     .ungroup()
-    .orderBy(db.r.row('group')('right')('sort')) // order by skill sort 
+    .orderBy(db.r.row('group')('right')('sort')) // order by skill type sort 
     .map((group) => {
       return db.r.object(
         'id', group('group')('right')('id'),
@@ -51,7 +51,7 @@ router.get(/uploads\/.*/, (req, res, next) => {
 
   // process image
   const info = f.fileInfo(filename),
-    regex = /^.*-jimp-(.+)\.(?:jpg|jpeg|png)$/,
+    regex = /^.*-jimp-(.+)\.(?:jpg|jpeg|png)$/i,
     match = regex.exec(info.name);
   if (match) {
     let processors = match[1];

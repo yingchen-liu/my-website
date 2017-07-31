@@ -106,7 +106,9 @@
               <% if (travel.photos) { %>
                 <div class="extra images">
                   <% travel.photos.forEach((photo) => { %>
-                    <img src="<%= base %>/uploads/life/travels/<%= photo %>">
+                    <div class="image">
+                      <img src="<%= base %>/uploads/life/travels/<%= process(photo, 'w1000', 'c1.7') %>">
+                    </div>
                   <% }); %>
                 </div>
               <% } %>
