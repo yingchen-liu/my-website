@@ -9,8 +9,8 @@ const db = require('../includes/db');
 /**
  * Index
  */
-router.get('/travels', (req, res, next) => {
-  db.travels
+router.get('/travels', f.wrap(async (req, res, next) => {
+  const results = await db.travels
     .merge((travel) => {
       return {
         people: db.users.filter((user) => {
@@ -19,19 +19,13 @@ router.get('/travels', (req, res, next) => {
       }
     })
     .orderBy(db.r.desc('to'))
-    .run(db.conn, (err, results) => {
-      if (err) throw(err);
-      results.toArray((err, records) => {
-        if (err) throw(err);
+    .run(db.conn).catch(next);
+  const records = await results.toArray().catch(next);
 
-        res.render('life/travels/index', f.data({ 
-          title: f.title('Travel', 'Life'),
-          travels: records
-        }));
-      });
-    });
-
-  
-});
+  res.render('life/travels/index', f.data({ 
+    title: f.title('Travel', 'Life'),
+    travels: records
+  }, req));
+}));
 
 module.exports = router;

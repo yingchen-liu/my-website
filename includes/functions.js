@@ -15,11 +15,12 @@ const title = (...title) => {
   return title.join(c.title.connector);
 };
 
-const data = (data) => {
+const data = (data, req) => {
   const system = {
     moment,
     base: c.modes[c.mode].base,
-    process
+    process,
+    req
   };
   return Object.assign(data, system);
 };

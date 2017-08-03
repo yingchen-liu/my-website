@@ -33,10 +33,10 @@
         </a>
 
         <%# --- Links --- %>
-        <a href="<%= base %>/projects" class="item">
+        <a href="<%= base %>/projects" class="item<%= (req.baseUrl + req.path).startsWith(base + '/projects') ? ' active' : '' %>">
           Projects
         </a>
-        <a href="<%= base %>/life/travels" class="item">
+        <a href="<%= base %>/life/travels" class="item<%= (req.baseUrl + req.path).startsWith(base + '/life/travels') ? ' active' : '' %>">
           Travels
         </a>
       </div>

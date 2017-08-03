@@ -43,7 +43,7 @@ router.get('/', f.wrap(async (req, res, next) => {
   res.render('projects/index', f.data({ 
     title: f.title('Projects'),
     projectTypes: records
-  }));
+  }, req));
 }));
 
 router.get('/:slug', f.wrap(async (req, res, next) => {
@@ -62,7 +62,7 @@ router.get('/:slug', f.wrap(async (req, res, next) => {
   res.render('projects/detail', f.data({ 
     title: f.title(project.name, 'Projects'),
     project
-  }));
+  }, req));
 }));
 
 module.exports = router;

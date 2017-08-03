@@ -11,7 +11,7 @@ const db = require('../includes/db');
 const imageProcessor = require('../includes/image-processor')
 
 
-router.get('/', f.wrap(async function (req, res, next) {
+router.get('/', f.wrap(async (req, res, next) => {
   
   const results = await db.skills
     .innerJoin(db.skillTypes, (skill, type) => {
@@ -39,7 +39,7 @@ router.get('/', f.wrap(async function (req, res, next) {
   res.render('index', f.data({
     title: f.title(),
     skillTypes: records
-  }));
+  }, req));
 }));
 
 router.get(/uploads\/.*/, (req, res, next) => {

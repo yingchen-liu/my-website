@@ -102,3 +102,5 @@
 2017-07-31T15:23:12.972065000 20322.605869s info: Table 6751e769-32b8-4096-b322-2db264d5604b: Starting a new Raft election for term 1.
 2017-07-31T15:23:12.972321000 20322.606124s info: Table 6751e769-32b8-4096-b322-2db264d5604b: Added replica on this server.
 2017-07-31T15:23:12.997466000 20322.631270s info: Table 6751e769-32b8-4096-b322-2db264d5604b: This server is Raft leader for term 1. Latest log index is 0.
+2017-07-31T23:42:23.847390000 47033.181265s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2017-07-31T23:42:24.098638000 47033.432513s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.

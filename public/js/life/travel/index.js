@@ -21,7 +21,7 @@ map.on('load', function() {
 
     // create a HTML element for each feature
     var el = $('<div></div>')
-      .addClass('marker ' + marker.properties.type + ' anchor-item')
+      .addClass('marker ' + marker.properties.type + ' anchor item')
       .attr('data-coordinates', JSON.stringify(marker.geometry.coordinates))
       .attr('data-name', marker.properties.name)
       .attr('data-anchor', marker.properties.anchorName)
@@ -55,12 +55,14 @@ map.on('load', function() {
   });
 });
 
+/* ---- Post ---- */
+$('.selection.dropdown').dropdown();
+
 /* ---- Feed Image ---- */
 $('.travel.event .extra.images .image img').click(function() {
-  var $event = $(this).parents('.travel.event');
+  // var $event = $(this).parents('.travel.event');
   
-  var $modal = $('.ui.fullscreen.image.modal');
-  $modal.find('.header').html($event.find('.place.name').html());
+  var $modal = $('.ui.image.modal');
   $modal.find('.content img').attr('src', $(this).attr('src'));
   $modal.modal('show');
 });

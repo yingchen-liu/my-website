@@ -34,6 +34,42 @@
 
     <%# --- Main --- %>
     <div class="main area sixteen wide mobile twelve wide tablet twelve wide computer stretched column">
+
+      <% if (false) { %>
+        <div class="ui mini form">
+          <div class="field">
+            <textarea rows="2"></textarea>
+          </div>
+          <div class="fields">
+            <div class="ten wide field">
+              <div class="ui tiny icon buttons">
+                <div class="ui button">
+                  <i class="camera icon"></i>
+                </div>
+                <div class="ui button">
+                  <i class="video icon"></i>
+                </div>
+              </div>
+            </div>
+            <div class="six wide field">
+              <div class="ui action input">
+                <div class="ui selection dropdown">
+                  <input type="hidden" name="type" value="travel">
+                  <i class="dropdown icon"></i>
+                  <div class="default text">Type</div>
+                  <div class="menu">
+                    <div class="item" data-value="travel">Travel</div>
+                    <div class="item" data-value="plan">Plan</div>
+                    <div class="item" data-value="move">Move Home</div>
+                  </div>
+                </div>
+                <div class="ui tiny green submit button">Post</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% } %>
+
       <div class="ui travels feed">
         
         <%# --- Loop Events --- %>
@@ -56,12 +92,15 @@
           <%# --- Event --- %>
           <a name="<%= travel.name %>-<%= moment(date).format('YYYY-MM-DD') %>" class="anchor"></a>
           <div class="travel event">
+
+            <%# --- Avatar --- %>
             <div class="label">
               <img src="<%= base %>/uploads/avatars/<%= travel.people[0].avatar %>">
             </div>
             <div class="content">
-              <%# --- Summary --- %>
               <div class="summary">
+
+                <%# --- User --- %>
                 <a class="user">
                   <% const names = []; 
                   if (travel.people) {
@@ -71,12 +110,16 @@
                   } %>
                   <%= names.join(', ') %>
                 </a>
+
+                <%# --- Verb --- %>
                 <%= travel.type === 'travel' ? 
                         'traveled' : 
                     travel.type === 'move' ?
                         'moved our home' :
                     'went' %> 
                 to
+
+                <%# --- Place --- %>
                 <span class="place name">
                   <a href="https://en.wikipedia.org/wiki/<%= travel.name %>,_<%= travel.country %>" target="_blank">
                     <%= travel.name %>
@@ -85,6 +128,8 @@
                 <a href="https://en.wikipedia.org/wiki/<%= travel.country %>" target="_blank">
                   &nbsp;<i class="<%= travel.country.toLowerCase() %> flag"></i><%= travel.country %>
                 </a>
+
+                <%# --- Date --- %>
                 <div class="date">
                   <%= moment(date).fromNow() %>
                 </div>
@@ -133,11 +178,8 @@
   </div>
 
   <%# --- Fullscreen Image --- %>
-  <div class="ui fullscreen image modal">
+  <div class="ui large image modal">
     <i class="close icon"></i>
-    <div class="header">
-      
-    </div>
     <div class="content">
       <img src="" class="ui fluid image">
     </div>
