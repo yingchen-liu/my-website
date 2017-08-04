@@ -18,7 +18,7 @@ const title = (...title) => {
 const data = (data, req) => {
   const system = {
     moment,
-    base: c.modes[c.mode].base,
+    base: c.base,
     process,
     req
   };

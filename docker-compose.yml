@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  web:
+    image: ytxiuxiu/mywebsite
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "80:3000"
+    volumes:
+      - /Users/xiuxiu/docker/mywebsite/uploads:/app/uploads
+    links: 
+      - db:db
+    depends_on:
+      - db
+
+  db:
+    image: rethinkdb
+    ports:
+      - "8080:8080"
+      - "28015:28015"
+      - "29015:29015"
+    volumes:
+      - /Users/xiuxiu/docker/mywebsite/data:/data
+

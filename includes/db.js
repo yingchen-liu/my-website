@@ -1,19 +1,45 @@
 const r = require('rethinkdb');
+const async = require('async');
 
-const db = {
-  connect: () => {
-    r.connect({ host: 'localhost', port: 28015 }, (err, conn) => {
-      if (err) throw err;
-      db.conn = conn;
-      db.r = r;
-      db.projects = r.db('mywebsite').table('projects');
-      db.projectTypes = r.db('mywebsite').table('project_types');
-      db.travels = r.db('mywebsite').table('travels');
-      db.users = r.db('mywebsite').table('users');
-      db.skills = r.db('mywebsite').table('skills');
-      db.skillTypes = r.db('mywebsite').table('skill_types');
+const c = require('./config');
+
+console.log(c);
+
+const tables = [
+  'projects',
+  'project_types',
+  'travels',
+  'users',
+  'skills',
+  'skill_types'
+]
+
+const connect = (req, res, next) => {
+  r.connect({ host: c.db.host, port: c.db.port }, (err, conn) => {
+    if (err) return next(err);
+
+    r.dbCreate('mywebsite').run(conn, (err, result) => {
+      async.forEach(tables, (table, callback) => {
+        r.tableCreate(table).run(conn, (err) => {
+          callback();
+        });
+      }, (err) => {
+
+        req.db = {
+          conn,
+          r,
+          projects: r.db('mywebsite').table('projects'),
+          projectTypes: r.db('mywebsite').table('project_types'),
+          travels: r.db('mywebsite').table('travels'),
+          users: r.db('mywebsite').table('users'),
+          skills: r.db('mywebsite').table('skills'),
+          skillTypes: r.db('mywebsite').table('skill_types')
+        };
+
+        next();
+      });
     });
-  }
+  });
 };
 
-module.exports = db;
+module.exports = connect;

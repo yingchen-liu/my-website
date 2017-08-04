@@ -11,7 +11,7 @@ const db = require('../includes/db');
  * Index
  */
 router.get('/', f.wrap(async (req, res, next) => {
-  
+  const db = req.db;
   const results = await db.projects
     .innerJoin(db.projectTypes, (project, type) => {
       return project('type').eq(type('id'));
@@ -47,6 +47,7 @@ router.get('/', f.wrap(async (req, res, next) => {
 }));
 
 router.get('/:slug', f.wrap(async (req, res, next) => {
+  const db = req.db;
   const results = await db.projects
     .filter({ slug: req.params.slug })
     .run(db.conn).catch(next);

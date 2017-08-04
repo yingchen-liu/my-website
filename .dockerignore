@@ -1,0 +1,6 @@
+node_modules
+bower_components
+markdown-core-node-demo
+.vscode
+semantic
+npm-debug.log

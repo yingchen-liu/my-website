@@ -7,12 +7,11 @@ const router = express.Router();
 var jimp = require("jimp");
 
 const f = require('../includes/functions');
-const db = require('../includes/db');
 const imageProcessor = require('../includes/image-processor')
 
 
 router.get('/', f.wrap(async (req, res, next) => {
-  
+  const db = req.db;
   const results = await db.skills
     .innerJoin(db.skillTypes, (skill, type) => {
       return skill('type').eq(type('id'));

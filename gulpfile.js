@@ -2,6 +2,7 @@ const gulp = require('gulp');
 const gls = require('gulp-live-server');
 const watch = require('gulp-watch');
 const rename = require("gulp-rename");
+const less = require('gulp-less');
 
 const vendor = {
   js: [
@@ -43,6 +44,12 @@ gulp.task('vendor:css', () => {
     .pipe(gulp.dest('./public/css'));
 });
 
+gulp.task('less', () => {
+  return gulp.src('./public/css/**/*.less')
+    .pipe(less())
+    .pipe(gulp.dest('./public/css'));
+});
+
 gulp.task('server', () => {
   const server = gls.new('./bin/run');
   server.start();
@@ -73,3 +80,5 @@ gulp.task('server', () => {
 });
 
 gulp.task('default', ['vendor:node', 'vendor:css', 'vendor:js', 'server']);
+
+gulp.task('build', ['vendor:node', 'vendor:css', 'vendor:js', 'less']);

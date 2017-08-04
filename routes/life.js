@@ -10,6 +10,7 @@ const db = require('../includes/db');
  * Index
  */
 router.get('/travels', f.wrap(async (req, res, next) => {
+  const db = req.db;
   const results = await db.travels
     .merge((travel) => {
       return {
