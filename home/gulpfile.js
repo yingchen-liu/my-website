@@ -7,10 +7,10 @@ const less = require('gulp-less');
 const vendor = {
   js: [
     './bower_components/jquery/dist/jquery.js',
-    './semantic/dist/semantic.js'
+    '../semantic/dist/semantic.js'
   ],
   css: [
-    './semantic/dist/semantic.css'
+    '../semantic/dist/semantic.css'
   ]
 };
 
@@ -34,7 +34,7 @@ gulp.task('vendor:css', () => {
     .src(vendor.css)
     .pipe(gulp.dest('./public/css'));
   gulp
-    .src('./semantic/dist/themes/default/**/*.*')
+    .src('../semantic/dist/themes/default/**/*.*')
     .pipe(gulp.dest('./public/css/themes/default'));
   gulp
     .src('./bower_components/markdown-plus/dist/index.bundle.css')

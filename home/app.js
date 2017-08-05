@@ -8,6 +8,7 @@ var lessMiddleware = require('less-middleware');
 
 const c = require('./includes/config');
 const db = require('./includes/db');
+const fm = require('./includes/file-manager');
 
 var index = require('./routes/index');
 var projects = require('./routes/projects');

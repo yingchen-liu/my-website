@@ -1,3 +1,5 @@
+# ----- Home -----
+
 # Logs
 logs
 *.log
@@ -30,3 +32,27 @@ markdown-core-node-demo/node_modules
 
 # Debug log from npm
 home/npm-debug.log
+
+
+# ----- Admin -----
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+# dependencies
+admin/node_modules
+
+# testing
+admin/coverage
+
+# production
+admin/build
+
+# misc
+admin/.DS_Store
+admin/.env.local
+admin/.env.development.local
+admin/.env.test.local
+admin/.env.production.local
+
+admin/npm-debug.log*
+admin/yarn-debug.log*
+admin/yarn-error.log*

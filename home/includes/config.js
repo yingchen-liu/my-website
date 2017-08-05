@@ -19,7 +19,7 @@ var config = {
   },
   production: {
     db: {
-      host: '127.0.0.1',
+      host: 'db',
       port: 28015
     }
   }

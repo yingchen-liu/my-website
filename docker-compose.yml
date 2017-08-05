@@ -1,15 +1,35 @@
 version: "3"
 
 services:
+  nginx:
+    image: ytxiuxiu/mywebsite-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    links:
+      - web:web
+      - db:db
+    depends_on:
+      - web
+    volumes:
+      - /Users/xiuxiu/docker/mywebsite/auth:/etc/nginx/auth
+      - /Users/xiuxiu/docker/mywebsite/ssl:/etc/nginx/ssl
+
   web:
     image: ytxiuxiu/mywebsite
+    deploy:
+      restart_policy:
+        condition: always
+        delay: 5s
     environment:
       - NODE_ENV=production
     ports:
-      - "80:3000"
+      - "3000:3000"
+      - "8000:8000"
+      - "1337:1337"
     volumes:
       - /Users/xiuxiu/docker/mywebsite/uploads:/app/uploads
-    links: 
+    links:
       - db:db
     depends_on:
       - db
