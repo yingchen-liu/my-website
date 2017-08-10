@@ -1,11 +1,11 @@
 FROM nginx
 
-RUN mkdir /etc/nginx/logs && touch /etc/nginx/logs/static.log
+RUN mkdir /etc/nginx/logs && \
+    touch /etc/nginx/logs/static.log && \
+    mkdir /etc/nginx/ssl && \
+    mkdir /etc/nginx/auth
 
 ADD ./default.conf /etc/nginx/conf.d/default.conf
-
-RUN mkdir /etc/nginx/ssl
-RUN mkdir /etc/nginx/auth
 
 EXPOSE 80
 EXPOSE 443

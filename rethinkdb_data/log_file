@@ -206,3 +206,32 @@
 2017-08-04T22:42:02.016802000 2.410758s info: Table 9a192c35-0316-4fe4-bc3e-63af98b8c423: Starting a new Raft election for term 6.
 2017-08-04T22:42:02.048032000 2.441988s info: Table 08363e69-a1e8-4bd3-874c-73ef9c19b841: This server is Raft leader for term 5. Latest log index is 11.
 2017-08-04T22:42:02.098811000 2.492768s info: Table 9a192c35-0316-4fe4-bc3e-63af98b8c423: This server is Raft leader for term 6. Latest log index is 15.
+2017-08-05T14:12:04.175880000 30759.713868s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2017-08-05T14:12:04.561859000 30760.099842s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2017-08-05T16:02:43.916053000 37399.227713s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2017-08-05T16:02:44.192933000 37399.504594s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2017-08-10T20:41:21.276881000 20.175624s notice: Running rethinkdb 2.3.5 (CLANG 8.0.0 (clang-800.0.38))...
+2017-08-10T20:41:21.293037000 20.191773s notice: Running on Darwin 16.7.0 x86_64
+2017-08-10T20:41:21.293116000 20.191851s notice: Loading data from directory /Users/xiuxiu/workspace/mywebsite/rethinkdb_data
+2017-08-10T20:41:21.369519000 20.268254s info: Automatically using cache size of 691 MB
+2017-08-10T20:41:21.370651000 20.269386s notice: Listening for intracluster connections on port 29015
+2017-08-10T20:41:21.541442000 20.440177s notice: Listening for client driver connections on port 28015
+2017-08-10T20:41:21.541576000 20.440310s notice: Listening for administrative HTTP connections on port 8080
+2017-08-10T20:41:21.541578000 20.440312s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2017-08-10T20:41:21.541579000 20.440313s notice: Listening on driver addresses: 127.0.0.1, ::1
+2017-08-10T20:41:21.541715000 20.440449s notice: Listening on http addresses: 127.0.0.1, ::1
+2017-08-10T20:41:21.541717000 20.440451s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2017-08-10T20:41:21.541719000 20.440453s notice: Server ready, "dyn_118_139_89_15_its_monash_edu_au_c53" ae4857ce-cf8c-4d2e-a608-d3a4e9c6cfe8
+2017-08-10T20:41:22.651213000 21.549907s info: Table b0f710e4-bf31-43a3-a0d3-e66b5157c35e: Starting a new Raft election for term 6.
+2017-08-10T20:41:22.691385000 21.590079s info: Table b0f710e4-bf31-43a3-a0d3-e66b5157c35e: This server is Raft leader for term 6. Latest log index is 16.
+2017-08-10T20:41:22.899851000 21.798503s info: Table 39bdc9b7-7751-422e-9275-25f20d29169c: Starting a new Raft election for term 7.
+2017-08-10T20:41:22.951100000 21.849752s info: Table 39bdc9b7-7751-422e-9275-25f20d29169c: This server is Raft leader for term 7. Latest log index is 18.
+2017-08-10T20:41:22.996634000 21.895286s info: Table 08363e69-a1e8-4bd3-874c-73ef9c19b841: Starting a new Raft election for term 6.
+2017-08-10T20:41:23.113261000 22.011913s info: Table 08363e69-a1e8-4bd3-874c-73ef9c19b841: This server is Raft leader for term 6. Latest log index is 14.
+2017-08-10T20:41:23.183536000 22.082188s info: Table 6751e769-32b8-4096-b322-2db264d5604b: Starting a new Raft election for term 5.
+2017-08-10T20:41:23.234145000 22.132797s info: Table 8e3e3753-37d4-400b-a2c6-0562f3c55e70: Starting a new Raft election for term 6.
+2017-08-10T20:41:23.259001000 22.157653s info: Table 6751e769-32b8-4096-b322-2db264d5604b: This server is Raft leader for term 5. Latest log index is 11.
+2017-08-10T20:41:23.273553000 22.172205s notice: A newer version of the RethinkDB server is available: 2.3.6. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.
+2017-08-10T20:41:23.315887000 22.214539s info: Table 9a192c35-0316-4fe4-bc3e-63af98b8c423: Starting a new Raft election for term 7.
+2017-08-10T20:41:23.346426000 22.245078s info: Table 8e3e3753-37d4-400b-a2c6-0562f3c55e70: This server is Raft leader for term 6. Latest log index is 15.
+2017-08-10T20:41:23.433690000 22.332342s info: Table 9a192c35-0316-4fe4-bc3e-63af98b8c423: This server is Raft leader for term 7. Latest log index is 18.

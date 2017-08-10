@@ -154,7 +154,7 @@
                 <div class="extra images">
                   <% travel.photos.forEach((photo) => { %>
                     <div class="image">
-                      <img src="<%= base %>/uploads/life/travels/<%= process(photo, 'w1000', 'c1.7') %>">
+                      <img src="<%= base %>/uploads/life/travels/<%= process(photo, 'w1000', 'c1.7') %>" data-ori="<%= base %>/uploads/life/travels/<%= photo %>">
                     </div>
                   <% }); %>
                 </div>

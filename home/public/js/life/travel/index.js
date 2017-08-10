@@ -63,6 +63,6 @@ $('.travel.event .extra.images .image img').click(function() {
   // var $event = $(this).parents('.travel.event');
   
   var $modal = $('.ui.image.modal');
-  $modal.find('.content img').attr('src', $(this).attr('src'));
+  $modal.find('.content img').attr('src', $(this).attr('data-ori'));
   $modal.modal('show');
 });

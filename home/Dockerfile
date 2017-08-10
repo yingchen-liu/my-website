@@ -4,8 +4,8 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm install
-RUN npm install babel-cli -g
+RUN npm install && \
+    npm install babel-cli -g
 
 EXPOSE 3000
 EXPOSE 8000

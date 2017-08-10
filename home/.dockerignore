@@ -1,7 +1,5 @@
 node_modules
 bower_components
 markdown-core-node-demo
-rethinkdb_data
-.vscode
 semantic
 npm-debug.log
