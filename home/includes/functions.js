@@ -18,6 +18,7 @@ const title = (...title) => {
 const data = (data, req) => {
   const system = {
     moment,
+    c,
     base: c.base,
     process,
     req

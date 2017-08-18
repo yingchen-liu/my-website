@@ -21,6 +21,9 @@ var config = {
     db: {
       host: 'db',
       port: 28015
+    },
+    ga: {
+      trackingId: 'UA-76013614-1'
     }
   }
 };

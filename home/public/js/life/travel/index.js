@@ -63,6 +63,52 @@ $('.travel.event .extra.images .image img').click(function() {
   // var $event = $(this).parents('.travel.event');
   
   var $modal = $('.ui.image.modal');
-  $modal.find('.content img').attr('src', $(this).attr('data-ori'));
-  $modal.modal('show');
+  var $image = $modal.find('.content img');
+  $image.attr('src', $(this).attr('data-ori'));
+  $modal
+    .modal({
+      observeChanges: true,
+      blurring: true
+    })
+    .modal('show');
+  
+  $image.on('load', function() {
+    $modal.modal('refresh');
+    $image.height($(window).height() - 140);
+  }).each(function() {
+    if (this.complete) $(this).load();
+  });
 });
+
+/* ---- Like ---- */
+var storageKeyTravelLikes = 'travelLikes'
+if (!localStorage.getItem(storageKeyTravelLikes)) {
+  localStorage.setItem(storageKeyTravelLikes, JSON.stringify([]));
+}
+var travelLikes = JSON.parse(localStorage.getItem(storageKeyTravelLikes));
+travelLikes.forEach(function(like) {
+  $like = $('.like[data-travel-id="' + like + '"]');
+  $like.addClass('active');
+});
+
+$('.like').click(function() {
+  var $this = $(this);
+  var id = $this.attr('data-travel-id');
+  var $numberOfLikes = $this.find('.number.of.likes');
+
+  if (travelLikes.indexOf(id) < 0) {
+    $numberOfLikes.text(parseInt($numberOfLikes.text()) + 1);
+    $this.addClass('active');
+
+    travelLikes.push(id);
+    console.log(travelLikes)
+    localStorage.setItem(storageKeyTravelLikes, JSON.stringify(travelLikes));
+  } else {
+    $numberOfLikes.text(parseInt($numberOfLikes.text()) - 1);
+    $this.removeClass('active');
+
+    travelLikes.splice(travelLikes.indexOf(id));
+    console.log(travelLikes)
+    localStorage.setItem(storageKeyTravelLikes, JSON.stringify(travelLikes));
+  }
+})

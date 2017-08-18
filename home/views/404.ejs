@@ -1,0 +1,27 @@
+<%- include('header', {
+  css: [
+    `${base}/css/404.css`
+  ]
+}); %>
+<div class="page not found">
+  <div class="ui main grid container">
+    <div class="two wide column"></div>
+    <div class="ten wide column">
+      <div class="ui negative message">
+        <div class="header">
+          # 404
+        </div>
+        <p>Sorry, I could not find this page for you. How about go to my homepage?</p>
+        <p><a href="<%= base %>/">Home</a></p>
+      </div>
+    </div>
+
+    <%# --- Bottom Image --- %>
+    <div class="sixteen wide column">
+      <img src="<%= base %>/images/index-bottom.png" class="ui fluid image">
+    </div>
+  </div>
+</div>
+<%- include('footer', {
+  js: []
+}); %>

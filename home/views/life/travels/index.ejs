@@ -154,7 +154,7 @@
                 <div class="extra images">
                   <% travel.photos.forEach((photo) => { %>
                     <div class="image">
-                      <img src="<%= base %>/uploads/life/travels/<%= process(photo, 'w1000', 'c1.7') %>" data-ori="<%= base %>/uploads/life/travels/<%= photo %>">
+                      <img src="<%= base %>/uploads/life/travels/<%= process(photo, 'w1000', 'c1.2') %>" data-ori="<%= base %>/uploads/life/travels/<%= photo %>">
                     </div>
                   <% }); %>
                 </div>
@@ -162,8 +162,8 @@
               
               <%# --- Likes --- %>
               <div class="meta">
-                <a class="like">
-                  <i class="like icon"></i> <span><%= travel.likes %></span> Likes
+                <a class="like" data-travel-id="<%= travel.id %>">
+                  <i class="like icon"></i> <span class="number of likes"><%= travel.likes %></span> Likes
                 </a>
               </div>
             </div>
@@ -176,13 +176,13 @@
       <img src="<%= base %>/images/travel-bottom.png" class="ui fluid image">
     </div>
   </div>
+</div>
 
-  <%# --- Fullscreen Image --- %>
-  <div class="ui large image modal">
-    <i class="close icon"></i>
-    <div class="content">
-      <img src="" class="ui fluid image">
-    </div>
+<%# --- Fullscreen Image --- %>
+<div class="ui large image modal">
+  <i class="close icon"></i>
+  <div class="content">
+    <img src="" class="ui fluid image">
   </div>
 </div>
 

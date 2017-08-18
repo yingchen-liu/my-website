@@ -26,6 +26,14 @@
     background-image: url('../../../images/pin-home.svg'), none;
   }
 
+  .ui.feed > .event > .content .meta .like.active {
+    color: rgba(0, 0, 0, 0.95);
+    
+    .icon {
+      color: #FF2733;
+    }
+  }
+
   .travels.ui.feed {
     a.anchor {
       display: block;
@@ -37,6 +45,10 @@
     .travel.event {
       padding: 5px;
       border-radius: 3px;
+
+      .extra.text {
+        margin-bottom: 0.5em;
+      }
 
       .extra.images {
         margin: -2px;
@@ -58,5 +70,13 @@
   .bottom-image {
     position: relative;
     top: 30px;
+  }
+}
+
+.ui.large.image.modal > .content {
+  padding: 0;
+
+  img {
+    border-radius: 0.28571429rem;
   }
 }

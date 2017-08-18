@@ -29,4 +29,12 @@ router.get('/travels', f.wrap(async (req, res, next) => {
   }, req));
 }));
 
+router.get('/travels/:id/like', f.wrap(async (req, res, next) => {
+  
+}));
+
+router.get('/travels/:id/unlike', f.wrap(async (req, res, next) => {
+  
+}));
+
 module.exports = router;
