@@ -8,6 +8,8 @@ console.log(c);
 const tables = [
   'projects',
   'project_types',
+  'links',
+  'link_types',
   'travels',
   'users',
   'skills',
@@ -30,6 +32,8 @@ const connect = (req, res, next) => {
           r,
           projects: r.db('mywebsite').table('projects'),
           projectTypes: r.db('mywebsite').table('project_types'),
+          links: r.db('mywebsite').table('links'),
+          linkTypes: r.db('mywebsite').table('link_types'),
           travels: r.db('mywebsite').table('travels'),
           users: r.db('mywebsite').table('users'),
           skills: r.db('mywebsite').table('skills'),

@@ -13,6 +13,7 @@ const fm = require('./includes/file-manager');
 var index = require('./routes/index');
 var projects = require('./routes/projects');
 var life = require('./routes/life');
+var collections = require('./routes/collections');
 
 var app = express();
 
@@ -33,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/projects', projects);
 app.use('/life', life);
+app.use('/collections', collections);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

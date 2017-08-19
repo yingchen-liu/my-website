@@ -1,0 +1,63 @@
+<%- include('../../header', {
+  css: [
+    `${base}/css/collections/tools/index.css`
+  ]
+}); %>
+<div class="page collections tools index">
+  <div class="ui main grid container">
+    <%# --- Link Types Sticky --- %>
+    <div class="four wide tablet computer only column">
+      <div class="ui tool types sticky">
+        <div class="ui anchor items secondary vertical pointing menu">
+          <div class="header item">Types</div>
+
+          <%# --- Loop Types --- %>
+          <% linkTypes.forEach((linkType, i) => { %>
+            <a data-anchor="<%= linkType.slug %>" class="<% if (i === 0) { %>active <% } %>item anchor item">
+              <%= linkType.name %>
+            </a>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+
+    <%# --- Main --- %>
+    <div class="main tools area sixteen wide mobile twelve wide tablet twelve wide computer column">
+      
+      <%# --- Loop Links --- %>
+      <% linkTypes.forEach((linkType) => { %>
+
+        <%# --- Link Type --- %>
+        <a class="anchor auto" name="<%= linkType.slug %>"></a>
+        <h2 class="ui dividing header">
+          <span><img src="<%= linkType.icon %>"><%= linkType.name %></span>
+          <div class="sub header"><%= linkType.subtitle %></div>
+        </h2>
+
+        <div class="ui cards">
+          <%# --- Loop Links --- %>
+          <% linkType.links.forEach((link) => { %>
+            <div class="card">
+              <div class="content">
+                <div class="header">
+                  <a href="<%= link.url %>" title="<%= link.name %>" target="_blank"><img src="<%= link.icon %>"> <%= link.name %></a>
+                </div>
+                <div class="meta">
+                  <a href="<%= link.url %>" title="<%= link.name %>" class="url" target="_blank"><%= link.url %></a>
+                </div>
+                <div class="description">
+                  <%= link.brief %>
+                </div>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</div>
+<%- include('../../footer', {
+  js: [
+    `${base}/js/collections/tools/index.js`
+  ]
+}); %>

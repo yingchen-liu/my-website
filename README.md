@@ -35,5 +35,6 @@
 3. Run
 
   ```
-  $ docker-compose run
+  $ docker-compose pull
+  $ docker-compose up -d
   ```

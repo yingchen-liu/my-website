@@ -290,3 +290,11 @@
 2017-08-18T21:22:06.635008000 22.147752s info: Table 9a192c35-0316-4fe4-bc3e-63af98b8c423: This server is Raft leader for term 9. Latest log index is 24.
 2017-08-18T21:22:06.754527000 22.267271s info: Table 39bdc9b7-7751-422e-9275-25f20d29169c: Starting a new Raft election for term 9.
 2017-08-18T21:22:06.821575000 22.334319s info: Table 39bdc9b7-7751-422e-9275-25f20d29169c: This server is Raft leader for term 9. Latest log index is 25.
+2017-08-18T23:39:02.142068000 8237.113294s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2017-08-18T23:39:02.576561000 8237.547784s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2017-08-18T23:39:11.005975000 8245.976875s info: Table 036c6bf9-f6b5-41df-9ccf-67317d2db473: Starting a new Raft election for term 1.
+2017-08-18T23:39:11.006086000 8245.976985s info: Table 036c6bf9-f6b5-41df-9ccf-67317d2db473: Added replica on this server.
+2017-08-18T23:39:11.036903000 8246.007803s info: Table 036c6bf9-f6b5-41df-9ccf-67317d2db473: This server is Raft leader for term 1. Latest log index is 0.
+2017-08-18T23:39:13.510641000 8248.481487s info: Table d3a68583-ee76-4395-8dee-35592bbff541: Starting a new Raft election for term 1.
+2017-08-18T23:39:13.510829000 8248.481675s info: Table d3a68583-ee76-4395-8dee-35592bbff541: Added replica on this server.
+2017-08-18T23:39:13.540538000 8248.511384s info: Table d3a68583-ee76-4395-8dee-35592bbff541: This server is Raft leader for term 1. Latest log index is 0.
