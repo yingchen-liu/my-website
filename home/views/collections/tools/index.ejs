@@ -40,7 +40,10 @@
             <div class="card">
               <div class="content">
                 <div class="header">
-                  <a href="<%= link.url %>" title="<%= link.name %>" target="_blank"><img src="<%= link.icon %>"> <%= link.name %></a>
+                  <a href="<%= link.url %>" title="<%= link.name %>" target="_blank">
+                    <img src="<%= link.icon %>" onerror="this.src='<%= base %>/images/favicon.ico';">
+                    <%= link.name %>
+                  </a>
                 </div>
                 <div class="meta">
                   <a href="<%= link.url %>" title="<%= link.name %>" class="url" target="_blank"><%= link.url %></a>
