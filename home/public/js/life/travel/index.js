@@ -74,7 +74,6 @@ $('.travel.event .extra.images .image img').click(function() {
   
   $image.on('load', function() {
     $modal.modal('refresh');
-    $image.height($(window).height() - 140);
   }).each(function() {
     if (this.complete) $(this).load();
   });
@@ -101,14 +100,12 @@ $('.like').click(function() {
     $this.addClass('active');
 
     travelLikes.push(id);
-    console.log(travelLikes)
     localStorage.setItem(storageKeyTravelLikes, JSON.stringify(travelLikes));
   } else {
     $numberOfLikes.text(parseInt($numberOfLikes.text()) - 1);
     $this.removeClass('active');
 
     travelLikes.splice(travelLikes.indexOf(id));
-    console.log(travelLikes)
     localStorage.setItem(storageKeyTravelLikes, JSON.stringify(travelLikes));
   }
 })
