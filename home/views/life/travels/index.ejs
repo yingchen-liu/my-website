@@ -19,7 +19,13 @@
           <% var lastYear = null;
           var i = 0;
           travels.forEach((travel) => {
-            var year = moment(travels[0].from).year();
+            var date = travel.type === "travel" ? 
+                    moment(travel.from) : 
+                travel.type === "move" ? 
+                    moment(travel.date) : 
+                null;
+            var year = date.year();
+
             if (year !== lastYear) { %>
               <a data-anchor="<%= year %>" class="<% if (i === 0) { %>active <% } %>item anchor item">
                 <%= year %>
@@ -75,19 +81,19 @@
         <%# --- Loop Events --- %>
         <% var lastYear = null;
         travels.forEach((travel) => {
-          var year = moment(travels[0].from).year(); %>
+          var date = travel.type === "travel" ? 
+                  moment(travel.from) : 
+              travel.type === "move" ? 
+                  moment(travel.date) : 
+              null;
+          var year = date.year(); %>
 
           <%# --- Year --- %>
-          <% if (year !== lastYear) {%>
+          <% if (year !== lastYear) { %>
             <a name="<%= year %>" class="anchor auto"></a>
             <h2 class="ui dividing header"><%= year %></h2>
           <% } 
-          lastYear = year; 
-          var date = travel.type === "travel" ? 
-                  moment(travel.from).format("YYYY-MM-DD") : 
-              travel.type === "move" ? 
-                  moment(travel.date).format("YYYY-MM-DD") : 
-              null; %>
+          lastYear = year; %>
 
           <%# --- Event --- %>
           <a name="<%= travel.name %>-<%= moment(date).format('YYYY-MM-DD') %>" class="anchor"></a>
