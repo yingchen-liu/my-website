@@ -17,8 +17,7 @@
 
           <%# --- Loop Years --- %>
           <% var lastYear = null;
-          var i = 0;
-          travels.forEach((travel) => {
+          travels.forEach((travel, i) => {
             var date = travel.type === "travel" ? 
                     moment(travel.from) : 
                 travel.type === "move" ? 
@@ -31,7 +30,6 @@
                 <%= year %>
               </a>
               <% lastYear = year;
-              i++;
             }
           }); %>
         </div>
@@ -80,7 +78,7 @@
         
         <%# --- Loop Events --- %>
         <% var lastYear = null;
-        travels.forEach((travel) => {
+        travels.forEach((travel, i) => {
           var date = travel.type === "travel" ? 
                   moment(travel.from) : 
               travel.type === "move" ? 
@@ -174,7 +172,9 @@
               </div>
             </div>
           </div>
-          <div class="ui divider"></div>
+          <% if (i < travels.length - 1) { %>
+            <div class="ui divider"></div>
+          <% } %>
         <% }); %>
       </div>
 

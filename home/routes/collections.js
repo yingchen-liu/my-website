@@ -42,4 +42,22 @@ router.get('/tools', f.wrap(async (req, res, next) => {
   }, req));
 }));
 
+router.get('/tools/types', f.wrap(async (req, res, next) => {
+  const db = req.db;
+  const results = await db.linkTypes.run(db.conn).catch(next);
+  const records = await results.toArray().catch(next);
+
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+
+  res.json(records);
+}));
+
+// router.post('/tools', f.wrap(async (req, res, next) => {
+//   console.log(req.body);
+//   const result = await db.links.insert(req.body).run(db.conn).catch(next);
+//   console.log(result);
+//   res.json(result);
+// }));
+
 module.exports = router;
