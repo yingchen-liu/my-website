@@ -27,6 +27,7 @@ const getSkills = f.wrap(async (db, next) => {
       return db.r.object(
         'id', group('group')('right')('id'),
         'name', group('group')('right')('name'),
+        'icon', group('group')('right')('icon'),
         'subtitle', group('group')('right')('subtitle'),
         'sort', group('group')('right')('sort'),
         'skills', group('reduction')
