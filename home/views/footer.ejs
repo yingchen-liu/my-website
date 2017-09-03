@@ -1,6 +1,6 @@
     
     <%# --- Footer --- %>
-    <div class="ui inverted vertical footer segment">
+    <div class="ui inverted vertical footer segment noprint">
       <div class="ui container">
         <div class="ui stackable inverted divided equal height stackable grid">
 
@@ -8,10 +8,13 @@
           <div class="three wide column">
             <h4 class="ui inverted header">About</h4>
             <div class="ui inverted link list">
-              <div class="item">Yingchen Liu (<i class="china flag" title="China"></i>刘盈琛)</div>
-              <a href="mailto:ytxiuxiu@gmail.com" class="item">ytxiuxiu@gmail.com</a>
-              <a href="mailto:yingchen.liu@monash.edu" class="item">yingchen.liu@monash.edu</a>
-              <a href="https://github.com/ytxiuxiu" class="item"><i class="github icon"></i>Github</a>
+              <a href="<%= base %>/resume.html" title="Yingchen Liu's Resume" class="item">
+                Yingchen Liu (<i class="china flag" title="China"></i>刘盈琛)
+              </a>
+              <a href="<%= base %>/resume.html" title="Yingchen Liu's Resume" class="item"><strong>My Resume</strong></a>
+              <a href="mailto:ytxiuxiu@gmail.com" title="Yingchen Liu's Email" class="item">ytxiuxiu@gmail.com</a>
+              <a href="mailto:yingchen.liu@monash.edu" title="Yingchen Liu's Email" class="item">yingchen.liu@monash.edu</a>
+              <a href="https://github.com/ytxiuxiu" title="Yingchen Liu's GitHub" class="item"><i class="github icon"></i>Github</a>
             </div>
           </div>
 
@@ -19,10 +22,10 @@
           <div class="three wide column">
             <h4 class="ui inverted header">Navigation</h4>
             <div class="ui inverted link list">
-                <a href="<%= base %>/" class="item">Home</a>
-              <a href="<%= base %>/projects" class="item">Projects</a>
-              <a href="<%= base %>/life/travels" class="item">Travels</a>
-              <a href="<%= base %>/collections/tools" class="item">Tools</a>
+              <a href="<%= base %>/" title="Home Page" class="item">Home</a>
+              <a href="<%= base %>/projects" title="My Projects" class="item">Projects</a>
+              <a href="<%= base %>/life/travels" title="Travels" class="item">Travels</a>
+              <a href="<%= base %>/collections/tools" title="Useful Tools" class="item">Tools</a>
             </div>
           </div>
 

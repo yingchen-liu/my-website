@@ -10,8 +10,7 @@ const f = require('../includes/functions');
 const imageProcessor = require('../includes/image-processor')
 
 
-router.get('/', f.wrap(async (req, res, next) => {
-  const db = req.db;
+const getSkills = f.wrap(async (db, next) => {
   const results = await db.skills
     .innerJoin(db.skillTypes, (skill, type) => {
       return skill('type').eq(type('id'));
@@ -35,9 +34,60 @@ router.get('/', f.wrap(async (req, res, next) => {
     }).run(db.conn).catch(next);
   const records = await results.toArray().catch(next);
 
+  return records;
+});
+
+router.get('/', f.wrap(async (req, res, next) => {
+  const db = req.db;
+
   res.render('index', f.data({
     title: f.title(),
-    skillTypes: records
+    skillTypes: await getSkills(db)
+  }, req));
+}));
+
+router.get('/resume*', f.wrap(async (req, res, next) => {
+  const db = req.db;
+
+  const resumeResults = await db.resume.limit(1).run(db.conn).catch(next);
+  const resumeRecords = await resumeResults.toArray().catch(next);
+
+  const projectResults = await db.projects
+    .filter({
+      showInResume: true
+    })
+    .innerJoin(db.projectTypes, (project, type) => {
+      return project('type').eq(type('id'));
+    })
+    .orderBy(
+      db.r.desc(db.r.row('left')('to')('year')),
+      db.r.desc(db.r.row('left')('to')('month'))
+    ) // order by project finish time
+    .group((record) => {
+      return record.pluck('right') // group by right (project type)
+    }).map((project) => {
+      return project('left');
+    })
+    .ungroup()
+    .orderBy(db.r.row('group')('right')('sort')) // order by project type sort 
+    .map((group) => {
+      return db.r.object(
+        'id', group('group')('right')('id'),
+        'name', group('group')('right')('name'),
+        'subtitle', group('group')('right')('subtitle'),
+        'slug', group('group')('right')('slug'),
+        'icon', group('group')('right')('icon'),
+        'sort', group('group')('right')('sort'),
+        'projects', group('reduction')
+      );
+    }).run(db.conn).catch(next);
+  const projectRecords = await projectResults.toArray().catch(next);
+
+  res.render('resume', f.data({
+    title: f.title('Yingchen Liu\'s Resume'),
+    resume: resumeRecords[0],
+    skillTypes: await getSkills(db),
+    projectTypes: projectRecords
   }, req));
 }));
 
@@ -85,7 +135,8 @@ router.get(/uploads\/.*/, (req, res, next) => {
 
 router.get('/404', f.wrap(async (req, res, next) => {
   res.render('404', f.data({
-    title: f.title('404')
+    title: f.title('404'),
+    skillTypes: getSkills(db)
   }, req));
 }));
 

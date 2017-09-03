@@ -1,0 +1,70 @@
+@media print {
+  .noprint {
+    position: static !important;
+    display: none !important;
+    height: 0 !important;
+  }
+
+  section {
+    page-break-inside: avoid;
+  }
+
+  // fix one extra blank page problem 
+  html, body { 
+    height: auto;
+  }
+}
+
+.my.website .page.resume {
+
+  .main.container {
+    margin-top: 70px;
+    margin-bottom: 50px;
+
+    p, address, li {
+      font-size: 15px;
+      line-height: 1.7em;
+    }
+
+    section {
+      margin-bottom: 20px;
+    }
+  }
+
+  .print.button.contriner {
+    float: right;
+    position: relative;
+    top: 5px;
+  }
+
+  address {
+    margin-bottom: 1em;
+  }
+
+  ul {
+    margin-bottom: 5px;
+
+    li {
+      margin-bottom: 5px;
+    }
+  }
+
+  img.skill.image {
+    width: 20px;
+    height: 20px;
+    filter: grayscale(70%);
+  }
+  img.skill.image:hover {
+    filter: grayscale(30%);
+  }
+
+  ul.three.in.a.row {
+    overflow: hidden;
+
+    li {
+      float: left;
+      width: 30%;
+    }
+  }
+
+}

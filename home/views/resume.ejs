@@ -1,0 +1,167 @@
+<%- include('header', {
+  css: [
+    `${base}/css/resume.css`
+  ]
+}); %>
+<div class="page resume printing">
+  <div class="ui main grid container">
+    <div class="sixteen wide column">
+      <section>
+        <div class="print button contriner noprint">
+          <button id="button-print" class="ui mini print button"><i class="icon print"></i> Print</button>
+        </div>
+
+        <h1>YINGCHEN LIU</h1>
+        <hr>
+        <address>
+          <% resume.address.forEach((address) => { %>
+            <%= address %></br>
+          <% }); %>
+        </address>
+        
+        <p>
+          [Phone]
+          <% resume.phones.forEach((phone, i) => {
+            if (i > 0) {
+              %> / <%
+            } %>
+            <%= phone %>
+          <% }); %></br>
+          [Email] 
+          <% resume.emails.forEach((email, i) => {
+            if (i > 0) {
+              %> / <%
+            } %>
+            <a href="mailto:<%= email %>"><%= email %></a>
+          <% }); %></br>
+        </p>
+        
+        <p>
+          [Website] 
+          <% resume.websites.forEach((website, i) => {
+            if (i > 0) {
+              %> / <%
+            } %>
+            <a href="<%= website %>" target="_blank"><%= website %></a>
+          <% }); %></br>
+          <% for (social in resume.socials) { %>
+            [<%= social %>] <a href="<%= resume.socials[social] %>" target="_blank"><%= resume.socials[social] %></a></br>
+          <% } %>
+        </p>
+      </section>
+
+      <section>
+        <h2><i class="icon file text"></i> SUMMARY</h2>
+        <hr>
+        <p><%= resume.summary %></p>
+
+        <h2><i class="icon travel"></i> EXPERIENCES</h2>
+        <hr>
+        <ul>
+          <% resume.experiences.forEach((experience) => { %>
+            <li>
+              <p>
+                <strong><%= experience.position %></strong> at 
+                <% if (experience.link) { %>
+                  <a href="<%= experience.link %>" target="_blank"><%= experience.company %></a>
+                <% } else { %>
+                  <%= experience.company %>
+                <% } %>
+                [<%= experience.from %><%= experience.to ? ' - ' + experience.to : '' %>]</br>
+                <% experience.rules.forEach((rule) => {
+                  %>
+                  <%= rule %></br>
+                  <%
+                }); %>
+              </p>
+            </li>
+          <% }); %>
+        </ul>
+      </section>
+
+      <section>
+        <h2><i class="icon fork"></i> PROJECTS</h2>
+        <hr>
+        <ul>
+          <% projectTypes.forEach((projectType) => { %>
+            <li>
+              <strong><%= projectType.name %></strong>
+              <ul>
+                <% projectType.projects.forEach((project) => { %>
+                  <li>
+                    <strong><%= project.name %></strong>
+                    <p>
+                      <%= project.brief %></br>
+                      <strong>> Roles:</strong> <% project.responsibilities.forEach((responsibility, i) => { 
+                        if (i > 0) {
+                          %>, <%
+                        }
+                        %><%= responsibility %><% }); %>  <!-- must be here, to avoid extra space befor ',' -->
+                      </br>
+                      <strong>> Technologies:</strong> <% project.technologies.forEach((technology, i) => { 
+                        if (i > 0) {
+                          %>, <%
+                        }
+                        %><%= technology %><% }); %>  <!-- must be here, to avoid extra space befor ',' -->
+                    </p>
+                  </li>
+                <% }); %>
+              </ul>
+            </li>
+          <% }); %>
+        </ul>
+      </section>
+
+      <section>
+        <h2><i class="icon keyboard"></i> SKILLS</h2>
+        <hr>
+        <ul>
+            <% resume.skills.forEach((skill) => { %>
+              <li>
+                <strong><%= skill.name %></strong>
+                <p><%= skill.desc %></p>
+              </li>
+            <% }); %>
+            <% skillTypes.forEach((skillType) => { %>
+              <li>
+                <strong><%= skillType.name %></strong>
+                <ul class="three in a row">
+                  <% skillType.skills.forEach((skill) => { %>
+                    <li>
+                      <img class="ui skill avatar image" title="<%= skill.name %>" src="<%= base %>/uploads/site/<%= skill.icon %>">
+                      <%= skill.name %>: <%= skill.fluency %>
+                    </li>
+                  <% }); %>
+                </ul>
+              </li>
+            <% }); %>
+        </ul>
+      </section>
+      
+      <section>
+        <h2><i class="icon student"></i> EDUCATION</h2>
+        <hr>
+        <ul>
+          <% resume.educations.forEach((education) => { %>
+            <li>
+              <p>
+                <strong><%= education.school %></strong> <%= education.location %>
+                [<%= education.from %><%= education.to ? ' - ' + education.to : '' %>]</br>
+                <% education.degrees.forEach((degree) => {
+                  %>
+                  <%= degree %></br>
+                  <%
+                }); %>
+              </p>
+            </li>
+          <% }); %>
+        </ul>
+      </section>
+    </div>
+  </div>
+</div>
+<%- include('footer', {
+  js: [
+    `${base}/js/resume.js`
+  ]
+}); %>
