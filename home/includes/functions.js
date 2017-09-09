@@ -1,6 +1,7 @@
 const path = require('path');
 
 const moment = require('moment');
+const deepAssign = require('deep-assign');
 
 const c = require('./config.js');
 
@@ -21,9 +22,10 @@ const data = (data, req) => {
     c,
     base: c.base,
     process,
-    req
+    req,
+    meta: c.meta
   };
-  return Object.assign(data, system);
+  return deepAssign({}, system, data);
 };
 
 const wrap = fn => (...args) => fn(...args).catch(args[2]);

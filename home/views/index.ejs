@@ -11,7 +11,7 @@
 
         <%# --- Photo --- %>
         <div class="image">
-          <img src="<%= base %>/images/me.png">
+          <img alt="Yingchen Liu" src="<%= base %>/images/me.png">
         </div>
         <div class="content">
 
@@ -43,8 +43,8 @@
         <span><i class="id card icon"></i>Introduction</span>
         <span class="sub header">简单的介绍</span>
       </h1>
-      <p class="en">Yingchen Liu - a geek who is keen on programming. He enjoys experimenting to find intersections in technology and daily life. His interests include website development and optimisation, code refactoring as well as robotics.</p>
-      <p class="ch">劉盈琛 - 一個熱愛編程的極客。沉醉于不斷尋求科技與生活的交匯點。熱衷於網站开发和優化、代碼重構與機器人科學。</p>
+      <p class="en">Yingchen Liu - a geek who is keen on programming. He enjoys experimenting to find intersections in technology and daily life. His interests include website, mobile APP development, IoT and robotics.</p>
+      <p class="ch">劉盈琛 - 一個熱愛編程的極客。沉醉于不斷尋求科技與生活的交匯點。熱衷於網站、手机应用开发，物联网，與機器人科學。</p>
       <p class="en">He is currently doing a Masters degree at Monash University (Melbourne, AU) and working at <a href="http://sensilab.monash.edu" target="_blank">sensiLab</a> as a research assistant.</p>
       <p class="ch">他目前在莫納什大學（澳大利亚，墨爾本）攻讀研究生學位，同時也是 <a href="http://sensilab.monash.edu" target="_blank">sensiLab</a> 的一名研究助理。</p>
       <p class="en">In his leisure time, he loves travelling to different places, taking photos and enjoying the local delicious.</p>
@@ -88,7 +88,7 @@
             <div class="eight wide mobile four wide tablet four wide computer column">
               <div class="ui large list">
                 <div class="item">
-                  <img class="ui avatar image" title="<%= skill.name %>" src="<%= base %>/uploads/site/<%= skill.icon %>">
+                  <img class="ui avatar image" alt="<%= skill.name %>" src="<%= base %>/uploads/site/<%= skill.icon %>">
                   <div class="content">
                     <% if (skill.website) { %>
                       <a href="<%= skill.website %>" class="header"><%= skill.name %></a>
@@ -107,7 +107,7 @@
 
     <%# --- Bottom Image --- %>
     <div class="sixteen wide column">
-      <img src="<%= base %>/images/index-bottom.png" class="ui fluid image">
+      <img alt="Just a Decoration" src="<%= base %>/images/index-bottom.png" class="ui fluid image">
     </div>
   </div>
 </div>

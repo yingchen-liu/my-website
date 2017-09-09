@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /rethinkdb-admin/
+Disallow: /codecmd/

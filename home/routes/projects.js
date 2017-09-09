@@ -42,7 +42,10 @@ router.get('/', f.wrap(async (req, res, next) => {
 
   res.render('projects/index', f.data({ 
     title: f.title('Projects'),
-    projectTypes: records
+    projectTypes: records,
+    meta: {
+      description: `View Yingchen\'s Projects - ${c.meta.description}`
+    },
   }, req));
 }));
 
@@ -62,6 +65,9 @@ router.get('/:slug', f.wrap(async (req, res, next) => {
 
   res.render('projects/detail', f.data({ 
     title: f.title(project.name, 'Projects'),
+    meta: {
+      description: `${project.name} - ${project.brief}`
+    },
     project
   }, req));
 }));

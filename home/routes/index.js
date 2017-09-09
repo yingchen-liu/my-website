@@ -135,6 +135,8 @@ router.get(/uploads\/.*/, (req, res, next) => {
 });
 
 router.get('/404', f.wrap(async (req, res, next) => {
+  const db = req.db;
+  
   res.render('404', f.data({
     title: f.title('404'),
     skillTypes: getSkills(db)

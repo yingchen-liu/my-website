@@ -25,7 +25,10 @@ router.get('/travels', f.wrap(async (req, res, next) => {
 
   res.render('life/travels/index', f.data({ 
     title: f.title('Travel', 'Life'),
-    travels: records
+    travels: records,
+    meta: {
+      description: `View Yingchen\'s Travels - In his leisure time, he loves travelling to different places, taking photos and enjoying the local delicious.`
+    },
   }, req));
 }));
 

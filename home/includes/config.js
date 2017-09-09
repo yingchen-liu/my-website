@@ -9,6 +9,10 @@ var config = {
       tail: 'Yingchen Liu\'s Official Website',
       connector: ' - '
     },
+    meta: {
+      description: 'Yingchen Liu (刘盈琛) - a geek who is keen on programming. He enjoys experimenting to find intersections in technology and daily life. His interests include website, mobile APP development, IoT and robotics.',
+      keywords: 'yingchen,yingchen liu,刘盈琛,geek,programmer,developer,website,mobile,app,iot,robotic'
+    },
     base: ''
   },
   development: {

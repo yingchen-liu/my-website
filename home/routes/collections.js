@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+const c = require('../includes/config');
 const f = require('../includes/functions');
 const db = require('../includes/db');
 
@@ -38,7 +39,10 @@ router.get('/tools', f.wrap(async (req, res, next) => {
 
   res.render('collections/tools/index', f.data({ 
     title: f.title('Tools'),
-    linkTypes: records
+    linkTypes: records,
+    meta: {
+      description: `View all useful websites collected by Yingchen - ${c.meta.description}`
+    },
   }, req));
 }));
 
