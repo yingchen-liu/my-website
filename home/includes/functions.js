@@ -22,6 +22,8 @@ const data = (data, req) => {
     c,
     base: c.base,
     process,
+    user: req.session ? req.session.user: null,
+    session: req.session,
     req,
     meta: c.meta
   };

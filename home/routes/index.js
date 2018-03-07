@@ -4,7 +4,7 @@ const fs = require('fs');
 const express = require('express');
 const router = express.Router();
 
-var jimp = require("jimp");
+const jimp = require('jimp');
 
 const f = require('../includes/functions');
 const imageProcessor = require('../includes/image-processor')

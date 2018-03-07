@@ -3,11 +3,19 @@ const gls = require('gulp-live-server');
 const watch = require('gulp-watch');
 const rename = require("gulp-rename");
 const less = require('gulp-less');
+const concat = require('gulp-concat');
 
 const vendor = {
   js: [
     './bower_components/jquery/dist/jquery.js',
-    '../semantic/dist/semantic.js'
+    '../semantic/dist/semantic.js',
+    './bower_components/js-md5/src/md5.js'
+  ],
+  jsAdmin: [
+    './bower_components/jquery-ui/ui/scroll-parent.js',
+    './bower_components/jquery-ui/ui/widget.js',
+    './bower_components/jquery-ui/ui/widgets/mouse.js',
+    './bower_components/jquery-ui/ui/widgets/sortable.js'
   ],
   css: [
     '../semantic/dist/semantic.css'
@@ -18,7 +26,7 @@ gulp.task('vendor:node', () => {
   gulp
     .src('./markdown-core-node/index.bundle.js')
     .pipe(rename({
-      basename: 'mdc'      
+      basename: 'mdc'
     }))
     .pipe(gulp.dest('./includes'));
 });
@@ -26,6 +34,12 @@ gulp.task('vendor:node', () => {
 gulp.task('vendor:js', () => {
   gulp
     .src(vendor.js)
+    .pipe(concat('vendor.js'))
+    .pipe(gulp.dest('./public/js'));
+  
+  gulp
+    .src(vendor.jsAdmin)
+    .pipe(concat('admin.js'))
     .pipe(gulp.dest('./public/js'));
 });
 
@@ -58,22 +72,19 @@ gulp.task('server', () => {
     './app.js', 
     './routes/**/*.js',
     './includes/**/*.js'
-  ], (file) => {
-    setTimeout(() => {
-      server.start.bind(server)();
-      server.notify.apply(server, [file]);
-      console.log('server reloaded');
-    }, 4000);
+  ], function () {
+    server.start.bind(server);
+    console.log('server reloaded');
   });
 
   watch(vendor.css, ['vendor:css']);
   watch(vendor.js, ['vendor:js']);
 
-  watch(['./public/**/*.{css,js,png,gif,jpg}'], (file) => {
+  watch(['./public/**/*.{css,js,png,gif,jpg}'], function (file) {
     server.notify.apply(server, [file]);
     console.log('server reloaded');
   });
-  watch(['./views/**/*.ejs'], (file) => {
+  watch(['./views/**/*.ejs'], function (file) {
     server.notify.apply(server, [file]);
     console.log('server reloaded');
   });

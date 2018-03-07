@@ -632,3 +632,141 @@
 2017-09-09T18:53:21.002804000 2.374807s info: Table dd7728b7-97c5-4c25-9035-42ec666fcecd: This server is Raft leader for term 6. Latest log index is 15.
 2017-09-09T18:53:21.031218000 2.403221s info: Table d3a68583-ee76-4395-8dee-35592bbff541: This server is Raft leader for term 11. Latest log index is 30.
 2017-09-09T18:53:23.453504000 4.825400s notice: A newer version of the RethinkDB server is available: 2.3.6. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.
+2018-02-28T11:45:18.879867000 0.162562s notice: Running rethinkdb 2.3.5 (CLANG 8.0.0 (clang-800.0.38))...
+2018-02-28T11:45:18.892410000 0.175062s notice: Running on Darwin 16.7.0 x86_64
+2018-02-28T11:45:18.892471000 0.175122s notice: Loading data from directory /Users/xiuxiu/workspace/mywebsite/rethinkdb_data
+2018-02-28T11:45:18.971909000 0.254552s info: Automatically using cache size of 218 MB
+2018-02-28T11:45:18.973249000 0.255892s notice: Listening for intracluster connections on port 29015
+2018-02-28T11:45:19.246370000 0.529013s notice: Listening for client driver connections on port 28015
+2018-02-28T11:45:19.246495000 0.529137s notice: Listening for administrative HTTP connections on port 8080
+2018-02-28T11:45:19.246498000 0.529141s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2018-02-28T11:45:19.246501000 0.529143s notice: Listening on driver addresses: 127.0.0.1, ::1
+2018-02-28T11:45:19.246611000 0.529254s notice: Listening on http addresses: 127.0.0.1, ::1
+2018-02-28T11:45:19.246614000 0.529256s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2018-02-28T11:45:19.246616000 0.529258s notice: Server ready, "dyn_118_139_89_15_its_monash_edu_au_c53" ae4857ce-cf8c-4d2e-a608-d3a4e9c6cfe8
+2018-02-28T11:45:20.147684000 1.430280s info: Table 39bdc9b7-7751-422e-9275-25f20d29169c: Starting a new Raft election for term 20.
+2018-02-28T11:45:20.174976000 1.457572s info: Table 39bdc9b7-7751-422e-9275-25f20d29169c: This server is Raft leader for term 20. Latest log index is 62.
+2018-02-28T11:45:20.378915000 1.661512s info: Table 6751e769-32b8-4096-b322-2db264d5604b: Starting a new Raft election for term 18.
+2018-02-28T11:45:20.430677000 1.713273s info: Table 6751e769-32b8-4096-b322-2db264d5604b: This server is Raft leader for term 18. Latest log index is 55.
+2018-02-28T11:45:20.447856000 1.730453s info: Table 8e3e3753-37d4-400b-a2c6-0562f3c55e70: Starting a new Raft election for term 19.
+2018-02-28T11:45:20.485855000 1.768452s info: Table 8e3e3753-37d4-400b-a2c6-0562f3c55e70: This server is Raft leader for term 19. Latest log index is 56.
+2018-02-28T11:45:20.510313000 1.792909s info: Table 036c6bf9-f6b5-41df-9ccf-67317d2db473: Starting a new Raft election for term 12.
+2018-02-28T11:45:20.518267000 1.800863s notice: A newer version of the RethinkDB server is available: 2.3.6. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.
+2018-02-28T11:45:20.597127000 1.879723s info: Table b0f710e4-bf31-43a3-a0d3-e66b5157c35e: Starting a new Raft election for term 19.
+2018-02-28T11:45:20.598023000 1.880619s info: Table 036c6bf9-f6b5-41df-9ccf-67317d2db473: This server is Raft leader for term 12. Latest log index is 34.
+2018-02-28T11:45:20.695194000 1.977790s info: Table b0f710e4-bf31-43a3-a0d3-e66b5157c35e: This server is Raft leader for term 19. Latest log index is 58.
+2018-02-28T11:45:20.900792000 2.183388s info: Table dd7728b7-97c5-4c25-9035-42ec666fcecd: Starting a new Raft election for term 7.
+2018-02-28T11:45:20.924592000 2.207188s info: Table 9a192c35-0316-4fe4-bc3e-63af98b8c423: Starting a new Raft election for term 20.
+2018-02-28T11:45:20.995384000 2.277980s info: Table dd7728b7-97c5-4c25-9035-42ec666fcecd: This server is Raft leader for term 7. Latest log index is 18.
+2018-02-28T11:45:21.027128000 2.309724s info: Table 08363e69-a1e8-4bd3-874c-73ef9c19b841: Starting a new Raft election for term 19.
+2018-02-28T11:45:21.028157000 2.310714s info: Table 9a192c35-0316-4fe4-bc3e-63af98b8c423: This server is Raft leader for term 20. Latest log index is 60.
+2018-02-28T11:45:21.057595000 2.340143s info: Table d3a68583-ee76-4395-8dee-35592bbff541: Starting a new Raft election for term 12.
+2018-02-28T11:45:21.118613000 2.401161s info: Table 08363e69-a1e8-4bd3-874c-73ef9c19b841: This server is Raft leader for term 19. Latest log index is 56.
+2018-02-28T11:45:21.164613000 2.447162s info: Table d3a68583-ee76-4395-8dee-35592bbff541: This server is Raft leader for term 12. Latest log index is 33.
+2018-02-28T11:49:01.071547000 222.344093s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2018-02-28T11:49:01.466583000 222.739081s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2018-02-28T14:10:29.454160000 0.013993s notice: Running rethinkdb 2.3.5 (CLANG 8.0.0 (clang-800.0.38))...
+2018-02-28T14:10:29.466260000 0.026089s notice: Running on Darwin 16.7.0 x86_64
+2018-02-28T14:10:29.466318000 0.026145s notice: Loading data from directory /Users/xiuxiu/workspace/mywebsite/rethinkdb_data
+2018-02-28T14:10:29.521630000 0.081458s info: Automatically using cache size of 352 MB
+2018-02-28T14:10:29.522221000 0.082048s notice: Listening for intracluster connections on port 29015
+2018-02-28T14:10:29.676587000 0.236361s notice: Listening for client driver connections on port 28015
+2018-02-28T14:10:29.676763000 0.236536s notice: Listening for administrative HTTP connections on port 8080
+2018-02-28T14:10:29.676768000 0.236542s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2018-02-28T14:10:29.676773000 0.236546s notice: Listening on driver addresses: 127.0.0.1, ::1
+2018-02-28T14:10:29.676803000 0.236576s notice: Listening on http addresses: 127.0.0.1, ::1
+2018-02-28T14:10:29.676806000 0.236580s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2018-02-28T14:10:29.676810000 0.236583s notice: Server ready, "dyn_118_139_89_15_its_monash_edu_au_c53" ae4857ce-cf8c-4d2e-a608-d3a4e9c6cfe8
+2018-02-28T14:10:30.762774000 1.322493s info: Table 8e3e3753-37d4-400b-a2c6-0562f3c55e70: Starting a new Raft election for term 20.
+2018-02-28T14:10:30.792708000 1.352429s info: Table 8e3e3753-37d4-400b-a2c6-0562f3c55e70: This server is Raft leader for term 20. Latest log index is 59.
+2018-02-28T14:10:30.810419000 1.370139s notice: A newer version of the RethinkDB server is available: 2.3.6. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.
+2018-02-28T14:10:30.862504000 1.422225s info: Table 39bdc9b7-7751-422e-9275-25f20d29169c: Starting a new Raft election for term 21.
+2018-02-28T14:10:30.887110000 1.446830s info: Table 39bdc9b7-7751-422e-9275-25f20d29169c: This server is Raft leader for term 21. Latest log index is 66.
+2018-02-28T14:10:30.908487000 1.468207s info: Table b0f710e4-bf31-43a3-a0d3-e66b5157c35e: Starting a new Raft election for term 20.
+2018-02-28T14:10:30.947453000 1.507173s info: Table b0f710e4-bf31-43a3-a0d3-e66b5157c35e: This server is Raft leader for term 20. Latest log index is 61.
+2018-02-28T14:10:31.067583000 1.627303s info: Table 08363e69-a1e8-4bd3-874c-73ef9c19b841: Starting a new Raft election for term 20.
+2018-02-28T14:10:31.083673000 1.643393s info: Table dd7728b7-97c5-4c25-9035-42ec666fcecd: Starting a new Raft election for term 8.
+2018-02-28T14:10:31.138960000 1.698680s info: Table 08363e69-a1e8-4bd3-874c-73ef9c19b841: This server is Raft leader for term 20. Latest log index is 59.
+2018-02-28T14:10:31.139138000 1.698858s info: Table dd7728b7-97c5-4c25-9035-42ec666fcecd: This server is Raft leader for term 8. Latest log index is 21.
+2018-02-28T14:10:31.296998000 1.856718s info: Table 036c6bf9-f6b5-41df-9ccf-67317d2db473: Starting a new Raft election for term 13.
+2018-02-28T14:10:31.330246000 1.889966s info: Table 9a192c35-0316-4fe4-bc3e-63af98b8c423: Starting a new Raft election for term 21.
+2018-02-28T14:10:31.369720000 1.929440s info: Table 036c6bf9-f6b5-41df-9ccf-67317d2db473: This server is Raft leader for term 13. Latest log index is 37.
+2018-02-28T14:10:31.437464000 1.997183s info: Table 9a192c35-0316-4fe4-bc3e-63af98b8c423: This server is Raft leader for term 21. Latest log index is 63.
+2018-02-28T14:10:31.441973000 2.001693s info: Table d3a68583-ee76-4395-8dee-35592bbff541: Starting a new Raft election for term 13.
+2018-02-28T14:10:31.504584000 2.064303s info: Table d3a68583-ee76-4395-8dee-35592bbff541: This server is Raft leader for term 13. Latest log index is 36.
+2018-02-28T14:10:31.536859000 2.096579s info: Table 6751e769-32b8-4096-b322-2db264d5604b: Starting a new Raft election for term 19.
+2018-02-28T14:10:31.598596000 2.158315s info: Table 6751e769-32b8-4096-b322-2db264d5604b: This server is Raft leader for term 19. Latest log index is 58.
+2018-02-28T14:10:41.736321000 12.295498s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2018-02-28T14:10:41.937915000 12.497092s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2018-03-03T17:15:13.499954000 147619.694559s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2018-03-03T17:15:13.911830000 147620.106434s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2018-03-03T22:47:42.572965000 167568.103695s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2018-03-03T22:47:42.576261000 167568.106991s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2018-03-03T22:47:42.751058000 167568.281789s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2018-03-03T22:47:43.303613000 167568.834291s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2018-03-06T10:55:07.699759000 40.187479s notice: Running rethinkdb 2.3.5 (CLANG 8.0.0 (clang-800.0.38))...
+2018-03-06T10:55:07.720224000 40.207934s notice: Running on Darwin 16.7.0 x86_64
+2018-03-06T10:55:07.720291000 40.208001s notice: Loading data from directory /Users/xiuxiu/workspace/mywebsite/rethinkdb_data
+2018-03-06T10:55:07.804256000 40.291966s info: Automatically using cache size of 463 MB
+2018-03-06T10:55:07.805712000 40.293422s notice: Listening for intracluster connections on port 29015
+2018-03-06T10:55:08.009378000 40.497089s notice: Listening for client driver connections on port 28015
+2018-03-06T10:55:08.009800000 40.497510s notice: Listening for administrative HTTP connections on port 8080
+2018-03-06T10:55:08.009806000 40.497515s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2018-03-06T10:55:08.009808000 40.497518s notice: Listening on driver addresses: 127.0.0.1, ::1
+2018-03-06T10:55:08.009811000 40.497521s notice: Listening on http addresses: 127.0.0.1, ::1
+2018-03-06T10:55:08.009814000 40.497524s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2018-03-06T10:55:08.009817000 40.497527s notice: Server ready, "dyn_118_139_89_15_its_monash_edu_au_c53" ae4857ce-cf8c-4d2e-a608-d3a4e9c6cfe8
+2018-03-06T10:55:09.051762000 41.539420s info: Table 6751e769-32b8-4096-b322-2db264d5604b: Starting a new Raft election for term 20.
+2018-03-06T10:55:09.079544000 41.567201s info: Table 8e3e3753-37d4-400b-a2c6-0562f3c55e70: Starting a new Raft election for term 21.
+2018-03-06T10:55:09.087357000 41.575015s info: Table 6751e769-32b8-4096-b322-2db264d5604b: This server is Raft leader for term 20. Latest log index is 61.
+2018-03-06T10:55:09.119473000 41.607131s info: Table 8e3e3753-37d4-400b-a2c6-0562f3c55e70: This server is Raft leader for term 21. Latest log index is 62.
+2018-03-06T10:55:09.474721000 41.962378s info: Table 08363e69-a1e8-4bd3-874c-73ef9c19b841: Starting a new Raft election for term 21.
+2018-03-06T10:55:09.583265000 42.070923s info: Table 08363e69-a1e8-4bd3-874c-73ef9c19b841: This server is Raft leader for term 21. Latest log index is 62.
+2018-03-06T10:55:09.661273000 42.148931s info: Table 9a192c35-0316-4fe4-bc3e-63af98b8c423: Starting a new Raft election for term 22.
+2018-03-06T10:55:09.728177000 42.215834s info: Table 036c6bf9-f6b5-41df-9ccf-67317d2db473: Starting a new Raft election for term 14.
+2018-03-06T10:55:09.767797000 42.255401s info: Table 9a192c35-0316-4fe4-bc3e-63af98b8c423: This server is Raft leader for term 22. Latest log index is 66.
+2018-03-06T10:55:09.800951000 42.288556s info: Table 036c6bf9-f6b5-41df-9ccf-67317d2db473: This server is Raft leader for term 14. Latest log index is 41.
+2018-03-06T10:55:09.824458000 42.312063s info: Table dd7728b7-97c5-4c25-9035-42ec666fcecd: Starting a new Raft election for term 9.
+2018-03-06T10:55:09.824542000 42.312146s info: Table b0f710e4-bf31-43a3-a0d3-e66b5157c35e: Starting a new Raft election for term 21.
+2018-03-06T10:55:09.824630000 42.312234s info: Table 39bdc9b7-7751-422e-9275-25f20d29169c: Starting a new Raft election for term 22.
+2018-03-06T10:55:09.872155000 42.359760s info: Table dd7728b7-97c5-4c25-9035-42ec666fcecd: This server is Raft leader for term 9. Latest log index is 24.
+2018-03-06T10:55:09.872240000 42.359845s info: Table b0f710e4-bf31-43a3-a0d3-e66b5157c35e: This server is Raft leader for term 21. Latest log index is 64.
+2018-03-06T10:55:09.872294000 42.359898s info: Table 39bdc9b7-7751-422e-9275-25f20d29169c: This server is Raft leader for term 22. Latest log index is 69.
+2018-03-06T10:55:09.945869000 42.433474s info: Table d3a68583-ee76-4395-8dee-35592bbff541: Starting a new Raft election for term 14.
+2018-03-06T10:55:10.015007000 42.502611s info: Table d3a68583-ee76-4395-8dee-35592bbff541: This server is Raft leader for term 14. Latest log index is 39.
+2018-03-06T10:55:38.021577000 70.508231s warn: Problem when checking for new versions of RethinkDB: HTTP request to update.rethinkdb.com failed.
+2018-03-06T11:46:55.042248000 3147.425295s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2018-03-06T11:46:55.080453000 3147.463501s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2018-03-06T11:46:55.265757000 3147.648805s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2018-03-06T11:46:55.654292000 3148.037339s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2018-03-07T19:13:13.703924000 40.162128s notice: Running rethinkdb 2.3.5 (CLANG 8.0.0 (clang-800.0.38))...
+2018-03-07T19:13:13.720410000 40.178603s notice: Running on Darwin 16.7.0 x86_64
+2018-03-07T19:13:13.720472000 40.178663s notice: Loading data from directory /Users/xiuxiu/workspace/mywebsite/rethinkdb_data
+2018-03-07T19:13:13.801952000 40.260143s info: Automatically using cache size of 851 MB
+2018-03-07T19:13:13.802827000 40.261019s notice: Listening for intracluster connections on port 29015
+2018-03-07T19:13:13.989166000 40.447358s notice: Listening for client driver connections on port 28015
+2018-03-07T19:13:13.989343000 40.447535s notice: Listening for administrative HTTP connections on port 8080
+2018-03-07T19:13:13.989347000 40.447539s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2018-03-07T19:13:13.989351000 40.447543s notice: Listening on driver addresses: 127.0.0.1, ::1
+2018-03-07T19:13:13.989573000 40.447765s notice: Listening on http addresses: 127.0.0.1, ::1
+2018-03-07T19:13:13.989578000 40.447769s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2018-03-07T19:13:13.989583000 40.447775s notice: Server ready, "dyn_118_139_89_15_its_monash_edu_au_c53" ae4857ce-cf8c-4d2e-a608-d3a4e9c6cfe8
+2018-03-07T19:13:14.871280000 41.329417s info: Table 036c6bf9-f6b5-41df-9ccf-67317d2db473: Starting a new Raft election for term 15.
+2018-03-07T19:13:14.906059000 41.364196s info: Table 036c6bf9-f6b5-41df-9ccf-67317d2db473: This server is Raft leader for term 15. Latest log index is 44.
+2018-03-07T19:13:15.315469000 41.773606s info: Table dd7728b7-97c5-4c25-9035-42ec666fcecd: Starting a new Raft election for term 10.
+2018-03-07T19:13:15.342703000 41.800840s info: Table dd7728b7-97c5-4c25-9035-42ec666fcecd: This server is Raft leader for term 10. Latest log index is 27.
+2018-03-07T19:13:15.498488000 41.956625s info: Table d3a68583-ee76-4395-8dee-35592bbff541: Starting a new Raft election for term 15.
+2018-03-07T19:13:15.529708000 41.987845s info: Table 08363e69-a1e8-4bd3-874c-73ef9c19b841: Starting a new Raft election for term 22.
+2018-03-07T19:13:15.534619000 41.992756s info: Table d3a68583-ee76-4395-8dee-35592bbff541: This server is Raft leader for term 15. Latest log index is 42.
+2018-03-07T19:13:15.567558000 42.025695s info: Table 08363e69-a1e8-4bd3-874c-73ef9c19b841: This server is Raft leader for term 22. Latest log index is 66.
+2018-03-07T19:13:15.593058000 42.051194s info: Table 39bdc9b7-7751-422e-9275-25f20d29169c: Starting a new Raft election for term 23.
+2018-03-07T19:13:15.674374000 42.132511s info: Table 39bdc9b7-7751-422e-9275-25f20d29169c: This server is Raft leader for term 23. Latest log index is 72.
+2018-03-07T19:13:15.731723000 42.189860s info: Table 8e3e3753-37d4-400b-a2c6-0562f3c55e70: Starting a new Raft election for term 22.
+2018-03-07T19:13:15.782206000 42.240343s info: Table 6751e769-32b8-4096-b322-2db264d5604b: Starting a new Raft election for term 21.
+2018-03-07T19:13:15.792080000 42.250217s info: Table 8e3e3753-37d4-400b-a2c6-0562f3c55e70: This server is Raft leader for term 22. Latest log index is 65.
+2018-03-07T19:13:15.820204000 42.278340s notice: A newer version of the RethinkDB server is available: 2.3.6. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.
+2018-03-07T19:13:15.820341000 42.278478s info: Table b0f710e4-bf31-43a3-a0d3-e66b5157c35e: Starting a new Raft election for term 22.
+2018-03-07T19:13:15.883166000 42.341303s info: Table 9a192c35-0316-4fe4-bc3e-63af98b8c423: Starting a new Raft election for term 23.
+2018-03-07T19:13:15.884550000 42.342687s info: Table 6751e769-32b8-4096-b322-2db264d5604b: This server is Raft leader for term 21. Latest log index is 65.
+2018-03-07T19:13:15.914965000 42.373102s info: Table b0f710e4-bf31-43a3-a0d3-e66b5157c35e: This server is Raft leader for term 22. Latest log index is 67.
+2018-03-07T19:13:15.940909000 42.399046s info: Table 9a192c35-0316-4fe4-bc3e-63af98b8c423: This server is Raft leader for term 23. Latest log index is 69.

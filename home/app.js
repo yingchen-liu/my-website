@@ -1,21 +1,23 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var lessMiddleware = require('less-middleware');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const lessMiddleware = require('less-middleware');
+const session = require('express-session');
 
 const c = require('./includes/config');
 const db = require('./includes/db');
 const fm = require('./includes/file-manager');
 
-var index = require('./routes/index');
-var projects = require('./routes/projects');
-var life = require('./routes/life');
-var collections = require('./routes/collections');
+const index = require('./routes/index');
+const projects = require('./routes/projects');
+const life = require('./routes/life');
+const collections = require('./routes/collections');
+const users = require('./routes/users');
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -30,11 +32,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  secret: c.auth.sessionSecret,
+  resave: false,
+  saveUninitialized: true
+}));
 
 app.use('/', index);
 app.use('/projects', projects);
 app.use('/life', life);
 app.use('/collections', collections);
+app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -52,7 +60,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-if (c.mode === 'dev') {
+if (c.env === 'development') {
   app.use(require('connect-livereload')({
     port: 35729
   }));

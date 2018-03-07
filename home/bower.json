@@ -17,6 +17,8 @@
   ],
   "dependencies": {
     "jquery": "^3.2.1",
-    "markdown-plus": "https://github.com/tylingsoft/markdown-plus.git#^2.5.0"
+    "markdown-plus": "https://github.com/tylingsoft/markdown-plus.git#^2.5.0",
+    "js-md5": "md5#^0.7.3",
+    "jquery-ui": "jquery.ui#^1.12.1"
   }
 }

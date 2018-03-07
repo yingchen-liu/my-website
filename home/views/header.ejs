@@ -44,6 +44,8 @@
     <![endif]-->
   </head>
   <body class="my website">
+    <input id="var-base" type="hidden" value="<%= base %>"> 
+
     <%# --- Top Menu --- %>
     <nav class="ui top fixed menu noprint">
       <div class="ui container">
@@ -63,5 +65,54 @@
         <a href="<%= base %>/collections/tools" class="item<%= (req.baseUrl + req.path).startsWith(base + '/collections/tools') ? ' active' : '' %>">
           Tools
         </a>
+
+        <%# --- User --- %>
+        <div class="right menu">
+          <% if (locals.user) { %>
+            <div class="ui dropdown item btn-user-dropdown">
+              <%= user.firstName %>
+              <i class="dropdown icon"></i>
+              <div class="menu">
+                <div class="item">
+                  Profile
+                </div>
+                <div class="item">
+                  <div class="ui <%= session.editingMode ? 'checked ' : ' ' %>checkbox checkbox-editing-mode">
+                    <input type="checkbox" name="enable-editing-mode"<%= session.editingMode ? ' checked=""' : '' %>>
+                    <label>Editing Mode</label>
+                  </div>
+                </div>
+                <div class="divider"></div>
+                <div class="item">
+                  Logout
+                </div>
+              </div>
+            </div>
+          <% } else { %>
+            <a class="ui item btn-login-popup">
+              Login
+            </a>
+            <div class="ui custom login popup bottom left transition hidden">
+              <form class="ui form form-login">
+                <h3 class="ui header">
+                  Login
+                </h3>
+                <div class="ui error message hidden">
+                  <div class="header">Error</div>
+                  <p></p>
+                </div>
+                <div class="required field">
+                  <label>Email</label>
+                  <input type="text" name="email" placeholder="Email">
+                </div>
+                <div class="required field">
+                  <label>Password</label>
+                  <input type="password" name="password" placeholder="This is a secret!">
+                </div>
+                <button class="ui button btn-login" type="button">Login</button>
+              </form>
+            </div>
+          <% } %>
+        </div>
       </div>
     </nav>

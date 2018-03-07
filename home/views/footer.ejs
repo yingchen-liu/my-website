@@ -39,9 +39,10 @@
     </div>
 
     <%# --- Scripts --- %>
-    <script src="<%= base %>/js/jquery.js"></script>
-    <script src="<%= base %>/js/semantic.js"></script>
-    <script src="<%= base %>/js/moment.js"></script>
+    <script src="<%= base %>/js/vendor.js"></script>
+    <% if (locals.user) { %>
+      <script src="<%= base %>/js/admin.js"></script>
+    <% } %>
     <script src="<%= base %>/js/basic.js"></script>
     <% var js = js ? js : [] %>
     <% js.forEach((script) => { %>
