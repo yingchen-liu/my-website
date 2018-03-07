@@ -111,6 +111,21 @@ router.post('/types', f.wrap(async (req, res, next) => {
   });
 }));
 
+router.post('/types/sort', f.wrap(async (req, res, next) => {
+  const db = req.db;
+
+  const sort = JSON.parse(req.body.sort);
+  for (let i = 0; i < sort.length; i++) {
+    const result = await db.projectTypes.get(sort[i])
+      .update({
+        sort: i
+      })
+      .run(db.conn).catch(next);
+  }
+
+  res.json({});
+}));
+
 router.post('/types/:id', f.wrap(async (req, res, next) => {
   const db = req.db;
 
@@ -135,7 +150,7 @@ router.post('/types/:id', f.wrap(async (req, res, next) => {
     }
   }).end();
 
-  const results = await db.projectTypes.get(req.params.id)
+  const result = await db.projectTypes.get(req.params.id)
     .update({
       name: req.body.name,
       subtitle: req.body.subtitle,
@@ -144,10 +159,10 @@ router.post('/types/:id', f.wrap(async (req, res, next) => {
     })
     .run(db.conn).catch(next);
 
-  const insertedRecord = await db.projectTypes.get(req.params.id).run(db.conn).catch(next);
+  const updatedRecord = await db.projectTypes.get(req.params.id).run(db.conn).catch(next);
 
   res.json({
-    projectType: insertedRecord
+    projectType: updatedRecord
   });
 }));
 

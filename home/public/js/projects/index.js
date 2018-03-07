@@ -22,10 +22,25 @@ $('.project-list').sortable({
     top: 40
   },
   handle: '.btn-sort-project-type'
-}).on('sortstart', function(e, ui) {
-  
-}).on('sortstop', function() {
+}).on('sortstop', function(e, ui) {
   $('.projects.items').show();
+
+  var $form = ui.item.find('form');
+
+  var sort = [];
+  $('.project-list').find('[data-role=project-type]').each(function(i, type) {
+    var id = $(type).attr('data-id');
+    sort.push(id);
+  });
+  
+  $.post(base + '/projects/types/sort', {
+    sort: JSON.stringify(sort)
+  }).done(function(data) {
+    $form.removeClass('loading');
+  }).fail(function (jqXHR) {
+    $form.removeClass('loading');
+    showFormError($form, getError(jqXHR));
+  });
 });
 
 $('.project-list').delegate('.change-icon.popup [name=icon-name]', 'input', function() {
