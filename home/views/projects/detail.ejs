@@ -1,42 +1,94 @@
 <%- include('../header', {
   css: [
-    `${base}/css/mdc.css`
+    `${base}/css/projects/detail.css`
   ]
 }); %>
 <div class="page projects detail">
-  <div class="ui main grid container">
-    <div class="tablet computer only four wide column">
+  <form data-id="<%= project.id %>">
+    <div class="ui main grid container">
+      <div class="tablet computer only four wide column">
 
-      <%# --- Sticky Project Information [tablet, computer] --- %>
-      <div class="ui project information sticky">
-        <%- include('./project-info'); %>
+        <%# --- Sticky Project Information [tablet, computer] --- %>
+        <div class="ui project information sticky">
+          <%- include('./project-info', { enableEditing: true }); %>
+        </div>
       </div>
-    </div>
 
-    <%# --- Header --- %>
-    <div class="sixteen wide mobile twelve wide tablet twelve wide computer column">
-      <a class="anchor" name="top"></a>
-      <h1 class="ui dividing header"><%= project.name %></h1>
-      <img src="<%= base %>/uploads/projects/<%= project.cover %>" class="ui fluid image">
-      <h3><%= project.brief %></h3>
-    </div>
+      <%# --- Header --- %>
+      <div class="main area twelve wide tablet only twelve wide computer only column">
+        <a class="anchor" name="top"></a>
+        <h1 class="ui dividing header" style="display: flex;">
+          <% if (locals.user && session.editingMode) { %>
+            <input type="text" class="inline-editing" style="flex-grow: 1;" name="name" value="<%= project.name %>" placeholder="Project Name">
+          <% } else { %>
+            <%= project.name %>
+          <% } %>
+        </h1>
+        <img src="<%= base %>/uploads/projects/<%= project.cover %>" class="ui fluid image">
+        <h3>
+          <% if (locals.user && session.editingMode) { %>
+            <textarea class="inline-editing" name="brief" style="width: 100%;" placeholder="Brief Description"><%= project.brief %></textarea>
+          <% } else { %>
+            <%= project.brief %>
+          <% } %>
+        </h3>
+      </div>
 
-    <%# --- Project Information [mobile] --- %>
-    <div class="sixteen wide mobile only column">
-      <%- include('./project-info'); %>
-    </div>
+      <div class="main area sixteen wide mobile only column">
+          <a class="anchor" name="top"></a>
+          <h1 class="ui dividing header" style="display: flex;">
+            <%= project.name %>
+          </h1>
+          <img src="<%= base %>/uploads/projects/<%= project.cover %>" class="ui fluid image">
+          <h3>
+            <%= project.brief %>
+          </h3>
+        </div>
 
-    <%# --- Content --- %>
-    <div class="four wide tablet computer only column"></div>
-    <div class="sixteen wide mobile twelve wide tablet twelve wide computer column">
-      <article class="markdown-body">
-        <%- project.content %>
-      </article>
+      <%# --- Project Information [mobile] --- %>
+      <div class="sixteen wide mobile only column">
+        <%- include('./project-info', { enableEditing: false }); %>
+      </div>
+
+      <%# --- Content --- %>
+      <% if (locals.user && session.editingMode) { %>
+        <div class="sixteen wide tablet computer only column" style="margin-bottom: 2rem;">
+          <div id="markdown-editor">
+            <textarea style="display: none;">
+              <%- project.content %>
+            </textarea>
+          </div>
+
+          <button class="ui button btn-save" type="button">
+            <i class="save icon"></i> Save Changes
+          </button>
+        </div>
+        <div class="sixteen wide mobile only column">
+          <textarea id="markdown-content" style="display: none;">
+            <%- project.content %>
+          </textarea>
+          <article id="markdown-body" class="markdown-body">
+            
+          </article>
+        </div>
+      <% } else { %>
+        <div class="four wide tablet computer only column"></div>
+        <div class="sixteen wide mobile twelve wide tablet twelve wide computer column">
+          <textarea id="markdown-content" style="display: none;">
+            <%- project.content %>
+          </textarea>
+          <article id="markdown-body" class="markdown-body">
+            
+          </article>
+        </div>
+      <% } %>
+    
     </div>
-  </div>
+  </form>
 </div>
 <%- include('../footer', {
   js: [
+    `${base}/js/markdown.js`,
     `${base}/js/projects/detail.js`
   ]
 }); %>

@@ -19,6 +19,9 @@
     "jquery": "^3.2.1",
     "markdown-plus": "https://github.com/tylingsoft/markdown-plus.git#^2.5.0",
     "js-md5": "md5#^0.7.3",
-    "jquery-ui": "jquery.ui#^1.12.1"
+    "jquery-ui": "jquery.ui#^1.12.1",
+    "jquery.layout": "*",
+    "editor.md": "https://github.com/pandao/editor.md.git#^1.5.0",
+    "emoji-cheat-sheet.com": "https://github.com/WebpageFX/emoji-cheat-sheet.com.git"
   }
 }

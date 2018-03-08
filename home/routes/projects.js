@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-const mdc = require('../includes/mdc');
-
 const c = require('../includes/config');
 const f = require('../includes/functions');
 const db = require('../includes/db');
@@ -55,12 +53,9 @@ router.get('/:slug', f.wrap(async (req, res, next) => {
     .run(db.conn).catch(next);
   const records = await results.toArray().catch(next);
 
-  if (records.length === 0) return res.status(404).end();
+  if (records.length === 0) return next();
 
   const project = records[0];
-  if (project.content) {
-    project.content = mdc.render(project.content);
-  }
 
   res.render('projects/detail', f.data({ 
     title: f.title(project.name, 'Projects'),
@@ -74,17 +69,15 @@ router.get('/:slug', f.wrap(async (req, res, next) => {
 router.post('/types', f.wrap(async (req, res, next) => {
   const db = req.db;
 
+  if (!req.session.user) return next(new f.AppError('Permission denied.', 403));
+
   // check if the slug exists
   const slugResults = await db.projectTypes.filter({
     slug: req.body.slug
   }).run(db.conn).catch(next);
   const slugRecords = await slugResults.toArray().catch(next);
 
-  if (slugRecords.length > 0) return res.status(500).send({
-    err: {
-      msg: 'The slug already exists.'
-    }
-  }).end();
+  if (slugRecords.length > 0) return next(new f.AppError('The slug already exists.'));
 
   // get the sort
   var sort = 0;
@@ -114,6 +107,8 @@ router.post('/types', f.wrap(async (req, res, next) => {
 router.post('/types/sort', f.wrap(async (req, res, next) => {
   const db = req.db;
 
+  if (!req.session.user) return next(new f.AppError('Permission denied.', 403));
+
   const sort = JSON.parse(req.body.sort);
   for (let i = 0; i < sort.length; i++) {
     const result = await db.projectTypes.get(sort[i])
@@ -128,6 +123,8 @@ router.post('/types/sort', f.wrap(async (req, res, next) => {
 
 router.post('/types/:id', f.wrap(async (req, res, next) => {
   const db = req.db;
+
+  if (!req.session.user) return next(new f.AppError('Permission denied.', 403));
 
   // check if the type exists
   const typeRecord = await db.projectTypes.get(req.params.id).run(db.conn).catch(next);
@@ -144,11 +141,7 @@ router.post('/types/:id', f.wrap(async (req, res, next) => {
   }).run(db.conn).catch(next);
   const slugRecords = await slugResults.toArray().catch(next);
 
-  if (slugRecords.length > 0 && slugRecords[0].id !== req.params.id) return res.status(500).send({
-    err: {
-      msg: 'The slug already exists.'
-    }
-  }).end();
+  if (slugRecords.length > 0 && slugRecords[0].id !== req.params.id) return next(new f.AppError('The slug already exists.'));
 
   const result = await db.projectTypes.get(req.params.id)
     .update({
@@ -169,6 +162,8 @@ router.post('/types/:id', f.wrap(async (req, res, next) => {
 router.delete('/types/:id', f.wrap(async (req, res, next) => {
   const db = req.db;
 
+  if (!req.session.user) return next(new f.AppError('Permission denied.', 403));
+
   // check if the type exists
   const typeRecord = await db.projectTypes.get(req.params.id).run(db.conn).catch(next);
 
@@ -177,18 +172,14 @@ router.delete('/types/:id', f.wrap(async (req, res, next) => {
       msg: 'No such project type.'
     }
   }).end();
-
+ 
   // check if there is any projects in it
   const projectResults = await db.projects.filter({
     type: req.params.id
   }).run(db.conn).catch(next);
   const projectRecords = await projectResults.toArray().catch(next);
 
-  if (projectRecords.length !== 0) return res.status(500).send({
-    err: {
-      msg: 'I can only delete a project type without any project in it.'
-    }
-  }).end();
+  if (projectRecords.length !== 0) return next(new f.AppError('I can only delete a project type without any project in it.'));
 
   // delete
   const results = await db.projectTypes.get(req.params.id).delete().run(db.conn).catch(next);

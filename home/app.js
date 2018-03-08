@@ -8,6 +8,7 @@ const lessMiddleware = require('less-middleware');
 const session = require('express-session');
 
 const c = require('./includes/config');
+const f = require('./includes/functions');
 const db = require('./includes/db');
 const fm = require('./includes/file-manager');
 
@@ -46,18 +47,46 @@ app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  res.redirect('/404');
+  res.status(404);
+  if (req.accepts('html')) {
+    res.render('404', f.data({
+      title: '#404',
+      url: req.url
+    }, req));
+  } else if (req.accepts('json')) {
+    res.json({
+      err: {
+        msg: 'Not found.'
+      }
+    });
+  } else {
+    res.type('txt').send('Not found.');
+  }
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
   res.status(err.status || 500);
-  res.render('error');
+
+  console.error('An error has occured', err.message, err);
+  
+  if (req.accepts('html')) {
+    res.render('error', f.data({
+      title: 'Error',
+      msg: err.message,
+      status: err.status ? err.status : 500,
+      err: req.app.get('env') === 'development' ? err : {}
+    }, req));
+  } else if (req.accepts('json')) {
+    res.json({
+      err: {
+        msg: err.message,
+        field: err.field
+      }
+    });
+  } else {
+    res.type('txt').send(err.msg);
+  }
 });
 
 if (c.env === 'development') {

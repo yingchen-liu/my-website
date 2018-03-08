@@ -36,12 +36,14 @@ $('.message .close').click(function() {
 /**
  * Nav
  */
-$('.dropdown.item').dropdown();
+$('.ui.dropdown').dropdown();
 
-$('.ui.sticky').sticky({
-  context: '.main.area',
-  offset: $('.ui.top.fixed.menu').height() + 5
-});
+if ($('.ui.sticky').length > 0) {
+  $('.ui.sticky').sticky({
+    context: '.main.area',
+    offset: $('.ui.top.fixed.menu').height() + 5
+  });
+}
 
 $('.btn-login-popup').popup({
   on: 'click',

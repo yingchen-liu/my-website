@@ -46,4 +46,13 @@ const process = (base, ...processors) => {
   return `${info.base}-jimp-${processors.join('-')}${info.ext}`;
 }
 
-module.exports = { title, data, wrap, fileInfo };
+class AppError extends Error {
+  constructor(message, status, field, err) {
+    super(message);
+    this.status = status;
+    this.field = field;
+    this.stack = (err ? err : new Error()).stack;
+  }
+}
+
+module.exports = { title, data, wrap, fileInfo, AppError };

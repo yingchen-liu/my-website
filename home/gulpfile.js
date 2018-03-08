@@ -14,48 +14,75 @@ const vendor = {
   jsAdmin: [
     './bower_components/jquery-ui/ui/scroll-parent.js',
     './bower_components/jquery-ui/ui/widget.js',
+    // './bower_components/jquery-ui/ui/widgets/datepicker.js',
     './bower_components/jquery-ui/ui/widgets/mouse.js',
-    './bower_components/jquery-ui/ui/widgets/sortable.js'
+    './bower_components/jquery-ui/ui/widgets/sortable.js',
+  ],
+  jsMarkdown: [
+    './bower_components/editor.md/lib/marked.min.js',
+    './bower_components/editor.md/lib/prettify.min.js',
+    './bower_components/editor.md/lib/raphael.min.js',
+    './bower_components/editor.md/lib/underscore.min.js',
+    './bower_components/editor.md/lib/sequence-diagram.min.js',
+    './bower_components/editor.md/lib/flowchart.min.js',
+    './bower_components/editor.md/lib/jquery.flowchart.min.js',
+    './bower_components/editor.md/editormd.js',
+    './bower_components/editor.md/languages/en.js',
   ],
   css: [
-    '../semantic/dist/semantic.css'
+    '../semantic/dist/semantic.css',
+    './bower_components/editor.md/css/editormd.css'
+  ],
+  cssAdmin: [
+    './bower_components/jquery-ui/themes/base/all.css',
   ]
 };
-
-gulp.task('vendor:node', () => {
-  gulp
-    .src('./markdown-core-node/index.bundle.js')
-    .pipe(rename({
-      basename: 'mdc'
-    }))
-    .pipe(gulp.dest('./includes'));
-});
 
 gulp.task('vendor:js', () => {
   gulp
     .src(vendor.js)
     .pipe(concat('vendor.js'))
     .pipe(gulp.dest('./public/js'));
-  
   gulp
     .src(vendor.jsAdmin)
     .pipe(concat('admin.js'))
     .pipe(gulp.dest('./public/js'));
+  gulp
+    .src(vendor.jsMarkdown)
+    .pipe(concat('markdown.js'))
+    .pipe(gulp.dest('./public/js'));
+  gulp
+    .src('./bower_components/editor.md/lib/**/*.*')
+    .pipe(gulp.dest('./public/js/markdown/lib'));
+  gulp
+    .src('./bower_components/editor.md/plugins/**/*.*')
+    .pipe(gulp.dest('./public/js/markdown/plugins'));
 });
 
 gulp.task('vendor:css', () => {
   gulp
     .src(vendor.css)
+    .pipe(concat('vendor.css'))
     .pipe(gulp.dest('./public/css'));
   gulp
     .src('../semantic/dist/themes/default/**/*.*')
     .pipe(gulp.dest('./public/css/themes/default'));
   gulp
-    .src('./bower_components/markdown-plus/dist/index.bundle.css')
-    .pipe(rename({
-      basename: 'mdc'
-    }))
+    .src(vendor.cssAdmin)
+    .pipe(concat('admin.css'))
     .pipe(gulp.dest('./public/css'));
+  gulp
+    .src('./bower_components/jquery-ui/themes/base/images/*.*')
+    .pipe(gulp.dest('./public/css/images'));
+  gulp
+    .src('./bower_components/editor.md/images/*.*')
+    .pipe(gulp.dest('./public/images'));
+  gulp
+    .src('./bower_components/editor.md/fonts/*.*')
+    .pipe(gulp.dest('./public/fonts'));
+  gulp
+    .src('./bower_components/emoji-cheat-sheet.com/public/graphics/emojis/*.*')
+    .pipe(gulp.dest('./public/emojis'));
 });
 
 gulp.task('less', () => {
@@ -90,6 +117,6 @@ gulp.task('server', () => {
   });
 });
 
-gulp.task('default', ['vendor:node', 'vendor:css', 'vendor:js', 'server']);
+gulp.task('default', ['vendor:css', 'vendor:js', 'server']);
 
-gulp.task('build', ['vendor:node', 'vendor:css', 'vendor:js', 'less']);
+gulp.task('build', ['vendor:css', 'vendor:js', 'less']);
