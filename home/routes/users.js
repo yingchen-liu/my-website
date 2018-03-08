@@ -16,23 +16,13 @@ router.post('/login', f.wrap(async (req, res, next) => {
   const records = await results.toArray().catch(next);
 
   // user not found
-  if (records.length === 0) return res.status(500).send({
-    err: {
-      msg: 'We can\'t find you in our system.',
-      field: 'email'
-    }
-  }).end();
+  if (records.length === 0) return next(new f.AppError('We can\'t find you in our system.', 404, 'email'));
 
   const user = records[0];
 
   // wrong password
   if (md5(md5(c.auth.md5Prefix + '_' + req.body.password + '_' + c.auth.md5Suffix)) !== user.password) {
-    return res.status(500).send({
-      err: {
-        msg: 'Wrong password. We can\'t let you in.',
-        field: 'password'
-      }
-    }).end();
+    return next(new f.AppError('Wrong password. We can\'t let you in.', 403, 'password'));
   }
 
   // success
