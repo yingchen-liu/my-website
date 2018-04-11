@@ -55,7 +55,8 @@ router.get('/resume*', f.wrap(async (req, res, next) => {
 
   const projectResults = await db.projects
     .filter({
-      showInResume: true
+      showInResume: true,
+      isDraft: false
     })
     .innerJoin(db.projectTypes, (project, type) => {
       return project('type').eq(type('id'));
@@ -92,47 +93,47 @@ router.get('/resume*', f.wrap(async (req, res, next) => {
   }, req));
 }));
 
-router.get(/uploads\/.*/, (req, res, next) => {
-  let filename = req.path.split('..').join(); // clean the path
-  filename = path.join(__dirname, '..', filename);
+// router.get(/uploads\/.*/, (req, res, next) => {
+//   let filename = req.path.split('..').join(); // clean the path
+//   filename = path.join(__dirname, '..', filename);
 
-  // already exists
-  if (fs.existsSync(filename)) return res.sendFile(filename);
+//   // already exists
+//   if (fs.existsSync(filename)) return res.sendFile(filename);
 
-  // process image
-  const info = f.fileInfo(filename),
-    regex = /^.*-jimp-(.+)\.(?:jpg|jpeg|png)$/i,
-    match = regex.exec(info.name);
-  if (match) {
-    let processors = match[1];
-    const oriFilename = filename.replace(`-jimp-${processors}`, '');
+//   // process image
+//   const info = f.fileInfo(filename),
+//     regex = /^.*-jimp-(.+)\.(?:jpg|jpeg|png)$/i,
+//     match = regex.exec(info.name);
+//   if (match) {
+//     let processors = match[1];
+//     const oriFilename = filename.replace(`-jimp-${processors}`, '');
 
-    // loop through processors
-    processors = processors.split('-');
-    jimp.read(oriFilename).then((image) => {
-      image = image.quality(80);
+//     // loop through processors
+//     processors = processors.split('-');
+//     jimp.read(oriFilename).then((image) => {
+//       image = image.quality(80);
 
-      processors.map((processor) => {
-        if (processor.startsWith('w')) {
-          // with
-          const width = parseInt(processor.replace('w', ''));
-          image = imageProcessor.width(image, width);
-        } else if (processor.startsWith('c')) {
-          // crop
-          const ratio = parseFloat(processor.replace('c', ''));
-          image = imageProcessor.crop(image, ratio);
-        }
-      });
+//       processors.map((processor) => {
+//         if (processor.startsWith('w')) {
+//           // with
+//           const width = parseInt(processor.replace('w', ''));
+//           image = imageProcessor.width(image, width);
+//         } else if (processor.startsWith('c')) {
+//           // crop
+//           const ratio = parseFloat(processor.replace('c', ''));
+//           image = imageProcessor.crop(image, ratio);
+//         }
+//       });
       
-      image.write(filename, () => {
-        res.sendFile(filename);
-      });
+//       image.write(filename, () => {
+//         res.sendFile(filename);
+//       });
       
-    }).catch(next);
-  } else {
-    res.sendFile(filename);
-  }
-});
+//     }).catch(next);
+//   } else {
+//     res.sendFile(filename);
+//   }
+// });
 
 router.get('/404', f.wrap(async (req, res, next) => {
   const db = req.db;

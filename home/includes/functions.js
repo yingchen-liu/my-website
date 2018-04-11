@@ -42,17 +42,25 @@ const fileInfo = (filename) => {
 };
 
 const process = (base, ...processors) => {
-  const info = fileInfo(base);
-  return `${info.base}-jimp-${processors.join('-')}${info.ext}`;
-}
+  // const info = fileInfo(base);
+  // return `${info.base}-jimp-${processors.join('-')}${info.ext}`;
+  return `${base}?p=${processors.join('-')}`;
+};
+
+const arrayFromString = (string) => {
+  var results = string.split(/\s*,\s*/);
+  return results.filter((a) => {
+    return a !== '';
+  });
+};
 
 class AppError extends Error {
-  constructor(message, status, field, err) {
+  constructor(message, status, fields, err) {
     super(message);
     this.status = status;
-    this.field = field;
+    this.fields = fields;
     this.stack = (err ? err : new Error()).stack;
   }
 }
 
-module.exports = { title, data, wrap, fileInfo, AppError };
+module.exports = { title, data, wrap, arrayFromString, fileInfo, AppError };

@@ -52,15 +52,25 @@
     }
   }
 
-  .inline-editing {
-    border: none;
-    padding: 1px 5px;
-  }
-  .sm.inline-editing {
-    padding: 0 1px;
-  }
-  .inline-editing:focus {
-    outline: none;
-    background: #eee;
+  .ui.form {
+    .inline-editing {
+      border: none;
+      padding: 1px 5px;
+    }
+    .sm.inline-editing {
+      padding: 0 1px;
+    }
+    .inline-editing:focus {
+      outline: none;
+      background: #eee;
+    }
+    [data-param].error {
+      background: #f5eaea;
+    }
+
+    .ui.popup.error {
+      color: red;
+      padding: 0.2rem 0.5rem;
+    }
   }
 }

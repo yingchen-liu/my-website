@@ -16,16 +16,29 @@ var getError = function(jqXHR) {
 
 var clearFormError = function($form) {
   $form.find('.error.message').hide();
-  $form.find('.field').removeClass('error');
+  // $form.find('.field').removeClass('error');
+  $form.find('[data-param]').removeClass('error').popup('destroy');
 };
 
 var showFormError = function($form, err) {
+  clearFormError($form);
+
   $err = $form.find('.error.message');
   $err.find('p').text(err.msg);
   $err.show();
 
-  if (err.field) {
-    $form.find('[name=' + err.field + ']').closest('.field').addClass('error');
+  if (err.fields) {
+    err.fields.map((field) => {
+      $form.find('[data-param=' + field.param + ']')
+        .addClass('error').
+        attr('data-content', field.msg).popup({ 
+          inline: true,
+          position: 'bottom right',
+          className: {
+            popup: 'ui popup error'
+          }
+        });  //.closest('.field').addClass('error');
+    })
   }
 }
 
@@ -93,7 +106,11 @@ $('.checkbox-editing-mode').checkbox({
       console.log(getError(jqXHR));
     });
   }
-})
+});
+
+var getSlug = function(name) {
+  return name.trim().toLowerCase().replace(/[^\w\d\s-]/gi, '').replace(/\s+/gi, '-');
+}
 
 /**
  * Anchors

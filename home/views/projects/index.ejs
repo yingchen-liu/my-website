@@ -45,18 +45,20 @@
 
                   <span style="display: flex;">
                     <%# --- Icon --- %>
-                    <i class="<%= projectType.icon %> icon btn-change-type-icon" 
-                      data-icon="<%= projectType.icon %>"
-                      style="cursor: pointer"></i>
-                    <div class="ui custom change-icon popup bottom left transition hidden">
-                      <div class="field">
-                        <input type="text" name="icon-name" value="<%= projectType.icon %>" placeholder="Icon Name">
+                    <div data-param="icon">
+                      <i class="<%= projectType.icon %> icon btn-change-type-icon" 
+                        data-icon="<%= projectType.icon %>"
+                        style="cursor: pointer"></i>
+                      <div class="ui custom change-icon popup bottom left transition hidden">
+                        <div class="field">
+                          <input type="text" name="icon-name" value="<%= projectType.icon %>" placeholder="Icon Name">
+                        </div>
+                        <a href="https://semantic-ui.com/elements/icon.html" target="_blank">Show all icons</a>
                       </div>
-                      <a href="https://semantic-ui.com/elements/icon.html" target="_blank">Show all icons</a>
                     </div>
         
                     <%# --- Title --- %>
-                    <input type="text" class="inline-editing" style="flex-grow: 1;" name="type-name" value="<%= projectType.name %>" tabindex="<%= i * 4 + 1 %>" placeholder="Type Name">
+                    <input type="text" class="inline-editing" style="flex-grow: 1;" name="type-name" data-param="name" value="<%= projectType.name %>" tabindex="<%= i * 4 + 1 %>" placeholder="Type Name">
         
                     <button class="mini right floated ui icon button btn-edit-project-type" tabindex="<%= i * 4 + 3 %>" type="button">
                       <i class="save icon"></i>
@@ -71,10 +73,10 @@
                   </span>
 
                   <%# --- Subtitle --- %>
-                  <div class="sub header"><input type="text" class="inline-editing" style="width: 100%;" name="type-subtitle" value="<%= projectType.subtitle %>" tabindex="<%= i * 4 + 2 %>" placeholder="Subtitle"></div>
+                  <div class="sub header"><input type="text" class="inline-editing" style="width: 100%;" name="type-subtitle" data-param="subtitle" value="<%= projectType.subtitle %>" tabindex="<%= i * 4 + 2 %>" placeholder="Subtitle"></div>
                   <div class="sub header" style="display: flex; font-size: 0.7rem; padding-left: 6px;">
                     <label style="margin-right: 3px;">Slug:</label>
-                    <input type="text" class="inline-editing sm" name="type-slug" value="<%= projectType.slug %>" tabindex="-1" placeholder="Slug">
+                    <input type="text" class="inline-editing sm" name="type-slug" data-param="slug" value="<%= projectType.slug %>" tabindex="-1" placeholder="Slug">
                   </div>
                 <% } else { %>
 
@@ -86,22 +88,20 @@
                 <% } %>
               </h2>
 
-              <div class="ui error message hidden">
-                <i class="close icon"></i>
-                <div class="header">Error</div>
-                <p></p>
-              </div>
+              <%- include('../error-message') %>
 
               <div class="ui projects items">
 
                 <%# --- Loop Projects --- %>
                 <% projectType.projects = projectType.projects ? projectType.projects : []; %>
-                <% projectType.projects.forEach((project) => { %>
+                <% projectType.projects.forEach((project) => { 
+                  if (project.isDraft && !locals.user) return;
+                  %>
                   <div class="project item">
 
                     <%# --- Image --- %>
                     <a href="<%= base %>/projects/<%= project.slug %>" class="image">
-                      <img src="<%= base %>/uploads/projects/<%= process(project.cover, 'w500', 'c1.77') %>" alt="<%= project.name %>">
+                      <img src="<%= base %>/<%= process(project.cover, 'w500', 'c1.77') %>" alt="<%= project.name %>">
                     </a>
                     <div class="content">
 
@@ -109,7 +109,14 @@
                       <a href="<%= base %>/projects/<%= project.slug %>" class="header">
                         <%= project.name %>
                       </a>
-                      <a class="ui right floated mini blue basic label"><%= project.lable %></a>
+                      <% if (project.isDraft) { %>
+                        <span style="color: #666; font-size: 1rem;">(Draft)</span>
+                      <% } %>
+
+                      <%# --- Label --- %>
+                      <% if (project.label) { %>
+                        <a class="ui right floated mini blue basic label"><%= project.label %></a>
+                      <% } %>
 
                       <%# --- Responsibilities --- %>
                       <div class="meta">
@@ -122,12 +129,23 @@
                       </div>
 
                       <%# --- Technologies --- %>
-                      <div class="extra">
-                        <% project.technologies.forEach((technology) => { %><div class="ui mini label"><%= technology %></div><% }); %>
-                      </div>
+                      <% if (Array.isArray(project.technologies) && project.technologies.length > 0) { %>
+                        <div class="extra">
+                          <% project.technologies.forEach((technology) => { %><div class="ui mini label"><%= technology %></div><% }); %>
+                        </div>
+                      <% } %>
                     </div>
                   </div>
                 <% }); %>
+
+                <% if (locals.user && session.editingMode) { %>
+                  <div>
+                    <a href="<%= base %>/projects/<%= projectType.slug %>/new-project" class="fluid ui button btn-add-project">
+                      <i class="icon plus"></i>
+                      Add a Project
+                    </a>
+                  </div>
+                <% } %>
               </div>
             </form>
           </li>
@@ -137,19 +155,21 @@
       <%# --- [Admin] Add New Project Type --- %>
       <% if (locals.user && session.editingMode) { %>
         <form class="ui form">
-          <h2 class="ui dividing header">
+          <h2 class="ui dividing header" style="margin-top: 1.8rem;">
             <span style="display: flex;">
               <%# --- Icon --- %>
-              <i class="folder open icon btn-change-type-icon" data-icon="" style="cursor: pointer"></i>
-              <div class="ui custom change-icon popup bottom left transition hidden">
-                <div class="field">
-                  <input type="text" name="icon-name" value="" placeholder="Icon Name">
+              <div data-param="icon">
+                <i class="folder open icon btn-change-type-icon" data-icon="" style="cursor: pointer"></i>
+                <div class="ui custom change-icon popup bottom left transition hidden">
+                  <div class="field">
+                    <input type="text" name="icon-name" value="" placeholder="Icon Name">
+                  </div>
+                  <a href="https://semantic-ui.com/elements/icon.html" target="_blank">Show all icons</a>
                 </div>
-                <a href="https://semantic-ui.com/elements/icon.html" target="_blank">Show all icons</a>
               </div>
 
               <%# --- Title --- %>
-              <input type="text" class="inline-editing new-type-name" style="flex-grow: 1;" name="type-name" value="" tabindex="<%= projectTypes.length * 4 + 1 %>" placeholder="Type Name">
+              <input type="text" class="inline-editing new-type-name" style="flex-grow: 1;" name="type-name" data-param="name" value="" tabindex="<%= projectTypes.length * 4 + 1 %>" placeholder="Type Name">
 
               <button class="mini right floated ui icon button btn-add-project-type" tabindex="<%= projectTypes.length * 4 + 3 %>" type="button">
                 <i class="plus icon"></i>
@@ -157,18 +177,14 @@
             </span>
 
             <%# --- Subtitle --- %>
-            <div class="sub header"><input type="text" class="inline-editing" style="width: 100%;" name="type-subtitle" value="" tabindex="<%= projectTypes.length * 4 + 2 %>" placeholder="Subtitle"></div>
+            <div class="sub header"><input type="text" class="inline-editing" style="width: 100%;" name="type-subtitle" data-param="subtitle" value="" tabindex="<%= projectTypes.length * 4 + 2 %>" placeholder="Subtitle"></div>
             <div class="sub header" style="display: flex; font-size: 0.7rem; padding-left: 6px;">
               <label style="margin-right: 3px;">Slug:</label>
-              <input type="text" class="inline-editing sm" name="type-slug" value="" tabindex="-1" placeholder="Slug">
+              <input type="text" class="inline-editing sm" name="type-slug" data-param="slug" value="" tabindex="-1" placeholder="Slug">
             </div>
           </h2>
 
-          <div class="ui error message hidden">
-            <i class="close icon"></i>
-            <div class="header">Error</div>
-            <p></p>
-          </div>
+          <%- include('../error-message') %>
         </form>
       <%} %>
 

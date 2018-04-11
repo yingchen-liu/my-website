@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const lessMiddleware = require('less-middleware');
 const session = require('express-session');
+const busboy = require('connect-busboy');
 
 const c = require('./includes/config');
 const f = require('./includes/functions');
@@ -17,6 +18,7 @@ const projects = require('./routes/projects');
 const life = require('./routes/life');
 const collections = require('./routes/collections');
 const users = require('./routes/users');
+const uploads = require('./routes/uploads');
 
 const app = express();
 
@@ -33,6 +35,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(busboy());
 app.use(session({
   secret: c.auth.sessionSecret,
   resave: false,
@@ -44,48 +47,46 @@ app.use('/projects', projects);
 app.use('/life', life);
 app.use('/collections', collections);
 app.use('/users', users);
+app.use('/uploads', uploads);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   res.status(404);
-  if (req.accepts('html')) {
-    res.render('404', f.data({
-      title: '#404',
-      url: req.url
-    }, req));
-  } else if (req.accepts('json')) {
+  
+  if (req.xhr) {
     res.json({
       err: {
         msg: 'Not found.'
       }
     });
   } else {
-    res.type('txt').send('Not found.');
+    res.render('404', f.data({
+      title: '#404',
+      url: req.url
+    }, req));
   }
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   res.status(err.status || 500);
 
   console.error('An error has occured', err.message, err);
   
-  if (req.accepts('html')) {
+  if (req.xhr) {
+    res.json({
+      err: {
+        msg: err.message,
+        fields: err.fields
+      }
+    });
+  } else {
     res.render('error', f.data({
       title: 'Error',
       msg: err.message,
       status: err.status ? err.status : 500,
       err: req.app.get('env') === 'development' ? err : {}
     }, req));
-  } else if (req.accepts('json')) {
-    res.json({
-      err: {
-        msg: err.message,
-        field: err.field
-      }
-    });
-  } else {
-    res.type('txt').send(err.msg);
   }
 });
 

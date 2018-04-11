@@ -17,6 +17,7 @@ const vendor = {
     // './bower_components/jquery-ui/ui/widgets/datepicker.js',
     './bower_components/jquery-ui/ui/widgets/mouse.js',
     './bower_components/jquery-ui/ui/widgets/sortable.js',
+    './bower_components/dropzone/dist/dropzone.js'
   ],
   jsMarkdown: [
     './bower_components/editor.md/lib/marked.min.js',
@@ -35,6 +36,7 @@ const vendor = {
   ],
   cssAdmin: [
     './bower_components/jquery-ui/themes/base/all.css',
+    './bower_components/dropzone/dist/dropzone.css'
   ]
 };
 

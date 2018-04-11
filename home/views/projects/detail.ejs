@@ -4,7 +4,10 @@
   ]
 }); %>
 <div class="page projects detail">
-  <form data-id="<%= project.id %>">
+  <form class="ui form">
+    <input type="hidden" name="id" value="<%= project.id %>">
+    <input type="hidden" name="type" value="<%= project.type ? project.type : type.id %>">
+
     <div class="ui main grid container">
       <div class="tablet computer only four wide column">
 
@@ -19,15 +22,26 @@
         <a class="anchor" name="top"></a>
         <h1 class="ui dividing header" style="display: flex;">
           <% if (locals.user && session.editingMode) { %>
-            <input type="text" class="inline-editing" style="flex-grow: 1;" name="name" value="<%= project.name %>" placeholder="Project Name">
+            <input type="text" class="inline-editing" style="flex-grow: 1;" name="name" data-param="name" value="<%= project.name %>" placeholder="Project Name">
           <% } else { %>
             <%= project.name %>
           <% } %>
         </h1>
-        <img src="<%= base %>/uploads/projects/<%= project.cover %>" class="ui fluid image">
+
+        <%# --- Cover --- %>
+        <% if (locals.user && session.editingMode) { %>
+          <div data-param="cover">
+            <img id="project-cover-dropzone" class="ui fluid image" src="<%= project.cover ? `${c.base}/${project.cover}` : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAABCAQAAACx6dw/AAAAC0lEQVR42mNkAAMAAA4AAjOwv9wAAAAASUVORK5CYII=' %>"
+              style="cursor: pointer; background-repeat: no-repeat; background-position: center; background-image: url('data:image/png;base64,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')">
+            <input type="hidden" name="cover" value="<%= project.cover %>">
+          </div>
+        <% } else { %>
+          <img src="<%= base %>/<%= project.cover %>" class="ui fluid image">
+        <% } %>
+
         <h3>
           <% if (locals.user && session.editingMode) { %>
-            <textarea class="inline-editing" name="brief" style="width: 100%;" placeholder="Brief Description"><%= project.brief %></textarea>
+            <textarea class="inline-editing" name="brief" data-param="brief" style="width: 100%; border: 1px solid #ddd;" rows="3" placeholder="Brief Description"><%= project.brief %></textarea>
           <% } else { %>
             <%= project.brief %>
           <% } %>
@@ -35,15 +49,15 @@
       </div>
 
       <div class="main area sixteen wide mobile only column">
-          <a class="anchor" name="top"></a>
-          <h1 class="ui dividing header" style="display: flex;">
-            <%= project.name %>
-          </h1>
-          <img src="<%= base %>/uploads/projects/<%= project.cover %>" class="ui fluid image">
-          <h3>
-            <%= project.brief %>
-          </h3>
-        </div>
+        <a class="anchor" name="top"></a>
+        <h1 class="ui dividing header" style="display: flex;">
+          <%= project.name %>
+        </h1>
+        <img src="<%= base %>/<%= project.cover %>" class="ui fluid image">
+        <h3>
+          <%= project.brief %>
+        </h3>
+      </div>
 
       <%# --- Project Information [mobile] --- %>
       <div class="sixteen wide mobile only column">
@@ -53,20 +67,18 @@
       <%# --- Content --- %>
       <% if (locals.user && session.editingMode) { %>
         <div class="sixteen wide tablet computer only column" style="margin-bottom: 2rem;">
-          <div id="markdown-editor">
-            <textarea style="display: none;">
-              <%- project.content %>
-            </textarea>
+          <div id="markdown-editor" style="border-radius: 5px;">
+            <textarea style="display: none;"><%- project.content %></textarea>
           </div>
 
+          <%- include('../error-message') %>
+
           <button class="ui button btn-save" type="button">
-            <i class="save icon"></i> Save Changes
+            <i class="save icon"></i><%= project.id ? 'Save Changes' : 'Add Project' %>
           </button>
         </div>
         <div class="sixteen wide mobile only column">
-          <textarea id="markdown-content" style="display: none;">
-            <%- project.content %>
-          </textarea>
+          <textarea id="markdown-content" style="display: none;"><%- project.content %></textarea>
           <article id="markdown-body" class="markdown-body">
             
           </article>
@@ -74,9 +86,7 @@
       <% } else { %>
         <div class="four wide tablet computer only column"></div>
         <div class="sixteen wide mobile twelve wide tablet twelve wide computer column">
-          <textarea id="markdown-content" style="display: none;">
-            <%- project.content %>
-          </textarea>
+          <textarea id="markdown-content" style="display: none;"><%- project.content %></textarea>
           <article id="markdown-body" class="markdown-body">
             
           </article>

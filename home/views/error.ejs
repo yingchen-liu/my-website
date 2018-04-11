@@ -5,14 +5,13 @@
 }); %>
 <div class="page not found">
   <div class="ui main grid container">
-    <div class="two wide column"></div>
-    <div class="ten wide column">
+    <div class="sixteen wide column">
       <div class="ui negative message">
         <div class="header">
           # <%= status %>
         </div>
         <p><%= msg %></p>
-        <pre><%= err.stack %></pre>
+        <pre style="overflow-x: scroll;"><%= err.stack %></pre>
       </div>
     </div>
 

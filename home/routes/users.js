@@ -2,13 +2,23 @@ const express = require('express');
 const router = express.Router();
 
 const md5 = require('md5');
+const { check, validationResult } = require('express-validator/check');
+const { matchedData, sanitize } = require('express-validator/filter');
 
 const f = require('../includes/functions');
 const c = require('../includes/config');
 
 
-router.post('/login', f.wrap(async (req, res, next) => {
+router.post('/login', [
+  check('email')
+    .exists().not().isEmpty().withMessage('Give me your email please.'),
+  check('password')
+    .exists().not().isEmpty().withMessage('Show me your password please.')
+], f.wrap(async (req, res, next) => {
   const db = req.db;
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) return next(new f.AppError('Invalid data.', 422, errors.array()));
 
   const results = await db.users.filter({
     email: req.body.email
@@ -27,6 +37,7 @@ router.post('/login', f.wrap(async (req, res, next) => {
 
   // success
   req.session.user = user;
+  req.session.editingMode = true;
 
   res.json({
     user: user

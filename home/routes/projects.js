@@ -1,13 +1,124 @@
 const express = require('express');
 const router = express.Router();
 
+const { check, validationResult } = require('express-validator/check');
+const { matchedData, sanitize } = require('express-validator/filter');
+
 const c = require('../includes/config');
 const f = require('../includes/functions');
 const db = require('../includes/db');
 
 
+const validateProjectType = [
+  check('id')
+    .custom(f.wrap(async (id, { req, location, path }) => {
+      const db = req.db;
+
+      if (id) {
+        // for update only
+
+        const typeRecord = await db.projectTypes.get(req.params.id).run(db.conn).catch((err) => {
+          throw err;
+        });
+
+        if (!typeRecord) throw new Error('No such project type.');
+      }
+    })),
+  check('name').exists().trim().not().isEmpty().withMessage('Project type should have a name.'),
+  check('slug')
+    .exists().trim().not().isEmpty().withMessage('Project must have a slug.')
+    .custom(f.wrap(async (slug, { req, location, path }) => {
+      const db = req.db;
+
+      const slugResults = await db.projectTypes.filter({
+        slug: req.body.slug
+      }).run(db.conn).catch((err) => {
+        throw err;
+      });
+      const slugRecords = await slugResults.toArray().catch((err) => {
+        throw err;
+      });
+    
+      if (req.params.id) {
+        // for update
+        if (slugRecords.length > 0 && slugRecords[0].id !== req.params.id) throw new Error('The slug has already existed.');
+      } else {
+        // for insert
+        if (slugRecords.length > 0) throw new Error('The slug has already existed.');
+      }
+    })),
+  check('icon').exists().trim().not().isEmpty().withMessage('Choose an icon please.'),
+  check('sort').optional().isInt({ min: 0 }).withMessage('Sort should be a positive integer or zero.')
+];
+
+const validateProject = [
+  check('id')
+    .custom(f.wrap(async (id, { req, location, path }) => {
+      const db = req.db;
+
+      if (id) {
+        // for update only
+
+        const projectRecord = await db.projects.get(req.params.id).run(db.conn).catch((err) => {
+          throw err;
+        });
+
+        if (!projectRecord) throw new Error('No such project.');
+      }
+    })),
+  check('name')
+    .exists().trim().not().isEmpty().withMessage('Project must have a name.'),
+  check('brief')
+    .exists().trim().not().isEmpty().withMessage('Brief description must be provided.'),
+  check('fromMonth')
+    .exists().isInt().withMessage('From month must be an integer.').toInt(),
+  check('fromYear')
+    .exists().isInt().withMessage('From year must be an integer.').toInt(),
+  check('toMonth')
+    .exists().isInt().withMessage('To month must be an integer.').toInt(),
+  check('toYear')
+    .exists().isInt().withMessage('To year must be an integer.').toInt(),
+  check('cover')
+    .exists().not().isEmpty().withMessage('You must upload a cover image for this project.'),
+  check('type')
+    .exists().trim().not().isEmpty().withMessage('Project must have a type.')
+    .custom(f.wrap(async (type, { req, location, path }) => {
+      const db = req.db;
+
+      const typeRecord = await db.projectTypes.get(type).run(db.conn).catch((err) => {
+        throw err;
+      });
+
+      if (!typeRecord) throw new Error('No such project type.');
+    })),
+  check('slug')
+    .exists().trim().not().isEmpty().withMessage('Project must have a slug.')
+    .custom(f.wrap(async (slug, { req, location, path }) => {
+      const db = req.db;
+
+      const slugResults = await db.projects.filter({
+        type: req.body.type,
+        slug: req.body.slug
+      }).run(db.conn).catch((err) => {
+        throw err;
+      });
+      const slugRecords = await slugResults.toArray().catch((err) => {
+        throw err;
+      });
+    
+      if (req.params.id) {
+        // for update
+        if (slugRecords.length > 0 && slugRecords[0].id !== req.params.id) throw new Error('The slug has already existed.');
+      } else {
+        // for insert
+        if (slugRecords.length > 0) throw new Error('The slug has already existed.');
+      }
+    }))
+];
+
+
 /**
- * Index
+ * Get project list
  */
 router.get('/', f.wrap(async (req, res, next) => {
   const db = req.db;
@@ -46,8 +157,82 @@ router.get('/', f.wrap(async (req, res, next) => {
   }, req));
 }));
 
+/**
+ * Add new project page
+ */
+router.get('/:type/new-project', f.wrap(async (req, res, next) => {
+  const db = req.db;
+
+  if (!req.session.user) return next(new f.AppError('Permission denied.', 403));
+
+  const typeResults = await db.projectTypes.filter({
+    slug: req.params.type
+  }).run(db.conn).catch(next);
+  const typeRecords = await typeResults.toArray().catch(next);
+
+  if (typeRecords.length === 0) return next(new f.AppError('No such project type.', 404));
+
+  res.render('projects/detail', f.data({ 
+    title: f.title('Add a Project', 'Projects'),
+    type: typeRecords[0],
+    project: {
+      responsibilities: [],
+      technologies: []
+    }
+  }, req));
+}));
+
+/**
+ * Add project
+ */
+router.post('/', validateProject, f.wrap(async (req, res, next) => {
+  const db = req.db;
+
+  if (!req.session.user) return next(new f.AppError('Permission denied.', 403));
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) return next(new f.AppError('Invalid data.', 422, errors.array()));
+
+
+  // insert
+  const result = await db.projects
+    .insert({
+      name: req.body.name,
+      brief: req.body.brief,
+      label: req.body.label,
+      responsibilities: f.arrayFromString(req.body.responsibilities),
+      from: {
+        year: req.body.fromYear,
+        month: req.body.fromMonth
+      },
+      to: {
+        year: req.body.toYear,
+        month: req.body.toMonth
+      },
+      content: req.body.content,
+      showInResume: req.body.showInResume === 'true',
+      isDraft: req.body.isDraft === 'true',
+      technologies: f.arrayFromString(req.body.technologies),
+      cover: req.body.cover,
+      type: req.body.type,
+      slug: req.body.slug
+    })
+    .run(db.conn).catch(next);
+
+  const key = result.generated_keys[0];
+  const insertedRecord = await db.projects.get(key).run(db.conn).catch(next);
+
+  res.json({
+    project: insertedRecord
+  });
+}));
+
+/**
+ * Get project
+ */
 router.get('/:slug', f.wrap(async (req, res, next) => {
   const db = req.db;
+
   const results = await db.projects
     .filter({ slug: req.params.slug })
     .run(db.conn).catch(next);
@@ -56,6 +241,8 @@ router.get('/:slug', f.wrap(async (req, res, next) => {
   if (records.length === 0) return next();
 
   const project = records[0];
+
+  if (project.isDraft && !req.session.user) return next(new f.AppError('Permission denied.', 403));
 
   res.render('projects/detail', f.data({ 
     title: f.title(project.name, 'Projects'),
@@ -66,10 +253,16 @@ router.get('/:slug', f.wrap(async (req, res, next) => {
   }, req));
 }));
 
-router.post('/types', f.wrap(async (req, res, next) => {
+/**
+ * Add project type
+ */
+router.post('/types', validateProjectType, f.wrap(async (req, res, next) => {
   const db = req.db;
 
   if (!req.session.user) return next(new f.AppError('Permission denied.', 403));
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) return next(new f.AppError('Invalid data.', 422, errors.array()));
 
   // check if the slug exists
   const slugResults = await db.projectTypes.filter({
@@ -104,6 +297,9 @@ router.post('/types', f.wrap(async (req, res, next) => {
   });
 }));
 
+/**
+ * Sort project type
+ */
 router.post('/types/sort', f.wrap(async (req, res, next) => {
   const db = req.db;
 
@@ -121,28 +317,18 @@ router.post('/types/sort', f.wrap(async (req, res, next) => {
   res.json({});
 }));
 
-router.post('/types/:id', f.wrap(async (req, res, next) => {
+/**
+ * Update project type
+ */
+router.post('/types/:id', validateProjectType, f.wrap(async (req, res, next) => {
   const db = req.db;
 
   if (!req.session.user) return next(new f.AppError('Permission denied.', 403));
 
-  // check if the type exists
-  const typeRecord = await db.projectTypes.get(req.params.id).run(db.conn).catch(next);
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) return next(new f.AppError('Invalid data.', 422, errors.array()));
 
-  if (!typeRecord) return res.status(404).send({
-    err: {
-      msg: 'No such project type.'
-    }
-  }).end();
-
-  // check if the slug exists
-  const slugResults = await db.projectTypes.filter({
-    slug: req.body.slug
-  }).run(db.conn).catch(next);
-  const slugRecords = await slugResults.toArray().catch(next);
-
-  if (slugRecords.length > 0 && slugRecords[0].id !== req.params.id) return next(new f.AppError('The slug already exists.'));
-
+  // update
   const result = await db.projectTypes.get(req.params.id)
     .update({
       name: req.body.name,
@@ -159,6 +345,9 @@ router.post('/types/:id', f.wrap(async (req, res, next) => {
   });
 }));
 
+/**
+ * Delete project type
+ */
 router.delete('/types/:id', f.wrap(async (req, res, next) => {
   const db = req.db;
 
@@ -185,6 +374,49 @@ router.delete('/types/:id', f.wrap(async (req, res, next) => {
   const results = await db.projectTypes.get(req.params.id).delete().run(db.conn).catch(next);
 
   res.json({});
+}));
+
+/**
+ * Update project
+ */
+router.post('/:id', validateProject, f.wrap(async (req, res, next) => {
+  const db = req.db;
+
+  if (!req.session.user) return next(new f.AppError('Permission denied.', 403));
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) return next(new f.AppError('Invalid data.', 422, errors.array()));
+
+  // update
+  const result = await db.projects.get(req.params.id)
+    .update({
+      name: req.body.name,
+      brief: req.body.brief,
+      label: req.body.label,
+      responsibilities: f.arrayFromString(req.body.responsibilities),
+      from: {
+        year: req.body.fromYear,
+        month: req.body.fromMonth
+      },
+      to: {
+        year: req.body.toYear,
+        month: req.body.toMonth
+      },
+      content: req.body.content,
+      showInResume: req.body.showInResume === 'true',
+      isDraft: req.body.isDraft === 'true',
+      technologies: f.arrayFromString(req.body.technologies),
+      cover: req.body.cover,
+      slug: req.body.slug,
+      type: req.body.type
+    })
+    .run(db.conn).catch(next);
+
+  const updatedRecord = await db.projects.get(req.params.id).run(db.conn).catch(next);
+
+  res.json({
+    project: updatedRecord
+  });
 }));
 
 module.exports = router;

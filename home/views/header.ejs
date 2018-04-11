@@ -102,17 +102,16 @@
                 <h3 class="ui header">
                   Login
                 </h3>
-                <div class="ui error message hidden">
-                  <div class="header">Error</div>
-                  <p></p>
-                </div>
+
+                <%- include('./error-message') %>
+
                 <div class="required field">
                   <label>Email</label>
-                  <input type="text" name="email" placeholder="Email">
+                  <input type="text" name="email" data-param="email" placeholder="Email">
                 </div>
                 <div class="required field">
                   <label>Password</label>
-                  <input type="password" name="password" placeholder="This is a secret!">
+                  <input type="password" name="password" data-param="password" placeholder="This is a secret!">
                 </div>
                 <button class="ui button btn-login" type="button">Login</button>
               </form>

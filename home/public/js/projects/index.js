@@ -85,6 +85,7 @@ if ($('#var-editing-mode').val() === 'true') {
       $new.find('.btn-change-type-icon').addClass(data.projectType.icon).popup({
         on: 'click'
       });
+      $new.find('.btn-add-project').attr('href', base + '/projects/' + data.projectType.slug + '/new-project');
       $template.after($new.show());
 
       // clear the form
@@ -93,10 +94,15 @@ if ($('#var-editing-mode').val() === 'true') {
       $form.find('[name=type-subtitle]').attr('tabindex', tabIndex + 5);
       $form.find('.btn-add-project-type').attr('tabindex', tabIndex + 6);
       $form.find('.btn-change-type-icon').attr('data-icon', '').removeClass().addClass('btn-change-type-icon');
-      $form.removeClass('loading');
     }).fail(function (jqXHR) {
-      $form.removeClass('loading');
+
       showFormError($form, getError(jqXHR));
+    }).always(function () {
+      $form.removeClass('loading');
+      
+      $form.find('.btn-change-type-icon').popup({
+        on: 'click'
+      });
     });
   });
 
@@ -117,10 +123,17 @@ if ($('#var-editing-mode').val() === 'true') {
       slug: slug,
       subtitle: subtitle
     }).done(function(data) {
-      $form.removeClass('loading');
+
+      $form.find('.btn-add-project').attr('href', base + '/projects/' + data.projectType.slug + '/new-project');
     }).fail(function (jqXHR) {
-      $form.removeClass('loading');
+
       showFormError($form, getError(jqXHR));
+    }).always(function () {
+      $form.removeClass('loading');
+
+      $form.find('.btn-change-type-icon').popup({
+        on: 'click'
+      });
     });
   });
 
@@ -145,7 +158,7 @@ if ($('#var-editing-mode').val() === 'true') {
   $('.new-type-name').on('input', function() {
     var $that = $(this);
     var $form = $that.closest('form');
-    var slug = $that.val().toLowerCase().replace(/[^\w\s-]/gi, '').replace(/\s+/gi, '-');
+    var slug = getSlug($that.val());
     $form.find('[name=type-slug]').val(slug);
   });
 }

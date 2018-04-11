@@ -1,4 +1,5 @@
 const process = require('process');
+const path = require('path');
 
 const env = typeof process.env.NODE_ENV === 'undefined' ? 'development' : process.env.NODE_ENV;
 console.log(`uses config for environment ${env}`);
@@ -24,12 +25,18 @@ var config = {
     db: {
       host: '127.0.0.1',
       port: 28015
+    },
+    upload: {
+      dir: path.resolve(`${__dirname}/../uploads`)
     }
   },
   production: {
     db: {
       host: 'db',
       port: 28015
+    },
+    upload: {
+      dir: '/srv/volumes/mywebsite/uploads'
     },
     ga: {
       trackingId: 'UA-76013614-1'

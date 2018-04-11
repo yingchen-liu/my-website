@@ -1,107 +1,172 @@
 <div class="ui segments project-info">
-  <div class="ui segment">
-    <p>Project Information</p>
-  </div>
-  <div class="ui secondary segment">
-    <div class="ui list">
-
-      <%# --- Label --- %>
-      <div class="item">
-        <i class="tag icon"></i>
-        <div class="content">
-          <% if (locals.user && session.editingMode && enableEditing) { %>
-            <input type="text" class="inline-editing" name="label" value="<%= project.label %>" placeholder="Label">
-          <% } else { %>
-            <%= project.label %>
-          <% } %>
-        </div>
-      </div>
-
-      <%# --- Responsibilities --- %>
-      <div class="item">
-        <i class="crop icon"></i>
-        <div class="content">
-          <% if (locals.user && session.editingMode && enableEditing) { %>
-            <input type="text" class="inline-editing" name="responsibilities" value="<%= project.responsibilities.join(', ') %>" placeholder="Label">
-          <% } else { %>
-            <%= project.responsibilities.join(', ') %>
-          <% } %>
-        </div>
-      </div>
-
-      <%# --- Time --- %>
-      <div class="item">
-        <i class="calendar icon"></i>
-        <div class="content">
-          <% if (locals.user && session.editingMode && enableEditing) { %>
-            <div data-name="from-month" class="ui inline scrolling dropdown">
-              <input type="hidden" name="from-month" value="<%= project.from ? project.from.month : '' %>">
-              <div class="text"><%= project.from ? project.from.month : 'Month' %></div>
-              <i class="dropdown icon"></i>
-              <div class="menu">
-                <% var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'Octorber', 'November', 'December']; %>
-                <% months.forEach((month, i) => { %>
-                  <div class="item<%= project.from && project.from.month === i + 1 ? ' active' : '' %>" data-text="<%= i + 1 %>"><%= month %></div>
-                <% }); %>
-              </div>
+    <div class="ui segment">
+      <p>Project Information</p>
+    </div>
+    <div class="ui secondary segment">
+      <div class="ui list">
+  
+        <%# --- Label --- %>
+        <% if (locals.user && session.editingMode && enableEditing) { %>
+          <div class="item">
+            <i class="tag icon"></i>
+            <div class="content">
+                <input type="text" class="inline-editing" name="label" data-param="label" value="<%= project.label %>" placeholder="Label">
             </div>
-
-            <span>/</span>
-
-            <div data-name="from-year" class="ui inline scrolling dropdown">
-              <input type="hidden" name="from-year" value="<%= project.from ? project.from.year : '' %>">
-              <div class="text"><%= project.from ? project.from.year : 'Year' %></div>
-              <i class="dropdown icon"></i>
-              <div class="menu">
-                <% for (var year = 2011; year <= 2050; year++) { %>
-                  <div class="item<%= project.from && project.from.year === year ? ' active' : '' %>" data-text="<%= year %>"><%= year %></div>
-                <% } %>
-              </div>
+          </div>
+        <% } else if (project.label) { %>
+          <div class="item">
+            <i class="tag icon"></i>
+            <div class="content">
+                <%= project.label %>
             </div>
-
-            <span>-</span>
-
-            <div data-name="to-month" class="ui inline scrolling dropdown">
-              <input type="hidden" name="to-month" value="<%= project.to ? project.to.month : '' %>">
-              <div class="text"><%= project.to ? project.to.month : 'Month' %></div>
-              <i class="dropdown icon"></i>
-              <div class="menu">
-                <% var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'Octorber', 'November', 'December']; %>
-                <% months.forEach((month, i) => { %>
-                  <div class="item<%= project.to && project.to.month === i + 1 ? ' active' : '' %>" data-text="<%= i + 1 %>"><%= month %></div>
-                <% }); %>
-              </div>
+          </div>
+        <% } %>
+  
+        <%# --- Responsibilities --- %>
+        <% if (locals.user && session.editingMode && enableEditing) { %>
+          <div class="item">
+            <i class="crop icon"></i>
+            <div class="content">
+              <textarea class="inline-editing" name="responsibilities" data-param="responsibilities" rows="2" placeholder="Responsibilities"><%= project.responsibilities.join(', ') %></textarea>
             </div>
-
-            <span>/</span>
-
-            <div data-name="to-year" class="ui inline scrolling dropdown">
-              <input type="hidden" name="to-year" value="<%= project.to ? project.to.year : '' %>">
-              <div class="text"><%= project.to ? project.to.year : 'Year' %></div>
-              <i class="dropdown icon"></i>
-              <div class="menu">
-                <% for (var year = 2011; year <= 2050; year++) { %>
-                  <div class="item<%= project.to && project.to.year === year ? ' active' : '' %>" data-text="<%= year %>"><%= year %></div>
-                <% } %>
-              </div>
+          </div>
+        <% } else if (Array.isArray(project.responsibilities) && project.responsibilities.length > 0) { %>
+          <div class="item">
+            <i class="crop icon"></i>
+            <div class="content">
+              <%= project.responsibilities.join(', ') %>
             </div>
-          <% } else { %>
-            <%= project.from.month %>/<%= project.from.year %> - <%= project.to.month %>/<%= project.to.year %>
-          <% } %>
+          </div>
+        <% } %>
+  
+        <%# --- Time --- %>
+        <div class="item">
+          <i class="calendar icon"></i>
+          <div class="content">
+            <% if (locals.user && session.editingMode && enableEditing) { %>
+              <div data-name="from-month" data-param="fromMonth" class="ui inline scrolling dropdown">
+                <input type="hidden" name="from-month" value="<%= project.from ? project.from.month : '' %>">
+                <div class="text"><%= project.from ? project.from.month : 'Month' %></div>
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                  <% var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'Octorber', 'November', 'December']; %>
+                  <% months.forEach((month, i) => { %>
+                    <div class="item<%= project.from && project.from.month === i + 1 ? ' active' : '' %>" data-text="<%= i + 1 %>"><%= month %></div>
+                  <% }); %>
+                </div>
+              </div>
+  
+              <span>/</span>
+  
+              <div data-name="from-year" data-param="fromYear" class="ui inline scrolling dropdown">
+                <input type="hidden" name="from-year" value="<%= project.from ? project.from.year : '' %>">
+                <div class="text"><%= project.from ? project.from.year : 'Year' %></div>
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                  <% for (var year = 2011; year <= 2050; year++) { %>
+                    <div class="item<%= project.from && project.from.year === year ? ' active' : '' %>" data-text="<%= year %>"><%= year %></div>
+                  <% } %>
+                </div>
+              </div>
+  
+              <span>-</span>
+  
+              <div data-name="to-month" data-param="toMonth" class="ui inline scrolling dropdown">
+                <input type="hidden" name="to-month" value="<%= project.to ? project.to.month : '' %>">
+                <div class="text"><%= project.to ? project.to.month : 'Month' %></div>
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                  <% var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'Octorber', 'November', 'December']; %>
+                  <% months.forEach((month, i) => { %>
+                    <div class="item<%= project.to && project.to.month === i + 1 ? ' active' : '' %>" data-text="<%= i + 1 %>"><%= month %></div>
+                  <% }); %>
+                </div>
+              </div>
+  
+              <span>/</span>
+  
+              <div data-name="to-year" data-param="toYear" class="ui inline scrolling dropdown">
+                <input type="hidden" name="to-year" value="<%= project.to ? project.to.year : '' %>">
+                <div class="text"><%= project.to ? project.to.year : 'Year' %></div>
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                  <% for (var year = 2011; year <= 2050; year++) { %>
+                    <div class="item<%= project.to && project.to.year === year ? ' active' : '' %>" data-text="<%= year %>"><%= year %></div>
+                  <% } %>
+                </div>
+              </div>
+            <% } else { %>
+              <%= project.from ? project.from.month : '' %>/<%= project.from ? project.from.year : '' %> - <%= project.to ? project.to.month : '' %>/<%= project.to ? project.to.year : '' %>
+            <% } %>
+          </div>
         </div>
-      </div>
-
-      <%# --- Technologies --- %>
-      <div class="item">
-        <i class="code icon"></i>
-        <div class="content">
-          <% if (locals.user && session.editingMode && enableEditing) { %>
-            <textarea class="inline-editing" name="technologies" placeholder="Technologies"><%= project.technologies.join(', ') %></textarea>
-          <% } else { %>
-            <%= project.technologies.join(', ') %>
-          <% } %>
-        </div>
+  
+        <%# --- Technologies --- %>
+        <% if (locals.user && session.editingMode && enableEditing) { %>
+          <div class="item">
+            <i class="code icon"></i>
+            <div class="content">
+              <textarea class="inline-editing" name="technologies" data-param="technologies" rows="2" placeholder="Technologies"><%= project.technologies.join(', ') %></textarea>
+            </div>
+          </div>
+        <% } else if (Array.isArray(project.technologies) && project.technologies.length > 0) { %>
+          <div class="item">
+            <i class="code icon"></i>
+            <div class="content">
+              <%= project.technologies.join(', ') %>
+            </div>
+          </div>
+        <% } %>
+        
       </div>
     </div>
   </div>
-</div>
+  
+  
+  
+  <% if (locals.user && session.editingMode && enableEditing) { %>
+    <div class="ui segments project-info">
+      <div class="ui segment">
+        <p>Project Settings</p>
+      </div>
+      <div class="ui secondary segment">
+        <div class="ui list">
+  
+          <%# --- Slug --- %>
+          <div class="item">
+            <i class="barcode icon"></i>
+            <div class="content">
+              <input type="text" class="inline-editing" name="slug" data-param="slug" value="<%= project.slug %>" placeholder="Slug">
+            </div>
+          </div>
+  
+          <div class="item">
+            <div class="content">
+              <div class="ui<%= project.isDraft ? ' checked' : '' %> checkbox" data-param="isDraft">
+                <input type="checkbox" name="is-draft"<%= project.isDraft ? ' checked=""' : '' %>>
+                <label>Draft?</label>
+              </div>
+            </div>
+          </div>
+  
+          <%# --- Resume --- %>
+          <div class="item">
+            <div class="content">
+              <div class="ui<%= project.showInResume ? ' checked' : '' %> checkbox" data-param="showInResume">
+                <input type="checkbox" name="show-in-resume"<%= project.showInResume ? ' checked=""' : '' %>>
+                <label>Show in my Resume?</label>
+              </div>
+            </div>
+          </div>
+  
+          <div class="item">
+            <div class="content">
+              <button class="ui button btn-save" type="button">
+                <i class="save icon"></i> <%= project.id ? 'Save Changes' : 'Add Project' %>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% } %>
