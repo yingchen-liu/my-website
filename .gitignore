@@ -46,6 +46,9 @@ admin/coverage
 # production
 admin/build
 
+# uploads
+home/uploads
+
 # misc
 admin/.DS_Store
 admin/.env.local
