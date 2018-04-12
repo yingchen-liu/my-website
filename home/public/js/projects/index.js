@@ -61,12 +61,14 @@ if ($('#var-editing-mode').val() === 'true') {
     var name = $form.find('[name=type-name]').val();
     var subtitle = $form.find('[name=type-subtitle]').val();
     var slug = $form.find('[name=type-slug]').val();
+    var experienceType = $form.find('[name=type-experience-type]').val();
 
     $.post(base + '/projects/types', {
       icon: icon,
       name: name,
       slug: slug,
-      subtitle: subtitle
+      subtitle: subtitle,
+      experienceType: experienceType
     }).done(function(data) {
       // show the new one
       var $template = $('[data-role=project-type-template]');
@@ -116,12 +118,14 @@ if ($('#var-editing-mode').val() === 'true') {
     var name = $form.find('[name=type-name]').val();
     var subtitle = $form.find('[name=type-subtitle]').val();
     var slug = $form.find('[name=type-slug]').val();
+    var experienceType = $form.find('[name=type-experience-type]').val();
 
     $.post(base + '/projects/types/' + id, {
       icon: icon,
       name: name,
       slug: slug,
-      subtitle: subtitle
+      subtitle: subtitle,
+      experienceType: experienceType
     }).done(function(data) {
 
       $form.find('.btn-add-project').attr('href', base + '/projects/' + data.projectType.slug + '/new-project');

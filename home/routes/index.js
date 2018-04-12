@@ -7,7 +7,9 @@ const router = express.Router();
 const jimp = require('jimp');
 
 const f = require('../includes/functions');
-const imageProcessor = require('../includes/image-processor')
+const imageProcessor = require('../includes/image-processor');
+
+const projects = require('../models/projects');
 
 
 const getSkills = f.wrap(async (db, next) => {
@@ -41,10 +43,28 @@ const getSkills = f.wrap(async (db, next) => {
 router.get('/', f.wrap(async (req, res, next) => {
   const db = req.db;
 
+  const indexRecord = await db.index.get('06d6d96f-7ce7-41ff-a863-def950968c83').run(db.conn).catch(next);
+
+  const featuredProjectRecord = await db.projects.get(indexRecord.featuredProject).run(db.conn).catch(next);
+
   res.render('index', f.data({
     title: f.title(),
-    skillTypes: await getSkills(db)
+    index: indexRecord,
+    featuredProject: featuredProjectRecord,
+    skillTypes: await getSkills(db),
+    projectTypes: await projects.getProjects(db)
   }, req));
+}));
+
+router.post('/', f.wrap(async (req, res, next) => {
+  const db = req.db;
+
+  const result = await db.index.get('06d6d96f-7ce7-41ff-a863-def950968c83').update({
+    introduction: req.body.introduction,
+    featuredProject: req.body.featuredProject
+  }).run(db.conn).catch(next);
+
+  res.json({});
 }));
 
 router.get('/resume*', f.wrap(async (req, res, next) => {

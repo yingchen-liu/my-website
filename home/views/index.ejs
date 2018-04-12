@@ -4,115 +4,171 @@
   ]
 }); %>
 <div class="page index">
-  <div class="ui main grid container">
-    <%# --- Photo Card --- %>
-    <div class="sixteen wide mobile five wide tablet five wide computer column">
-      <div class="ui card">
+  <form class="ui form">
+    <div class="ui main grid container">
+      <%# --- Photo Card --- %>
+      <div class="sixteen wide mobile five wide tablet five wide computer column">
+        <div class="ui card">
 
-        <%# --- Photo --- %>
-        <div class="image">
-          <img alt="Yingchen Liu" src="<%= base %>/images/me.png">
-        </div>
-        <div class="content">
+          <%# --- Photo --- %>
+          <div class="image">
+            <img alt="Yingchen Liu" src="<%= base %>/images/me.png">
+          </div>
+          <div class="content">
 
-          <%# --- Name --- %>
-          <div class="header">Yingchen Liu</div>
-          <div class="meta">
-            <i class="china flag" title="China"></i> 刘盈琛
+            <%# --- Name --- %>
+            <div class="header">Yingchen Liu</div>
+            <div class="meta">
+              <i class="china flag" title="China"></i> 刘盈琛
+            </div>
+
+            <%# --- Description --- %>
+            <div class="description">
+              He is a Geek living in Melbourne, AU.
+            </div>
           </div>
 
-          <%# --- Description --- %>
-          <div class="description">
-            He is a Geek living in Melbourne, AU.
+          <%# --- Extra Information --- %>
+          <div class="extra content">
+            <a>
+              <i class="birthday icon"></i>
+              25 years old
+            </a>
           </div>
-        </div>
 
-        <%# --- Extra Information --- %>
-        <div class="extra content">
-          <a>
-            <i class="birthday icon"></i>
-            25 years old
-          </a>
+          <% if (locals.user && session.editingMode) { %>
+            <div class="extra content right aligned">
+              <button class="ui button btn-save" type="button">
+                <i class="save icon"></i> Save Changes
+              </button>
+            </div>
+          <% } %>
         </div>
       </div>
-    </div>
 
-    <%# --- Introduction --- %>
-    <div class="sixteen wide mobile eleven wide tablet eleven wide computer column introduction">
-      <h1 class="ui dividing header">
-        <span><i class="id card icon"></i>Introduction</span>
-        <span class="sub header">简单的介绍</span>
-      </h1>
-      <p class="en">Yingchen Liu - a geek who is keen on programming. He enjoys experimenting to find intersections in technology and daily life. His interests include website, mobile APP development, IoT and robotics.</p>
-      <p class="ch">劉盈琛 - 一個熱愛編程的極客。沉醉于不斷尋求科技與生活的交匯點。熱衷於網站、手机应用开发，物联网，與機器人科學。</p>
-      <p class="en">He is currently doing a Masters degree at Monash University (Melbourne, AU) and working at <a href="http://sensilab.monash.edu" target="_blank">sensiLab</a> as a research assistant.</p>
-      <p class="ch">他目前在莫納什大學（澳大利亚，墨爾本）攻讀研究生學位，同時也是 <a href="http://sensilab.monash.edu" target="_blank">sensiLab</a> 的一名研究助理。</p>
-      <p class="en">In his leisure time, he loves travelling to different places, taking photos and enjoying the local delicious.</p>
-      <p class="ch">業餘時間，到處逛逛，拍些照片，品嘗一下當地的美食就是他的愛好。</p>
-    </div>
+      <%# --- Introduction --- %>
+      <div class="sixteen wide mobile eleven wide tablet eleven wide computer column introduction">
+        <h1 class="ui dividing header">
+          <span><i class="id card icon"></i>Introduction</span>
+          <span class="sub header">简单的介绍</span>
+        </h1>
 
-    <%# --- Featured Project --- %>
-    <div class="mobile tablet only sixteen wide column">
-      <div class="ui divider"></div>
-      <h3 class="ui center aligned header">Robotic 3D Printing - Minor Thesis Project</h3>
-      <a href="<%= base %>/projects/robotic-3d-printing" class="ui image">
-        <img src="<%= base %>/uploads/projects/0M2A4104_meitu_2.jpg">
-      </a>
-    </div>
-    <div class="computer only sixteen wide column featured project">
-      <a href="<%= base %>/projects/robotic-3d-printing" class="ui image">
-        <img src="<%= base %>/uploads/projects/0M2A4104_meitu_2.jpg">
-        <div class="overlay">
-          <h2>Robotic 3D Printing - Minor Thesis Project</h2>
-          Click to view this featured project
-        </div>
-      </a>
-    </div>
-
-    <%# --- Skills --- %>
-    <% skillTypes.forEach((skillType) => { %>
-      <%# --- Skill Type --- %>
-      <div class="sixteen wide column">
-        <h3 class="ui center aligned icon header">
-          <i class="circular <%= skillType.icon %> icon"></i>
-          <span style="text-transform: capitalize;"><%= skillType.name %></span>
-          <span class="sub header"><%= skillType.subtitle %></span>
-        </h3>
+        <% if (locals.user && session.editingMode) { %>
+          <div id="introduction-editor" style="border-radius: 5px;">
+            <textarea style="display: none;"><%- index.introduction %></textarea>
+          </div>
+        <% } else { %>
+          <textarea id="introduction-content" style="display: none;"><%- index.introduction %></textarea>
+          <article id="introduction-body" class="markdown-body">
+            
+          </article>
+        <% } %>
       </div>
 
-      <%# --- Skill Items --- %>
-      <div class="two wide computer only column"></div>
-      <div class="sixteen wide mobile sixteen wide tablet thirteen wide computer column">
-        <div class="ui grid content">
-          <% skillType.skills.forEach((skill) => { %>
-            <div class="eight wide mobile four wide tablet four wide computer column">
-              <div class="ui large list">
-                <div class="item">
-                  <img class="ui avatar image" alt="<%= skill.name %>" src="<%= base %>/uploads/site/<%= skill.icon %>">
-                  <div class="content">
-                    <% if (skill.website) { %>
-                      <a href="<%= skill.website %>" class="header"><%= skill.name %></a>
-                    <% } else { %>
-                      <span class="header"><%= skill.name %></span>
-                    <% } %>
-                    <%= skill.fluency %>
+      <%# --- Featured Project --- %>
+      <% if (locals.user && session.editingMode) { %>
+        <div class="sixteen wide computer only column">
+          <div class="inline fields" style="margin: 0">
+            <div class="eight wide field">
+              <label>Featured project:</label>
+              <div data-param="featuredProject" class="ui labeled icon top left pointing scrolling dropdown">
+                <input type="hidden" name="featured-project" value="<%= index.featuredProject %>">
+                <i class="filter icon"></i>
+                <span class="text">Featured Project</span>
+                <div class="menu">
+                  <div class="ui search icon input">
+                    <i class="search icon"></i>
+                    <input type="text" name="search" placeholder="Search projects...">
                   </div>
+                  <% projectTypes.forEach((projectType, i) => { %>
+                    <div class="divider"></div>
+                    <div class="header">
+                      <i class="<%= projectType.icon %> icon"></i>
+                      <%= projectType.name %>
+                    </div>
+                    <% projectType.projects = projectType.projects ? projectType.projects : []; %>
+                    <% projectType.projects.forEach((project) => { %>
+                      <div class="item" data-value="<%= project.id %>" data-project-cover="<%= project.cover %>" data-project-slug="<%= project.slug %>">
+                        <%= project.name %>
+                      </div>
+                    <% }); %>
+                  <% }); %>
                 </div>
               </div>
             </div>
-          <% }); %>
+            <div class="eight wide field" style="padding-right: 0;">
+              <label>Color:</label>
+              <input name="featured-project-text-color" class="inline-editing" data-param="featuredProjectTextColor" type="text" placeholder="#ffffff">
+            </div>
+          </div>
         </div>
-      </div>
-    <% }); %>
+      <% } %>
 
-    <%# --- Bottom Image --- %>
-    <div class="sixteen wide column">
-      <img alt="Just a Decoration" src="<%= base %>/images/index-bottom.png" class="ui fluid image">
+      <% if ((!locals.featuredProject && locals.user && session.editingMode) || locals.featuredProject) { %>
+        <div class="mobile tablet only sixteen wide column">
+          <div class="ui divider"></div>
+          <h3 class="featured-project-name ui center aligned header"><%= locals.featuredProject ? featuredProject.name : 'No Featured Project' %></h3>
+          <a class="featured-project-link ui image" style="<%= !locals.featuredProject ? 'display: flex' : '' %>" href="<%= base %>/projects/<%= locals.featuredProject ? featuredProject.slug :'' %>">
+            <img class="featured-project-cover" src="<%= base %>/<%= locals.featuredProject ? process(featuredProject.cover, 'w1500', 'c3.5') : '' %>">
+          </a>
+        </div>
+        <div class="computer only sixteen wide column featured project">
+          <a class="featured-project-link ui image" style="<%= !locals.featuredProject ? 'display: flex' : '' %>" href="<%= base %>/projects/<%= locals.featuredProject ? featuredProject.slug : '' %>">
+            <img class="featured-project-cover" src="<%= base %>/<%= locals.featuredProject ? process(featuredProject.cover, 'w1500', 'c3.5') : '' %>">
+            <div class="overlay">
+              <h2 class="featured-project-name"><%= locals.featuredProject ? featuredProject.name : 'No Featured Project' %></h2>
+              Click to view this featured project
+            </div>
+          </a>
+        </div>
+      <% } %>
+
+      <%# --- Skills --- %>
+      <% skillTypes.forEach((skillType) => { %>
+        <%# --- Skill Type --- %>
+        <div class="sixteen wide column">
+          <h3 class="ui center aligned icon header">
+            <i class="circular <%= skillType.icon %> icon"></i>
+            <span style="text-transform: capitalize;"><%= skillType.name %></span>
+            <span class="sub header"><%= skillType.subtitle %></span>
+          </h3>
+        </div>
+
+        <%# --- Skill Items --- %>
+        <div class="two wide computer only column"></div>
+        <div class="sixteen wide mobile sixteen wide tablet thirteen wide computer column">
+          <div class="ui grid content">
+            <% skillType.skills.forEach((skill) => { %>
+              <div class="eight wide mobile four wide tablet four wide computer column">
+                <div class="ui large list">
+                  <div class="item">
+                    <img class="ui avatar image" alt="<%= skill.name %>" src="<%= base %>/uploads/site/<%= skill.icon %>">
+                    <div class="content">
+                      <% if (skill.website) { %>
+                        <a href="<%= skill.website %>" class="header"><%= skill.name %></a>
+                      <% } else { %>
+                        <span class="header"><%= skill.name %></span>
+                      <% } %>
+                      <%= skill.fluency %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% }); %>
+          </div>
+        </div>
+      <% }); %>
+
+      <%# --- Bottom Image --- %>
+      <div class="sixteen wide column">
+        <img alt="Just a Decoration" src="<%= base %>/images/index-bottom.png" class="ui fluid image">
+      </div>
     </div>
-  </div>
+  </form>
 </div>
 <%- include('footer', {
   js: [
+    `${base}/js/markdown.js`,
     `${base}/js/index.js`
   ]
 }); %>

@@ -1024,3 +1024,9 @@
 2018-04-12T08:17:30.214480000 42.357327s info: Table b0f710e4-bf31-43a3-a0d3-e66b5157c35e: Starting a new Raft election for term 29.
 2018-04-12T08:17:30.283179000 42.426026s info: Table dd7728b7-97c5-4c25-9035-42ec666fcecd: This server is Raft leader for term 17. Latest log index is 50.
 2018-04-12T08:17:30.334364000 42.477211s info: Table b0f710e4-bf31-43a3-a0d3-e66b5157c35e: This server is Raft leader for term 29. Latest log index is 90.
+2018-04-12T09:59:23.205156000 6155.138856s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2018-04-12T10:18:56.139307000 7328.032670s info: Table 27cdb12d-b376-4d44-9294-f03d3ff25f31: Starting a new Raft election for term 1.
+2018-04-12T10:18:56.140363000 7328.033725s info: Table 27cdb12d-b376-4d44-9294-f03d3ff25f31: Added replica on this server.
+2018-04-12T10:18:56.168420000 7328.061781s info: Table 27cdb12d-b376-4d44-9294-f03d3ff25f31: This server is Raft leader for term 1. Latest log index is 0.
+2018-04-12T10:58:23.399310000 9695.211451s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2018-04-12T11:30:42.613867000 11634.360119s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.

@@ -8,6 +8,8 @@ const c = require('../includes/config');
 const f = require('../includes/functions');
 const db = require('../includes/db');
 
+const projects = require('../models/projects');
+
 
 const validateProjectType = [
   check('id')
@@ -48,7 +50,8 @@ const validateProjectType = [
       }
     })),
   check('icon').exists().trim().not().isEmpty().withMessage('Choose an icon please.'),
-  check('sort').optional().isInt({ min: 0 }).withMessage('Sort should be a positive integer or zero.')
+  check('sort').optional().isInt({ min: 0 }).withMessage('Sort should be a positive integer or zero.'),
+  check('experienceType').exists().trim().not().isEmpty().withMessage('Choose an experience type please.'),
 ];
 
 const validateProject = [
@@ -122,31 +125,8 @@ const validateProject = [
  */
 router.get('/', f.wrap(async (req, res, next) => {
   const db = req.db;
-  const results = await db.projectTypes
-    .outerJoin(db.projects, (type, project) => {
-      return type('id').eq(project('type'));
-    })
-    .orderBy(
-      db.r.desc(db.r.row('right')('to')('year')),
-      db.r.desc(db.r.row('right')('to')('month'))
-    ) // order by project finish time
-    .group((record) => {
-      return record.pluck('left') // group by right (project type)
-    })
-    .ungroup()
-    .orderBy(db.r.row('group')('left')('sort')) // order by project type sort 
-    .map((group) => {
-      return db.r.object(
-        'id', group('group')('left')('id'),
-        'name', group('group')('left')('name'),
-        'subtitle', group('group')('left')('subtitle'),
-        'slug', group('group')('left')('slug'),
-        'icon', group('group')('left')('icon'),
-        'sort', group('group')('left')('sort'),
-        'projects', group('reduction')('right')
-      );
-    }).run(db.conn).catch(next);
-  const records = await results.toArray().catch(next);
+
+  const records = await projects.getProjects(db);
 
   res.render('projects/index', f.data({ 
     title: f.title('Projects'),
@@ -285,7 +265,8 @@ router.post('/types', validateProjectType, f.wrap(async (req, res, next) => {
       subtitle: req.body.subtitle,
       icon: req.body.icon,
       sort,
-      slug: req.body.slug
+      slug: req.body.slug,
+      experienceType: req.body.experienceType
     })
     .run(db.conn).catch(next);
 
@@ -334,7 +315,8 @@ router.post('/types/:id', validateProjectType, f.wrap(async (req, res, next) => 
       name: req.body.name,
       subtitle: req.body.subtitle,
       icon: req.body.icon,
-      slug: req.body.slug
+      slug: req.body.slug,
+      experienceType: req.body.experienceType
     })
     .run(db.conn).catch(next);
 

@@ -1,5 +1,4 @@
 var base = $('#var-base').val();
-Dropzone.autoDiscover = false;
 
 editormd.emoji = {
   path: base + '/emojis/',
@@ -19,6 +18,8 @@ editormd.markdownToHTML('markdown-body', {
 });
 
 if ($('#var-editing-mode').val() === 'true') {
+  Dropzone.autoDiscover = false;
+  
   var editor = editormd('markdown-editor', {
     height: 600,
     dialogLockScreen: false,

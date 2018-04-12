@@ -40,7 +40,11 @@ var showFormError = function($form, err) {
         });  //.closest('.field').addClass('error');
     })
   }
-}
+};
+
+var process = function(base, ...processors) {
+  return `${base}?p=${processors.join('-')}`;
+};
 
 $('.message .close').click(function() {
   $(this).closest('.message').transition('fade');

@@ -15,7 +15,8 @@ const tables = [
   'skills',
   'skill_types',
   'resume',
-  'uploads'
+  'uploads',
+  'index'
 ]
 
 const connect = (req, res, next) => {
@@ -41,7 +42,8 @@ const connect = (req, res, next) => {
           skills: r.db('mywebsite').table('skills'),
           skillTypes: r.db('mywebsite').table('skill_types'),
           resume: r.db('mywebsite').table('resume'),
-          uploads: r.db('mywebsite').table('uploads')
+          uploads: r.db('mywebsite').table('uploads'),
+          index: r.db('mywebsite').table('index')
         };
 
         next();
