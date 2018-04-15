@@ -57,6 +57,30 @@ if ($('#var-editing-mode').val() === 'true') {
     $('.featured-project-cover').attr('src', base + '/' + process(cover, 'w1500', 'c3.5', Date.now()));
     $('.featured-project-link').attr('href', base + '/projects/' + slug).css({ display: 'block' });
   });
+
+  $('.skill-icon-dropzone').each(function() {
+    var $that = $(this);
+
+    $that.dropzone({
+      url: base + '/uploads?type=skills',
+      previewsContainer: $that.first().getPath(),
+      maxFiles: 1,
+      init: function() {
+        this.on('maxfilesexceeded', function(file) {
+          this.removeAllFiles();
+          this.addFile(file);
+        });
+        
+        this.on('success', function (file) {
+          var response = JSON.parse(file.xhr.response);
+  
+          $that.find('[name=icon]').val(response.path);
+          $that.attr('src', response.url + '?' + Date.now());
+        });
+      }
+    });
+  });
+  
 }
 
 /**

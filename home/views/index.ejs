@@ -139,22 +139,92 @@
         <div class="sixteen wide mobile sixteen wide tablet thirteen wide computer column">
           <div class="ui grid content">
             <% skillType.skills.forEach((skill) => { %>
-              <div class="eight wide mobile four wide tablet four wide computer column">
+              <% if (locals.user && session.editingMode) { %>
+                <div class="eight wide mobile four wide tablet only column">
+                  <div class="ui large list">
+                    <div class="item">
+                      <img class="ui avatar image" alt="<%= skill.name %>" src="<%= base %>/uploads/site/<%= skill.icon %>">
+                      <div class="content">
+                        <% if (skill.website) { %>
+                          <a href="<%= skill.website %>" class="header"><%= skill.name %></a>
+                        <% } else { %>
+                          <span class="header"><%= skill.name %></span>
+                        <% } %>
+                        <%= skill.fluency %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="four wide computer only column">
+                  <div class="ui large list">
+                    <div class="item">
+                      <div data-param="icon" style="cursor: pointer; display: inline-block; background-color: transparent; margin: 0; vertical-align: top;">
+                        <img class="ui avatar image skill-icon-dropzone" style="width: 32px; height: 32px; margin: 0;" src='<%= base %>/uploads/<%= skill.icon %>'>
+                        <input type="hidden" name="icon">
+                      </div>
+                      <div class="content" style="display: inline-block; padding: 0; padding-left: calc(0.5em - 5px); width: calc(100% - 37px); vertical-align: top; line-height: 1.14285714em;">
+                        <div>
+                          <input class="inline-editing" value="<%= skill.name %>" placeholder="Skill">
+                        </div>
+                        <div style="display: flex; font-size: 0.8rem; line-height: 0.8rem;">
+                          <div>
+                            <input class="inline-editing" value="<%= skill.fluency %>" placeholder="Fluency">
+                            <input class="inline-editing" value="<%= skill.website %>" placeholder="Link">
+                          </div>
+                          <button class="ui button" type="button" style="width: 34px; height: 33px; padding: 10px 12px;">
+                            <i class="save icon"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% } else { %>
+                <div class="eight wide mobile four wide tablet four wide computer column">
+                  <div class="ui large list">
+                    <div class="item">
+                      <img class="ui avatar image" alt="<%= skill.name %>" src="<%= base %>/uploads/site/<%= skill.icon %>">
+                      <div class="content">
+                        <% if (skill.website) { %>
+                          <a href="<%= skill.website %>" class="header"><%= skill.name %></a>
+                        <% } else { %>
+                          <span class="header"><%= skill.name %></span>
+                        <% } %>
+                        <%= skill.fluency %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% } %>
+            <% }); %>
+
+            <% if (locals.user && session.editingMode) { %>
+              <div class="four wide computer only column">
                 <div class="ui large list">
                   <div class="item">
-                    <img class="ui avatar image" alt="<%= skill.name %>" src="<%= base %>/uploads/site/<%= skill.icon %>">
-                    <div class="content">
-                      <% if (skill.website) { %>
-                        <a href="<%= skill.website %>" class="header"><%= skill.name %></a>
-                      <% } else { %>
-                        <span class="header"><%= skill.name %></span>
-                      <% } %>
-                      <%= skill.fluency %>
+                    <div data-param="icon" style="cursor: pointer; display: inline-block; background-color: transparent; margin: 0; vertical-align: top;">
+                      <img class="ui avatar image skill-icon-dropzone" style="width: 32px; height: 32px; margin: 0;" src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAB/0lEQVRYhe3Uy04UYRAF4K8HFBBHHOIlYqILExMNJvoOPDYPYdx4XagxxgtiJIMjMNAuqhrbobtnggs3c5JO+r9VnTp1YY455vjPKKqfra2t89pYwDpWcIwRdqc92t7eBovn9ZoosIEBLiaBw7T7ZRYD/0JgCY9F5KN0vohlXMdtPMv9VvTO6XwFT/L9HsYocSIU2EMfD6cZmpVAleflXN8X0R6o1VENBYa4hjtdhmdJwToeJIkjfM//UYvzOol9kY4PQp0zmKZAH4/S8VDIO5jhXYVjUSurbRemKXBT5HbsT7SHMzqvUKSNRnRFcgGXtOe5wsUp5yXW2g6bFChEkQ3y8VGLgyLf7+Tdtnb7hbu4hXf4Wj9sUmAzL487nJcir+/xWgydvmapiySxIOrpRheBDdE6e2mszfkaPuFj7r3N/y4SY1HI93ClicBAFN3PFscVlvACLyf2XyWR5ckHNYxF2q42EbicxrtGZ08U5aHo74poket9IXdbcVcdcRpgvQiPxLDoapvqfDOj2U3CVeEuCpkbh07a/YtcfbGT32oHgQqj/MqGvTaUomUP8K2JwFjk8Icopp6IrOurY9rdlSTwXKiEs3PgBE+FnH3ROk1q9JzNc7U3eb9K6RBvRJ2comkQlaK/18U0bCNwXDsr8TkJT+a/yLvDSedzzDEH/AYLqHgKIyvGVwAAAABJRU5ErkJggg=='>
+                      <input type="hidden" name="icon">
+                    </div>
+                    <div class="content" style="display: inline-block; padding: 0; padding-left: calc(0.5em - 5px); width: calc(100% - 37px); vertical-align: top; line-height: 1.14285714em;">
+                      <div>
+                        <input class="inline-editing" placeholder="Skill">
+                      </div>
+                      <div style="display: flex; font-size: 0.8rem; line-height: 0.8rem;">
+                        <div>
+                          <input class="inline-editing" placeholder="Fluency">
+                          <input class="inline-editing" placeholder="Link">
+                        </div>
+                        <button class="ui button" type="button" style="width: 34px; height: 31px; padding: 10px 12px;">
+                          <i class="add icon"></i>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            <% }); %>
+            <% } %>
           </div>
         </div>
       <% }); %>
