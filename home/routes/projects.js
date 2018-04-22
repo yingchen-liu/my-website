@@ -244,14 +244,6 @@ router.post('/types', validateProjectType, f.wrap(async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) return next(new f.AppError('Invalid data.', 422, errors.array()));
 
-  // check if the slug exists
-  const slugResults = await db.projectTypes.filter({
-    slug: req.body.slug
-  }).run(db.conn).catch(next);
-  const slugRecords = await slugResults.toArray().catch(next);
-
-  if (slugRecords.length > 0) return next(new f.AppError('The slug already exists.'));
-
   // get the sort
   var sort = 0;
   const sortResults = await db.projectTypes.orderBy(db.r.desc('sort')).limit(1).run(db.conn).catch(next);

@@ -15,6 +15,7 @@ const fm = require('./includes/file-manager');
 
 const index = require('./routes/index');
 const projects = require('./routes/projects');
+const skills = require('./routes/skills');
 const life = require('./routes/life');
 const collections = require('./routes/collections');
 const users = require('./routes/users');
@@ -44,6 +45,7 @@ app.use(session({
 
 app.use('/', index);
 app.use('/projects', projects);
+app.use('/skills', skills);
 app.use('/life', life);
 app.use('/collections', collections);
 app.use('/users', users);

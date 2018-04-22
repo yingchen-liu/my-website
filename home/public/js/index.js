@@ -39,10 +39,61 @@ if ($('#var-editing-mode').val() === 'true') {
       featuredProject: featuredProject
     }).done(function(data) {
       window.location = base + '/'
-    }).fail(function (jqXHR) {
+    }).fail(function(jqXHR) {
       $form.removeClass('loading');
       showFormError($form, getError(jqXHR));
     });
+  });
+
+  $('.btn-save-skill').click(function() {
+    var $that = $(this);
+    var $form = $that.closest('form');
+    $form.addClass('loading');
+
+    var id = $form.find('[name=id]').val();
+    var icon = $form.find('[name=icon]').val();
+    var name = $form.find('[name=name]').val();
+    var link = $form.find('[name=link]').val();
+    var fluency = $form.find('[name=fluency]').val();
+
+    $.post(base + '/skills/' + id, {
+      icon: icon,
+      name: name,
+      website: link,
+      fluency: fluency
+    }).done(function(data) {
+      
+    }).fail(function(jqXHR) {
+      showFormError($form, getError(jqXHR));
+    }).always(function() {
+      $form.removeClass('loading');
+    })
+  });
+
+  $('.btn-add-skill').click(function() {
+    var $that = $(this);
+    var $form = $that.closest('form');
+    $form.addClass('loading');
+
+    var type = $form.find('[name=type]').val();
+    var icon = $form.find('[name=icon]').val();
+    var name = $form.find('[name=name]').val();
+    var link = $form.find('[name=link]').val();
+    var fluency = $form.find('[name=fluency]').val();
+
+    $.post(base + '/skills/' + id, {
+      type: type,
+      icon: icon,
+      name: name,
+      website: link,
+      fluency: fluency
+    }).done(function(data) {
+      
+    }).fail(function(jqXHR) {
+      showFormError($form, getError(jqXHR));
+    }).always(function() {
+      $form.removeClass('loading');
+    })
   });
 
   $('[name=featured-project]').change(function() {
@@ -74,7 +125,7 @@ if ($('#var-editing-mode').val() === 'true') {
         this.on('success', function (file) {
           var response = JSON.parse(file.xhr.response);
   
-          $that.find('[name=icon]').val(response.path);
+          $that.parent().find('[name=icon]').val(response.path);
           $that.attr('src', response.url + '?' + Date.now());
         });
       }

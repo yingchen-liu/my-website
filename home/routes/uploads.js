@@ -30,7 +30,7 @@ router.post('/', f.wrap(async (req, res, next) => {
       .insert({
         name: filename,
         path: `${dir}/${newFilename}`,
-        type: 'project',
+        type: req.query.type,
         uploadedAt: new Date(),
         uploadedBy: req.session.user.id
       })
