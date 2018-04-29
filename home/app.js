@@ -46,8 +46,8 @@ app.use(session({
 app.use('/', index);
 app.use('/projects', projects);
 app.use('/skills', skills);
-app.use('/life', life);
-app.use('/collections', collections);
+// app.use('/life', life);
+// app.use('/collections', collections);
 app.use('/users', users);
 app.use('/uploads', uploads);
 
