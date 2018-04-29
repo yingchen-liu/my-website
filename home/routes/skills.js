@@ -158,23 +158,16 @@ router.post('/types/sort', f.wrap(async (req, res, next) => {
 /**
  * Sort skill
  */
-router.post('/types/:type/sort', f.wrap(async (req, res, next) => {
+router.post('/sort', f.wrap(async (req, res, next) => {
   const db = req.db;
 
   if (!req.session.user) return next(new f.AppError('Permission denied.', 403));
-
-  const typeRecord = await db.skillTypes.get(req.body.type).run(db.conn).catch((err) => {
-    throw err;
-  });
-
-  if (!typeRecord) throw new Error('No such skill type.');
 
   const sort = JSON.parse(req.body.sort);
   for (let i = 0; i < sort.length; i++) {
     const result = await db.skills.get(sort[i])
       .update({
-        sort: i,
-        type: req.params.type
+        sort: i
       })
       .run(db.conn).catch(next);
   }

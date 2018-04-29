@@ -26,6 +26,43 @@ if ($('#var-editing-mode').val() === 'true') {
     toolbarIcons: 'mini'
   });
 
+  $('.skill-list').each(function() {
+    var $skillList = $(this);
+
+    $skillList.sortable({
+      items: '> .skill-item',
+      opacity: 0.5,
+      handle: '.btn-sort-skill'
+    }).on('sortstop', function(e, ui) {
+      var $form = ui.item.find('form');
+      $form.addClass('loading');
+
+      var sort = [];
+      $skillList.find('.skill-item').each(function(i, type) {
+        var id = $(type).find('[name=id]').val();
+        sort.push(id);
+      });
+      
+      $.post(base + '/skills/sort', {
+        sort: JSON.stringify(sort)
+      }).done(function(data) {
+        $form.removeClass('loading');
+      }).fail(function (jqXHR) {
+        $form.removeClass('loading');
+        showFormError($form, getError(jqXHR));
+      });
+    });
+  });
+
+  // $('.project-list').sortable({
+  //   opacity: 0.5,
+  //   axis: 'y',
+  //   cursorAt: {
+  //     top: 40
+  //   },
+  //   handle: '.btn-sort-project-type'
+
+
   $('.btn-save').click(function() {
     var $that = $(this);
     var $form = $that.closest('form');

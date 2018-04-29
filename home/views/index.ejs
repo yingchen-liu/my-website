@@ -125,10 +125,11 @@
     </div>
   </form>
 
-  <div class="ui main grid container">
-    <%# --- Skills --- %>
-    <% skillTypes.forEach((skillType) => { %>
-      <%# --- Skill Type --- %>
+  
+  <%# --- Skills --- %>
+  <% skillTypes.forEach((skillType) => { %>
+    <%# --- Skill Type --- %>
+    <div class="ui main grid container">
       <div class="sixteen wide column">
         <h3 class="ui center aligned icon header">
           <i class="circular <%= skillType.icon %> icon"></i>
@@ -140,7 +141,7 @@
       <%# --- Skill Items --- %>
       <div class="two wide computer only column"></div>
       <div class="sixteen wide mobile sixteen wide tablet thirteen wide computer column">
-        <div class="ui grid content">
+        <div class="ui grid content skill-list">
           <% skillType.skills.push({
             id: 'skill-template'
           }); %>
@@ -167,7 +168,7 @@
               </div>
 
               <%# --- For Desktop --- %>
-              <div class="four wide computer only column<%= skill.id === 'skill-template' ? ' skill-template' : '' %>" style="display: <%= skill.id === 'skill-template' ? 'none' : 'block' %>;">
+              <div class="skill-item four wide computer only column<%= skill.id === 'skill-template' ? ' skill-template' : '' %>" style="display: <%= skill.id === 'skill-template' ? 'none' : 'block' %>;">
                 <form class="ui form">
                   <input type="hidden" name="id" value="<%= skill.id %>">
                   <div class="ui large list">
@@ -179,6 +180,9 @@
                       <div class="content" style="display: inline-block; padding: 0; padding-left: calc(0.5em - 5px); width: calc(100% - 37px); vertical-align: top; line-height: 1.14285714em;">
                         <div style="display: flex;">
                           <input class="inline-editing" data-param="name" name="name" value="<%= skill.name %>" placeholder="Skill">
+                          <div class="mini right floated ui icon button inline-editing btn-sort-skill" style="padding-top: 5px; padding-left: 5px;">
+                            <i class="sort icon"></i>
+                          </div>
                           <button class="ui button inline-editing btn-delete-skill" type="button">
                             <i class="trash alternate icon"></i>
                           </button>
@@ -247,8 +251,10 @@
           <% } %>
         </div>
       </div>
-    <% }); %>
+    </div>
+  <% }); %>
 
+  <div class="ui main grid container">
     <%# --- Bottom Image --- %>
     <div class="sixteen wide column">
       <img alt="Just a Decoration" src="<%= base %>/images/index-bottom.png" class="ui fluid image">
