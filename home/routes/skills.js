@@ -59,7 +59,8 @@ const validateSkill = [
 
         if (!typeRecord) throw new Error('No such skill type.');
       }
-    }))
+    })),
+  check('icon').exists().trim().not().isEmpty().withMessage('Choose an icon please.'),
 ];
 
 /**
@@ -73,6 +74,11 @@ router.post('/', validateSkill, f.wrap(async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) return next(new f.AppError('Invalid data.', 422, errors.array()));
 
+  // get the sort
+  var sort = 0;
+  const sortResults = await db.skills.orderBy(db.r.desc('sort')).limit(1).run(db.conn).catch(next);
+  const sortRecords = await sortResults.toArray().catch(next);
+  if (sortRecords.length > 0) sort = sortRecords[0].sort + 1;
 
   // insert
   const result = await db.skills
@@ -81,7 +87,8 @@ router.post('/', validateSkill, f.wrap(async (req, res, next) => {
       website: req.body.website,
       icon: req.body.icon,
       type: req.body.type,
-      fluency: req.body.fluency
+      fluency: req.body.fluency,
+      sort
     })
     .run(db.conn).catch(next);
 
@@ -254,10 +261,10 @@ router.post('/:id', validateSkill, f.wrap(async (req, res, next) => {
     })
     .run(db.conn).catch(next);
 
-  const updatedRecord = await db.projects.get(req.params.id).run(db.conn).catch(next);
+  const updatedRecord = await db.skills.get(req.params.id).run(db.conn).catch(next);
 
   res.json({
-    project: updatedRecord
+    skill: updatedRecord
   });
 }));
 

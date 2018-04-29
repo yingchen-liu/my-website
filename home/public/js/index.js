@@ -45,7 +45,7 @@ if ($('#var-editing-mode').val() === 'true') {
     });
   });
 
-  $('.btn-save-skill').click(function() {
+  $('body').delegate('.btn-save-skill', 'click', function() {
     var $that = $(this);
     var $form = $that.closest('form');
     $form.addClass('loading');
@@ -63,6 +63,7 @@ if ($('#var-editing-mode').val() === 'true') {
       fluency: fluency
     }).done(function(data) {
       
+
     }).fail(function(jqXHR) {
       showFormError($form, getError(jqXHR));
     }).always(function() {
@@ -70,7 +71,7 @@ if ($('#var-editing-mode').val() === 'true') {
     })
   });
 
-  $('.btn-add-skill').click(function() {
+  $('body').delegate('.btn-add-skill', 'click', function() {
     var $that = $(this);
     var $form = $that.closest('form');
     $form.addClass('loading');
@@ -81,14 +82,44 @@ if ($('#var-editing-mode').val() === 'true') {
     var link = $form.find('[name=link]').val();
     var fluency = $form.find('[name=fluency]').val();
 
-    $.post(base + '/skills/' + id, {
+    $.post(base + '/skills/', {
       type: type,
       icon: icon,
       name: name,
       website: link,
       fluency: fluency
     }).done(function(data) {
-      
+      var $mobileTemplate = $form.parent().parent().find('.skill-template.mobile');
+      var $desktopTemplate = $form.parent().parent().find('.skill-template.computer');
+
+      var $mobile = $mobileTemplate.clone().insertBefore($mobileTemplate).removeClass('skill-template').show();
+      var $desktop = $desktopTemplate.clone().insertAfter($mobile).removeClass('skill-template').show();
+
+      // fill in for mobile
+      $mobile.find('img').attr('src', base + '/' + data.skill.icon);
+      if (data.skill.website) {
+        $mobile.find('[data-param=name]').html('<a href="' + data.skill.website + '" class="header" target="_blank">' + data.skill.name + '</a>');
+      } else {
+        $mobile.find('[data-param=name]').html('<span class="header">' + data.skill.name + '<span>');
+      }
+      $mobile.find('[data-param=fluency]').text(data.skill.fluency);
+
+      // fill in for desktop
+      $desktop.find('[name=id]').val(data.skill.id);
+      $desktop.find('img').attr('src', base + '/' + data.skill.icon);
+      $desktop.find('[name=icon]').val(data.skill.icon);
+      $desktop.find('[name=name]').val(data.skill.name);
+      $desktop.find('[name=link]').val(data.skill.website);
+      $desktop.find('[name=fluency]').val(data.skill.fluency);
+
+      initSkillDropzone($desktop.find('img'));
+
+      // empty the form
+      $form.find('[name=name]').val('');
+      $form.find('[name=icon]').val('');
+      $form.find('[name=fluency]').val('');
+      $form.find('[name=link]').val('');
+      $form.find('img').attr('src', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAB/0lEQVRYhe3Uy04UYRAF4K8HFBBHHOIlYqILExMNJvoOPDYPYdx4XagxxgtiJIMjMNAuqhrbobtnggs3c5JO+r9VnTp1YY455vjPKKqfra2t89pYwDpWcIwRdqc92t7eBovn9ZoosIEBLiaBw7T7ZRYD/0JgCY9F5KN0vohlXMdtPMv9VvTO6XwFT/L9HsYocSIU2EMfD6cZmpVAleflXN8X0R6o1VENBYa4hjtdhmdJwToeJIkjfM//UYvzOol9kY4PQp0zmKZAH4/S8VDIO5jhXYVjUSurbRemKXBT5HbsT7SHMzqvUKSNRnRFcgGXtOe5wsUp5yXW2g6bFChEkQ3y8VGLgyLf7+Tdtnb7hbu4hXf4Wj9sUmAzL487nJcir+/xWgydvmapiySxIOrpRheBDdE6e2mszfkaPuFj7r3N/y4SY1HI93ClicBAFN3PFscVlvACLyf2XyWR5ckHNYxF2q42EbicxrtGZ08U5aHo74poket9IXdbcVcdcRpgvQiPxLDoapvqfDOj2U3CVeEuCpkbh07a/YtcfbGT32oHgQqj/MqGvTaUomUP8K2JwFjk8Icopp6IrOurY9rdlSTwXKiEs3PgBE+FnH3ROk1q9JzNc7U3eb9K6RBvRJ2comkQlaK/18U0bCNwXDsr8TkJT+a/yLvDSedzzDEH/AYLqHgKIyvGVwAAAABJRU5ErkJggg==');
     }).fail(function(jqXHR) {
       showFormError($form, getError(jqXHR));
     }).always(function() {
@@ -109,12 +140,10 @@ if ($('#var-editing-mode').val() === 'true') {
     $('.featured-project-link').attr('href', base + '/projects/' + slug).css({ display: 'block' });
   });
 
-  $('.skill-icon-dropzone').each(function() {
-    var $that = $(this);
-
-    $that.dropzone({
+  var initSkillDropzone = function($dropzone) {
+    $dropzone.dropzone({
       url: base + '/uploads?type=skills',
-      previewsContainer: $that.first().getPath(),
+      previewsContainer: $dropzone.first().getPath(),
       maxFiles: 1,
       init: function() {
         this.on('maxfilesexceeded', function(file) {
@@ -125,11 +154,15 @@ if ($('#var-editing-mode').val() === 'true') {
         this.on('success', function (file) {
           var response = JSON.parse(file.xhr.response);
   
-          $that.parent().find('[name=icon]').val(response.path);
-          $that.attr('src', response.url + '?' + Date.now());
+          $dropzone.parent().find('[name=icon]').val(response.path);
+          $dropzone.attr('src', response.url + '?' + Date.now());
         });
       }
     });
+  };
+
+  $('.skill-icon-dropzone').each(function() {
+    initSkillDropzone($(this));
   });
   
 }
