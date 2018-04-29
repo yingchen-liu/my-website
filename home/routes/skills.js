@@ -210,6 +210,25 @@ router.post('/types/:id', validateSkillType, f.wrap(async (req, res, next) => {
 }));
 
 /**
+ * Delete skill
+ */
+router.delete('/:id', f.wrap(async (req, res, next) => {
+  const db = req.db;
+
+  if (!req.session.user) return next(new f.AppError('Permission denied.', 403));
+
+  // check if the skill exists
+  const skillRecord = await db.skills.get(req.params.id).run(db.conn).catch(next);
+
+  if (!skillRecord) return next(new f.AppError('No such skill.', 404));
+
+  // delete
+  const results = await db.skills.get(req.params.id).delete().run(db.conn).catch(next);
+
+  res.json({});
+}));
+
+/**
  * Delete skill type
  */
 router.delete('/types/:id', f.wrap(async (req, res, next) => {

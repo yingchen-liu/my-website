@@ -330,11 +330,7 @@ router.delete('/types/:id', f.wrap(async (req, res, next) => {
   // check if the type exists
   const typeRecord = await db.projectTypes.get(req.params.id).run(db.conn).catch(next);
 
-  if (!typeRecord) return res.status(404).send({
-    err: {
-      msg: 'No such project type.'
-    }
-  }).end();
+  if (!typeRecord) return next(new f.AppError('No such project type.', 404));
  
   // check if there is any projects in it
   const projectResults = await db.projects.filter({

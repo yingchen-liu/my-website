@@ -63,12 +63,30 @@ if ($('#var-editing-mode').val() === 'true') {
       fluency: fluency
     }).done(function(data) {
       
-
     }).fail(function(jqXHR) {
       showFormError($form, getError(jqXHR));
     }).always(function() {
       $form.removeClass('loading');
-    })
+    });
+  });
+
+  $('body').delegate('.btn-delete-skill', 'click', function() {
+    var $that = $(this);
+    var $form = $that.closest('form');
+    $form.addClass('loading');
+
+    var id = $form.find('[name=id]').val();
+
+    $.ajax({
+      url: base + '/skills/' + id,
+      method: 'delete'
+    }).done(function(data) {
+      $form.parent().remove();
+    }).fail(function(jqXHR) {
+      showFormError($form, getError(jqXHR));
+    }).always(function() {
+      $form.removeClass('loading');
+    });
   });
 
   $('body').delegate('.btn-add-skill', 'click', function() {
