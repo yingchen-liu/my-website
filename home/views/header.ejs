@@ -49,7 +49,7 @@
   <body class="my website">
     <input id="var-base" type="hidden" value="<%= base %>"> 
     <input id="var-admin" type="hidden" value="<%= locals.user ? true : false %>">
-    <input id="var-editing-mode" type="hidden" value="<%= session.editingMode ? true : false %>">
+    <input id="var-editing-mode" type="hidden" value="<%= locals.session && session.editingMode ? true : false %>">
 
     <%# --- Top Menu --- %>
     <nav class="ui top fixed menu noprint">
