@@ -17,6 +17,8 @@ editormd.markdownToHTML('markdown-body', {
   sequenceDiagram: true,
 });
 
+$('.ui.embed').embed();
+
 if ($('#var-editing-mode').val() === 'true') {
   Dropzone.autoDiscover = false;
   
