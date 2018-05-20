@@ -44,7 +44,7 @@ if ($('#var-editing-mode').val() === 'true') {
     });
   });
 
-  $('.project-list').delegate('.change-icon.popup [name=icon-name]', 'input', function() {
+  $('.main').delegate('.change-icon.popup [name=icon-name]', 'input', function() {
     var $that = $(this);
     var $icon = $that.closest('.change-icon.popup').prev();
     var iconName = $that.val();
