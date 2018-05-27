@@ -118,7 +118,7 @@ router.post('/types', validateSkillType, f.wrap(async (req, res, next) => {
   if (sortRecords.length > 0) sort = sortRecords[0].sort + 1;
 
   // insert
-  const results = await db.projectTypes
+  const results = await db.skillTypes
     .insert({
       name: req.body.name,
       subtitle: req.body.subtitle,

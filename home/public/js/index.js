@@ -54,6 +54,27 @@ if ($('#var-editing-mode').val() === 'true') {
     });
   });
 
+  $('.btn-add-skill-type').click(function() {
+    var $form = $(this).closest('form');
+    $form.addClass('loading');
+    clearFormError($form);
+
+    var name = $form.find('[name=new-skill-type-name]').val();
+    var subtitle = $form.find('[name=new-skill-type-subtitle]').val();
+    var icon = $form.find('[name=icon-name]').val();
+
+    $.post(base + '/skills/types', {
+      name: name,
+      subtitle: subtitle,
+      icon: icon
+    }).done(function(data) {
+      $form.removeClass('loading');
+    }).fail(function (jqXHR) {
+      $form.removeClass('loading');
+      showFormError($form, getError(jqXHR));
+    });
+  });
+
   // $('.project-list').sortable({
   //   opacity: 0.5,
   //   axis: 'y',
@@ -118,6 +139,18 @@ if ($('#var-editing-mode').val() === 'true') {
       $form.removeClass('loading');
       showFormError($form, getError(jqXHR));
     });
+  });
+
+  $('.btn-change-type-icon').popup({
+    on: 'click'
+  });
+
+  $('body').delegate('.change-icon.popup [name=icon-name]', 'input', function() {
+    var $that = $(this);
+    var $icon = $that.closest('.change-icon.popup').prev();
+    var iconName = $that.val();
+    $icon.removeClass();
+    $icon.addClass(iconName + ' circular icon btn-change-type-icon').attr('data-icon', iconName);
   });
 
   $('body').delegate('.btn-save-skill', 'click', function() {
