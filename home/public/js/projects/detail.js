@@ -108,5 +108,5 @@ if ($('#var-editing-mode').val() === 'true') {
         $('#project-cover-dropzone').attr('src', response.url + '?' + Date.now());
       });
     }
-  })
+  });
 }

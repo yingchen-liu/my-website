@@ -37,6 +37,12 @@ router.post('/', f.wrap(async (req, res, next) => {
     featuredProject: req.body.featuredProject
   }).run(db.conn).catch(next);
 
+  const featuredProjectResult = db.projects.get(req.body.featuredProject).update({
+    featuredProjectShowOriginalCover: req.body.featuredProjectShowOriginalCover === 'true',
+    featuredProjectBanner: req.body.featuredProjectBanner,
+    featuredProjectTextColor: req.body.featuredProjectTextColor
+  }).run(db.conn).catch(next);
+
   res.json({});
 }));
 

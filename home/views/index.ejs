@@ -88,7 +88,12 @@
                     </div>
                     <% projectType.projects = projectType.projects ? projectType.projects : []; %>
                     <% projectType.projects.forEach((project) => { %>
-                      <div class="item" data-value="<%= project.id %>" data-project-cover="<%= project.cover %>" data-project-slug="<%= project.slug %>">
+                      <div class="item" data-value="<%= project.id %>" 
+                        data-project-cover="<%= project.cover %>" 
+                        data-project-slug="<%= project.slug %>"
+                        data-featured-project-banner="<%= project.featuredProjectBanner %>"
+                        data-featured-project-show-original-cover="<%= project.featuredProjectShowOriginalCover %>"
+                        data-featured-project-text-color="<%= project.featuredProjectTextColor %>">
                         <%= project.name %>
                       </div>
                     <% }); %>
@@ -96,9 +101,15 @@
                 </div>
               </div>
             </div>
-            <div class="eight wide field" style="padding-right: 0;">
+            <div class="four wide field">
               <label>Color:</label>
-              <input name="featured-project-text-color" class="inline-editing" data-param="featuredProjectTextColor" type="text" placeholder="#ffffff">
+              <input name="featured-project-text-color" class="inline-editing" data-param="featuredProjectTextColor" type="text" value="<%= index.featuredProjectTextColor %>" placeholder="#ffffff">
+            </div>
+            <div class="four wide field" style="padding-right: 0;">
+              <div class="ui toggle checkbox-featured-project-show-original-cover<%= locals.featuredProject && featuredProject.featuredProjectShowOriginalCover ? ' checked' : '' %> checkbox">
+                <input type="checkbox" name="featured-project-show-original-cover"<%= locals.featuredProject && featuredProject.featuredProjectShowOriginalCover ? ' checked' : '' %>>
+                <label>Show original cover</label>
+              </div>
             </div>
           </div>
         </div>
@@ -108,18 +119,33 @@
         <div class="mobile tablet only sixteen wide column">
           <div class="ui divider"></div>
           <h3 class="featured-project-name ui center aligned header"><%= locals.featuredProject ? featuredProject.name : 'No Featured Project' %></h3>
-          <a class="featured-project-link ui image" style="<%= !locals.featuredProject ? 'display: flex' : '' %>" href="<%= base %>/projects/<%= locals.featuredProject ? featuredProject.slug :'' %>">
+          <a class="featured-project-link ui image" style="<%= !locals.featuredProject ? 'display: flex' : '' %>" 
+            href="<%= base %>/projects/<%= locals.featuredProject ? featuredProject.slug : '' %>">
             <img class="featured-project-cover" src="<%= base %>/<%= locals.featuredProject ? process(featuredProject.cover, 'w1500', 'c3.5') : '' %>">
           </a>
         </div>
         <div class="computer only sixteen wide column featured project">
-          <a class="featured-project-link ui image" style="<%= !locals.featuredProject ? 'display: flex' : '' %>" href="<%= base %>/projects/<%= locals.featuredProject ? featuredProject.slug : '' %>">
-            <img class="featured-project-cover" src="<%= base %>/<%= locals.featuredProject ? process(featuredProject.cover, 'w1500', 'c3.5') : '' %>">
-            <div class="overlay">
+          <% if (locals.user && session.editingMode) { %>
+            <img id="featured-project-banner-dropzone" class="featured-project-cover" 
+              data-original-cover-src="<%= locals.featuredProject ? `${base}/${process(featuredProject.cover, 'w1500', 'c3.5')}` : '' %>"
+              data-banner-src="<%= locals.featuredProject && featuredProject.featuredProjectBanner ? `${base}/${featuredProject.featuredProjectBanner}` : '' %>"
+              src="<%= locals.featuredProject ? `${base}/${featuredProject.featuredProjectBanner && !featuredProject.featuredProjectShowOriginalCover ? featuredProject.featuredProjectBanner : process(featuredProject.cover, 'w1500', 'c3.5')}` : '' %>">
+            <div class="overlay" style="color: <%= featuredProject.featuredProjectTextColor ? featuredProject.featuredProjectTextColor : '#ffffff' %>;">
               <h2 class="featured-project-name"><%= locals.featuredProject ? featuredProject.name : 'No Featured Project' %></h2>
               Click to view this featured project
             </div>
-          </a>
+            <input type="hidden" name="featured-project-banner" value="<%= locals.featuredProject ? featuredProject.featuredProjectBanner : '' %>">
+          <% } else { %>
+            <a class="featured-project-link ui image" style="<%= !locals.featuredProject ? 'display: flex' : '' %>" 
+               href="<%= locals.featuredProject ? `${base}/projects/${featuredProject.slug}` : '' %>">
+               <img id="featured-project-banner-dropzone" class="featured-project-cover" 
+                src="<%= locals.featuredProject ? `${base}/${featuredProject.featuredProjectBanner && !featuredProject.featuredProjectShowOriginalCover ? featuredProject.featuredProjectBanner : process(featuredProject.cover, 'w1500', 'c3.5')}` : '' %>">
+              <div class="overlay" style="color: <%= featuredProject.featuredProjectTextColor ? featuredProject.featuredProjectTextColor : '#ffffff' %>;">
+                <h2 class="featured-project-name"><%= locals.featuredProject ? featuredProject.name : 'No Featured Project' %></h2>
+                Click to view this featured project
+              </div>
+            </a>
+          <% } %>
         </div>
       <% } %>
     </div>

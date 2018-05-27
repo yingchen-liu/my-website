@@ -62,6 +62,38 @@ if ($('#var-editing-mode').val() === 'true') {
   //   },
   //   handle: '.btn-sort-project-type'
 
+  $('.checkbox-featured-project-show-original-cover')
+    .checkbox({
+      onChecked: function() {
+        var $img = $('#featured-project-banner-dropzone');
+        $img.attr('src', $img.attr('data-original-cover-src') + '?' + Date.now());
+      },
+      onUnchecked: function() {
+        var $img = $('#featured-project-banner-dropzone');
+        $img.attr('src', $img.attr('data-banner-src') ? $img.attr('data-banner-src') : $img.attr('data-original-cover-src'));
+      }
+    });
+
+  $('#featured-project-banner-dropzone').dropzone({
+    url: base + '/uploads?type=featuredProjects',
+    previewsContainer: '#featured-project-banner-dropzone',
+    maxFiles: 1,
+    init: function() {
+      this.on('maxfilesexceeded', function(file) {
+        this.removeAllFiles();
+        this.addFile(file);
+      });
+      
+      this.on('success', function (file) {
+        var response = JSON.parse(file.xhr.response);
+
+        $('[name=featured-project-banner]').val(response.path);
+        $('#featured-project-banner-dropzone').attr('src', response.url + '?' + Date.now());
+        $('#featured-project-banner-dropzone').attr('data-banner-src', response.url);
+        $('.checkbox-featured-project-show-original-cover').checkbox('uncheck');
+      });
+    }
+  });
 
   $('.btn-save').click(function() {
     var $that = $(this);
@@ -69,11 +101,17 @@ if ($('#var-editing-mode').val() === 'true') {
     $form.addClass('loading');
 
     var featuredProject = $('[name=featured-project]').parent().dropdown('get value');
+    var featuredProjectTextColor = $('[name=featured-project-text-color]').val();
     var introduction = editor.getMarkdown();
+    var featuredProjectShowOriginalCover = $('.checkbox-featured-project-show-original-cover').checkbox('is checked');
+    var featuredProjectBanner = $('[name=featured-project-banner]').val();
 
     $.post(base + '/', {
       introduction: introduction,
-      featuredProject: featuredProject
+      featuredProject: featuredProject,
+      featuredProjectTextColor: featuredProjectTextColor,
+      featuredProjectShowOriginalCover: featuredProjectShowOriginalCover,
+      featuredProjectBanner: featuredProjectBanner
     }).done(function(data) {
       window.location = base + '/'
     }).fail(function(jqXHR) {
@@ -189,9 +227,17 @@ if ($('#var-editing-mode').val() === 'true') {
     var name = $option.text().trim();
     var cover = $option.attr('data-project-cover');
     var slug = $option.attr('data-project-slug');
-
+    var banner = $option.attr('data-featured-project-banner');
+    var showOriginalCover = $option.attr('data-featured-project-show-original-cover') === 'true';
+    var textColor = $option.attr('data-featured-project-text-color');
+    
+    $('.checkbox-featured-project-show-original-cover').checkbox(showOriginalCover ? 'check' : 'uncheck');
     $('.featured-project-name').text(name);
-    $('.featured-project-cover').attr('src', base + '/' + process(cover, 'w1500', 'c3.5', Date.now()));
+    $('#featured-project-banner-dropzone')
+      .attr('src', base + '/' + (banner && showOriginalCover === 'false' ? process(banner, Date.now()) : process(cover, 'w1500', 'c3.5', Date.now())))
+      .attr('data-original-cover-src', base + '/' + process(cover, 'w1500', 'c3.5', Date.now()))
+      .attr('data-banner-src', base + '/' + process(banner, Date.now()));
+    $('[name=featured-project-text-color]').val(textColor);
     $('.featured-project-link').attr('href', base + '/projects/' + slug).css({ display: 'block' });
   });
 
