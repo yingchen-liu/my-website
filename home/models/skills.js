@@ -6,7 +6,7 @@ const getSkills = f.wrap(async (db, next) => {
       return type('id').eq(skill('type'));
     })
     .orderBy(
-      db.r.desc(db.r.row('right')('sort'))
+      db.r.row('right')('sort')
     ) // order by skill sort
     .group((record) => {
       return record.pluck('left') // group by right (skill type)
