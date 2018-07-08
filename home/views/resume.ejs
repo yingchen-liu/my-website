@@ -6,11 +6,13 @@
 <div class="page resume printing">
   <div class="ui main grid container">
     <div class="sixteen wide column">
+
+      <%# --- Personal Information --- %>
       <section>
         <div class="print button contriner noprint">
           <button id="button-print" class="ui mini print button"><i class="icon print"></i> Print</button>
         </div>
-
+        
         <h1>YINGCHEN LIU</h1>
         <hr>
         <div style="display: flex;">
@@ -55,14 +57,18 @@
         </div>
       </section>
 
+      <%# --- Summary --- %>
       <section>
         <h2><i class="icon file text"></i> SUMMARY</h2>
         <hr>
         <p><%= resume.summary %></p>
+      </section>
 
+      <%# --- Employment History --- %>
+      <section>
         <h2><i class="icon travel"></i> EMPLOYMENT HISTORY</h2>
         <hr>
-        <ul>
+        <ul class="top-level">
           <% resume.experiences.forEach((experience) => { %>
             <li>
               <div class="li-container">
@@ -95,14 +101,15 @@
         </ul>
       </section>
 
+      <%# --- Projects --- %>
       <section>
         <h2><i class="icon fork"></i> PROJECTS</h2>
         <hr>
-        <ul>
+        <ul class="top-level">
           <% projectTypes.forEach((projectType) => { %>
             <li>
               <strong><%= projectType.name %></strong>
-              <ul>
+              <ul class="top-level">
                 <% projectType.projects.forEach((project) => { %>
                   <li>
                     <div class="li-container">
@@ -147,10 +154,11 @@
         </ul>
       </section>
 
+      <%# --- Technical Skills --- %>
       <section>
         <h2><i class="icon keyboard"></i> TECHNICAL SKILLS</h2>
         <hr>
-          <ul>
+          <ul class="top-level">
             <% skillTypes.forEach((skillType) => { %>
               <li>
                 <strong><%= skillType.name %></strong>
@@ -167,10 +175,11 @@
         </ul>
       </section>
 
+      <%# --- Personal Attributes --- %>
       <section>
         <h2><i class="icon heart"></i> PERSONAL ATTRIBUTES</h2>
         <hr>
-        <ul>
+        <ul class="top-level">
           <% resume.skills.forEach((skill) => { %>
             <li>
               <strong><%= skill.name %></strong>
@@ -180,10 +189,11 @@
         </ul>
       </section>
       
+      <%# --- Education --- %>
       <section>
         <h2><i class="icon student"></i> EDUCATION</h2>
         <hr>
-        <ul>
+        <ul class="top-level">
           <% resume.educations.forEach((education) => { %>
             <li>
               <div class="li-container">
@@ -194,13 +204,13 @@
                   [<%= education.from %><%= education.to ? ' - ' + education.to : '' %>]</br>
                 </div>
               </div>
-              <div>
+              <p>
                 <% education.degrees.forEach((degree) => {
                   %>
                   <%= degree %></br>
                   <%
                 }); %>
-              </div>
+              </p>
               <div>
                 <% 
                 if (education.achievements) {
@@ -235,11 +245,13 @@
         </ul>
       </section>
 
+      <%# --- Referees --- %>
       <section>
         <h2><i class="icon address card"></i> REFEREES</h2>
         <hr>
         Available upon request
       </section>
+
     </div>
   </div>
 </div>
