@@ -13,35 +13,46 @@
 
         <h1>YINGCHEN LIU</h1>
         <hr>
-        <p>
-          [Phone]
-          <% resume.phones.forEach((phone, i) => {
-            if (i > 0) {
-              %> / <%
-            } %>
-            <%= phone %>
-          <% }); %></br>
-          [Email] 
-          <% resume.emails.forEach((email, i) => {
-            if (i > 0) {
-              %> / <%
-            } %>
-            <a href="mailto:<%= email %>"><%= email %></a>
-          <% }); %></br>
-        </p>
-        
-        <p>
-          [Website] 
-          <% resume.websites.forEach((website, i) => {
-            if (i > 0) {
-              %> / <%
-            } %>
-            <a href="<%= website %>" target="_blank"><%= website %></a>
-          <% }); %></br>
-          <% for (social in resume.socials) { %>
-            [<%= social %>] <a href="<%= resume.socials[social] %>" target="_blank"><%= resume.socials[social] %></a></br>
-          <% } %>
-        </p>
+        <div style="display: flex;">
+          <div style="flex-grow: 1;">
+            <div>
+              <span class="into-item-name">[Phone]</span>
+              <% resume.phones.forEach((phone, i) => {
+                if (i > 0) {
+                  %> / <%
+                } %>
+                <%= phone %>
+              <% }); %>
+            </div>
+            <div>
+              <span class="into-item-name">[Email]</span>
+              <% resume.emails.forEach((email, i) => {
+                if (i > 0) {
+                  %> / <%
+                } %>
+                <a href="mailto:<%= email %>"><%= email %></a>
+              <% }); %>
+            </div>
+          </div>
+          
+          <div style="flex-grow: 1;">
+            <div>
+              <span class="into-item-name">[Website]</span>
+              <% resume.websites.forEach((website, i) => {
+                if (i > 0) {
+                  %> / <%
+                } %>
+                <a href="<%= website %>" target="_blank"><%= website %></a>
+              <% }); %>
+            </div>
+            <% for (social in resume.socials) { %>
+              <div>
+                <span class="into-item-name">[<%= social %>]</span>
+                <a href="<%= resume.socials[social] %>" target="_blank"><%= resume.socials[social] %></a>
+              </div>
+            <% } %>
+          </div>
+        </div>
       </section>
 
       <section>
@@ -54,20 +65,24 @@
         <ul>
           <% resume.experiences.forEach((experience) => { %>
             <li>
-              <p>
-                <strong><%= experience.position %></strong> at 
-                <% if (experience.link) { %>
-                  <a href="<%= experience.link %>" target="_blank"><%= experience.company %></a>
-                <% } else { %>
-                  <%= experience.company %>
-                <% } %>
-                [<%= experience.from %><%= experience.to ? ' - ' + experience.to : '' %>]</br>
-                <% experience.rules.forEach((rule) => {
-                  %>
-                  <%= rule %></br>
-                  <%
-                }); %>
-              </p>
+              <div class="li-container">
+                <div class="li-name">
+                  <strong><%= experience.position %></strong> at 
+                  <% if (experience.link) { %>
+                    <a href="<%= experience.link %>" target="_blank"><%= experience.company %></a>
+                  <% } else { %>
+                    <%= experience.company %>
+                  <% } %>
+                </div>
+                <div class="li-date">
+                  [<%= experience.from %><%= experience.to ? ' - ' + experience.to : '' %>]
+                </div>
+              </div>
+              <% experience.rules.forEach((rule) => {
+                %>
+                <%= rule %></br>
+                <%
+              }); %>
             </li>
           <% }); %>
         </ul>
@@ -83,21 +98,30 @@
               <ul>
                 <% projectType.projects.forEach((project) => { %>
                   <li>
-                    <strong><%= project.name %></strong>
-                    <p>
-                      <%= project.brief %></br>
-                      <strong>> Roles:</strong> <% project.responsibilities.forEach((responsibility, i) => { 
-                        if (i > 0) {
-                          %>, <%
-                        }
-                        %><%= responsibility %><% }); %>  <!-- must be here, to avoid extra space befor ',' -->
-                      </br>
-                      <strong>> Technologies:</strong> <% project.technologies.forEach((technology, i) => { 
-                        if (i > 0) {
-                          %>, <%
-                        }
-                        %><%= technology %><% }); %>  <!-- must be here, to avoid extra space befor ',' -->
-                    </p>
+                    <div class="li-container">
+                      <div class="li-name">
+                        <strong><%= project.name %></strong>
+                      </div>
+                      <div class="li-date">
+                        [<%= project.from.year %>.<%= project.from.month %> - <%= project.to.year %>.<%= project.to.month %>]
+                      </div>
+                    </div>
+                    <div>
+                      <p>
+                        <%= project.brief %></br>
+                        <strong>> Roles:</strong> <% project.responsibilities.forEach((responsibility, i) => { 
+                          if (i > 0) {
+                            %>, <%
+                          }
+                          %><%= responsibility %><% }); %>  <!-- must be here, to avoid extra space befor ',' -->
+                        </br>
+                        <strong>> Technologies:</strong> <% project.technologies.forEach((technology, i) => { 
+                          if (i > 0) {
+                            %>, <%
+                          }
+                          %><%= technology %><% }); %>  <!-- must be here, to avoid extra space befor ',' -->
+                      </p>
+                    </div>
                   </li>
                 <% }); %>
               </ul>
@@ -107,7 +131,7 @@
       </section>
 
       <section>
-        <h2><i class="icon keyboard"></i> SKILLS</h2>
+        <h2><i class="icon keyboard"></i> TECHNICAL SKILLS</h2>
         <hr>
         <ul>
             <% resume.skills.forEach((skill) => { %>
@@ -138,15 +162,21 @@
         <ul>
           <% resume.educations.forEach((education) => { %>
             <li>
-              <p>
-                <strong><%= education.school %></strong> <%= education.location %>
-                [<%= education.from %><%= education.to ? ' - ' + education.to : '' %>]</br>
+              <div class="li-container">
+                <div class="li-name">
+                  <strong><%= education.school %></strong> <%= education.location %>
+                </div>
+                <div class="li-date">
+                  [<%= education.from %><%= education.to ? ' - ' + education.to : '' %>]</br>
+                </div>
+              </div>
+              <div>
                 <% education.degrees.forEach((degree) => {
                   %>
                   <%= degree %></br>
                   <%
                 }); %>
-              </p>
+              </div>
             </li>
           <% }); %>
         </ul>

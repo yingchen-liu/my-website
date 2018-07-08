@@ -17,13 +17,24 @@
 
 .my.website .page.resume {
 
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+
+  h1 {
+    font-size: 50px;
+  }
+
   .main.container {
     margin-top: 70px;
     margin-bottom: 50px;
 
+    .into-item-name {
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
     p, address, li {
-      font-size: 15px;
-      line-height: 1.7em;
+      line-height: 24px;
     }
 
     section {
@@ -46,6 +57,18 @@
 
     li {
       margin-bottom: 5px;
+
+      .li-container {
+        display: flex;
+
+        .li-name {
+          flex-grow: 1;
+        }
+        .li-date {
+          flex-grow: 0;
+          font-weight: bold;
+        }
+      }
     }
   }
 
