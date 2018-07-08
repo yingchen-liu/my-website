@@ -115,19 +115,33 @@
                     </div>
                     <div>
                       <p>
-                        <%= project.brief %></br>
+                        <%= project.brief %>
+                      </p>
+                      <div>
                         <strong>> Roles:</strong> <% project.responsibilities.forEach((responsibility, i) => { 
                           if (i > 0) {
                             %>, <%
                           }
-                          %><%= responsibility %><% }); %>  <!-- must be here, to avoid extra space befor ',' -->
-                        </br>
-                        <strong>> Technologies:</strong> <% project.technologies.forEach((technology, i) => { 
+                          %>
+                          <%= responsibility %>
+                        <% }); %>  <!-- must be here, to avoid extra space befor ',' -->
+                      </div>
+                      <div>
+                        <strong>> Technologies:</strong> 
+                        <% project.technologies.forEach((technology, i) => { 
                           if (i > 0) {
                             %>, <%
                           }
-                          %><%= technology %><% }); %>  <!-- must be here, to avoid extra space befor ',' -->
-                      </p>
+                          %>
+                          <%= technology %>
+                        <% }); %>  <!-- must be here, to avoid extra space befor ',' -->
+                      </div>
+                      <% if (project.link) { %>
+                        <div>
+                          <strong>> Link:</strong>
+                          <a href="<%= project.link %>" target="_blank">Click to View</a>
+                        </div>
+                      <% } %>
                     </div>
                   </li>
                 <% }); %>
