@@ -87,7 +87,7 @@ router.get('/resume*', f.wrap(async (req, res, next) => {
   res.render('resume', f.data({
     title: f.title('Yingchen Liu\'s Resume'),
     resume: resumeRecords[0],
-    skillTypes: await getSkills(db),
+    skillTypes: await skills.getSkills(db),
     projectTypes: projectRecords
   }, req));
 }));
