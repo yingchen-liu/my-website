@@ -139,7 +139,6 @@ router.get('/404', f.wrap(async (req, res, next) => {
   
   res.render('404', f.data({
     title: f.title('404'),
-    skillTypes: getSkills(db)
   }, req));
 }));
 
