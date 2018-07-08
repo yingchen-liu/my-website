@@ -60,29 +60,36 @@
         <hr>
         <p><%= resume.summary %></p>
 
-        <h2><i class="icon travel"></i> EXPERIENCES</h2>
+        <h2><i class="icon travel"></i> EMPLOYMENT HISTORY</h2>
         <hr>
         <ul>
           <% resume.experiences.forEach((experience) => { %>
             <li>
               <div class="li-container">
                 <div class="li-name">
-                  <strong><%= experience.position %></strong> at 
-                  <% if (experience.link) { %>
-                    <a href="<%= experience.link %>" target="_blank"><%= experience.company %></a>
-                  <% } else { %>
-                    <%= experience.company %>
-                  <% } %>
+                  <strong><%= experience.position %></strong>
+                  <div>
+                    at 
+                    <% if (experience.link) { %>
+                      <a href="<%= experience.link %>" target="_blank"><%= experience.company %></a>
+                    <% } else { %>
+                      <%= experience.company %>
+                    <% } %>
+                  </div>
                 </div>
                 <div class="li-date">
                   [<%= experience.from %><%= experience.to ? ' - ' + experience.to : '' %>]
                 </div>
               </div>
-              <% experience.rules.forEach((rule) => {
-                %>
-                <%= rule %></br>
-                <%
-              }); %>
+              <ul>
+                <% experience.rules.forEach((rule) => {
+                  %>
+                  <li>
+                    <%= rule %>
+                  </li>
+                  <%
+                }); %>
+              </ul>
             </li>
           <% }); %>
         </ul>
@@ -133,13 +140,7 @@
       <section>
         <h2><i class="icon keyboard"></i> TECHNICAL SKILLS</h2>
         <hr>
-        <ul>
-            <% resume.skills.forEach((skill) => { %>
-              <li>
-                <strong><%= skill.name %></strong>
-                <p><%= skill.desc %></p>
-              </li>
-            <% }); %>
+          <ul>
             <% skillTypes.forEach((skillType) => { %>
               <li>
                 <strong><%= skillType.name %></strong>
@@ -153,6 +154,19 @@
                 </ul>
               </li>
             <% }); %>
+        </ul>
+      </section>
+
+      <section>
+        <h2><i class="icon heart"></i> PERSONAL ATTRIBUTES</h2>
+        <hr>
+        <ul>
+          <% resume.skills.forEach((skill) => { %>
+            <li>
+              <strong><%= skill.name %></strong>
+              <p><%= skill.desc %></p>
+            </li>
+          <% }); %>
         </ul>
       </section>
       
@@ -176,6 +190,35 @@
                   <%= degree %></br>
                   <%
                 }); %>
+              </div>
+              <div>
+                <% 
+                if (education.achievements) {
+                  %>
+                  <strong>> Achievements: </strong>
+                  <ul>
+                    <%
+                    education.achievements.forEach((achievement) => {
+                      %>
+                      <li>
+                        <% if (achievement.link) {
+                          %>
+                          <a href="<%= achievement.link %>" target="_blank">
+                            <%= achievement.content %>
+                          </a>
+                          <%
+                        } else {
+                          %>
+                          <%= achievement.content %>
+                          <%
+                        } %>
+                        [<%= achievement.year %>]
+                      </li>
+                      <%
+                    });
+                  %>
+                  </ul>
+                <% } %>
               </div>
             </li>
           <% }); %>

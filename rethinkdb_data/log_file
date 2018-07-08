@@ -1393,3 +1393,5 @@
 2018-07-08T10:38:29.903621000 2.654381s info: Table d3a68583-ee76-4395-8dee-35592bbff541: This server is Raft leader for term 32. Latest log index is 94.
 2018-07-08T10:38:29.903676000 2.654435s info: Table 6751e769-32b8-4096-b322-2db264d5604b: This server is Raft leader for term 38. Latest log index is 117.
 2018-07-08T10:38:35.556421000 8.306996s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2018-07-08T12:29:50.922201000 5209.139407s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
+2018-07-08T15:05:57.322401000 10442.704336s notice: Someone asked for the nonwhitelisted file "/robots.txt".  If this should be accessible, add it to the static web assets.
