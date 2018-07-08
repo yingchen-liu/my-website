@@ -73,7 +73,7 @@
             <li>
               <div class="li-container">
                 <div class="li-name">
-                  <strong><%= experience.position %></strong>
+                  <h3><%= experience.position %></h3>
                   <div>
                     at 
                     <% if (experience.link) { %>
@@ -108,13 +108,13 @@
         <ul class="top-level">
           <% projectTypes.forEach((projectType) => { %>
             <li>
-              <strong><%= projectType.name %></strong>
+              <h3><%= projectType.name %></h3>
               <ul class="top-level">
                 <% projectType.projects.forEach((project) => { %>
                   <li>
                     <div class="li-container">
                       <div class="li-name">
-                        <strong><%= project.name %></strong>
+                        <h3><%= project.name %></h3>
                       </div>
                       <div class="li-date">
                         [<%= project.from.year %>.<%= project.from.month %> - <%= project.to.year %>.<%= project.to.month %>]
@@ -161,7 +161,7 @@
           <ul class="top-level">
             <% skillTypes.forEach((skillType) => { %>
               <li>
-                <strong><%= skillType.name %></strong>
+                <h3><%= skillType.name %></h3>
                 <ul class="three in a row">
                   <% skillType.skills.forEach((skill) => { %>
                     <li>
@@ -182,7 +182,7 @@
         <ul class="top-level">
           <% resume.skills.forEach((skill) => { %>
             <li>
-              <strong><%= skill.name %></strong>
+              <h3><%= skill.name %></h3>
               <p><%= skill.desc %></p>
             </li>
           <% }); %>
@@ -198,7 +198,7 @@
             <li>
               <div class="li-container">
                 <div class="li-name">
-                  <strong><%= education.school %></strong> <%= education.location %>
+                  <h3><%= education.school %> <small>in <%= education.location %></small></h3> 
                 </div>
                 <div class="li-date">
                   [<%= education.from %><%= education.to ? ' - ' + education.to : '' %>]</br>
