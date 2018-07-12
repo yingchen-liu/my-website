@@ -111,7 +111,7 @@
               <h3><%= projectType.name %></h3>
               <ul class="top-level">
                 <% projectType.projects.forEach((project) => { %>
-                  <li>
+                  <li class="no-break">
                     <div class="li-container">
                       <div class="li-name">
                         <h3><%= project.name %></h3>
@@ -160,7 +160,7 @@
         <hr>
           <ul class="top-level">
             <% skillTypes.forEach((skillType) => { %>
-              <li>
+              <li class="no-break">
                 <h3><%= skillType.name %></h3>
                 <ul class="three in a row">
                   <% skillType.skills.forEach((skill) => { %>
@@ -181,7 +181,7 @@
         <hr>
         <ul class="top-level">
           <% resume.skills.forEach((skill) => { %>
-            <li>
+            <li class="no-break">
               <h3><%= skill.name %></h3>
               <p><%= skill.desc %></p>
             </li>
@@ -195,7 +195,7 @@
         <hr>
         <ul class="top-level">
           <% resume.educations.forEach((education) => { %>
-            <li>
+            <li class="no-break">
               <div class="li-container">
                 <div class="li-name">
                   <h3><%= education.school %> <small>in <%= education.location %></small></h3> 
