@@ -3,6 +3,13 @@
     `${base}/css/resume.css`
   ]
 }); %>
+
+<%
+function month(month) {
+  var months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  return months[month];
+}
+%>
 <div class="page resume printing">
   <div class="ui main grid container">
     <div class="sixteen wide column">
@@ -138,7 +145,7 @@
                         <h3><%= project.name %></h3>
                       </div>
                       <div class="li-date">
-                        [<%= project.from.year %>.<%= project.from.month %> - <%= project.to.year %>.<%= project.to.month %>]
+                        <%= month(project.from.month) %> <%= project.from.year %> - <%= month(project.to.month) %> <%= project.to.year %>
                       </div>
                     </div>
                     <div>
