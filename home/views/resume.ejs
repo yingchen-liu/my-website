@@ -112,7 +112,7 @@ function month(month) {
                   </div>
                 </div>
                 <div class="li-date">
-                  [<%= experience.from %><%= experience.to ? ' - ' + experience.to : '' %>]
+                  <%= experience.from %><%= experience.to ? ' - ' + experience.to : '' %>
                 </div>
               </div>
               <ul>
@@ -208,7 +208,7 @@ function month(month) {
                   <h3><%= education.school %> <small>in <%= education.location %></small></h3> 
                 </div>
                 <div class="li-date">
-                  [<%= education.from %><%= education.to ? ' - ' + education.to : '' %>]</br>
+                  <%= education.from %><%= education.to ? ' - ' + education.to : '' %></br>
                 </div>
               </div>
               <p>
@@ -239,7 +239,7 @@ function month(month) {
                           <%= achievement.content %>
                           <%
                         } %>
-                        [<%= achievement.year %>]
+                        <%= achievement.year %>
                       </li>
                       <%
                     });
