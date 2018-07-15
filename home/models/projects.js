@@ -18,7 +18,6 @@ const getProjects = f.wrap(async (db, next) => {
       return db.r.object(
         'id', group('group')('left')('id'),
         'name', group('group')('left')('name'),
-        // 'link', group('group')('left')('link'),
         'subtitle', group('group')('left')('subtitle'),
         'experienceType', group('group')('left')('experienceType'),
         'slug', group('group')('left')('slug'),
