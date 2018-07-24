@@ -209,7 +209,7 @@
               <%# --- For Mobile --- %>
               <div class="eight wide mobile four wide tablet only column<%= skill.id === 'skill-template' ? ' skill-template' : '' %>" style="display: <%= skill.id === 'skill-template' ? 'none' : 'block' %>;">
                 <div class="ui large list">
-                  <div class="item">
+                  <div class="item" style="display: flex;">
                     <img class="ui avatar image" alt="<%= skill.name %>" src="<%= base %>/<%= skill.icon %>">
                     <div class="content">
                       <div data-param="name">
