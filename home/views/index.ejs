@@ -230,7 +230,7 @@
                 <form class="ui form">
                   <input type="hidden" name="id" value="<%= skill.id %>">
                   <div class="ui large list">
-                    <div class="item">
+                    <div class="item" style="display: flex;">
                       <div data-param="icon" style="cursor: pointer; display: inline-block; background-color: transparent; margin: 0; vertical-align: top;">
                         <img class="ui avatar image skill-icon-dropzone" style="width: 32px; height: 32px; margin: 0;" src='<%= base %>/<%= skill.icon %>'>
                         <input type="hidden" name="icon" value="<%= skill.icon %>">
@@ -262,7 +262,7 @@
             <% } else { %>
               <div class="eight wide mobile four wide tablet four wide computer column">
                 <div class="ui large list">
-                  <div class="item">
+                  <div class="item" style="display: flex;">
                     <img class="ui avatar image" alt="<%= skill.name %>" src="<%= base %>/<%= skill.icon %>">
                     <div class="content">
                       <% if (skill.website) { %>
