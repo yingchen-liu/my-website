@@ -301,6 +301,13 @@ if ($('#var-editing-mode').val() === 'true') {
   
 }
 
+var calculateAge = function (dateString) {
+  var birthday = +new Date(dateString);
+  return ~~((Date.now() - birthday) / (31557600000));
+}
+
+$('.age').text(calculateAge('1992-06-30'));
+
 /**
  * Featured project
  */
