@@ -1539,3 +1539,9 @@
 2018-07-24T19:30:32.608259000 2.409229s info: Table 08363e69-a1e8-4bd3-874c-73ef9c19b841: Starting a new Raft election for term 43.
 2018-07-24T19:30:32.680933000 2.481901s info: Table 08363e69-a1e8-4bd3-874c-73ef9c19b841: This server is Raft leader for term 43. Latest log index is 133.
 2018-07-24T19:30:33.071461000 2.872418s notice: A newer version of the RethinkDB server is available: 2.3.6. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.
+2018-07-24T21:56:34.341537000 8567.468130s notice: Someone asked for the nonwhitelisted file "/wp-admin/post.php".  If this should be accessible, add it to the static web assets.
+2018-07-24T21:56:34.482984000 8567.609573s notice: Someone asked for the nonwhitelisted file "/apple-touch-icon-precomposed.png".  If this should be accessible, add it to the static web assets.
+2018-07-24T21:56:34.485927000 8567.612516s notice: Someone asked for the nonwhitelisted file "/apple-touch-icon.png".  If this should be accessible, add it to the static web assets.
+2018-07-24T21:56:34.987716000 8568.114290s notice: Someone asked for the nonwhitelisted file "/wp-admin/post.php".  If this should be accessible, add it to the static web assets.
+2018-07-24T21:56:34.998139000 8568.124712s notice: Someone asked for the nonwhitelisted file "/apple-touch-icon-precomposed.png".  If this should be accessible, add it to the static web assets.
+2018-07-24T21:56:35.001180000 8568.127753s notice: Someone asked for the nonwhitelisted file "/apple-touch-icon.png".  If this should be accessible, add it to the static web assets.

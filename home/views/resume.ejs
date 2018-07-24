@@ -105,7 +105,7 @@ function month(month) {
                   <div>
                     at 
                     <% if (experience.link) { %>
-                      <a href="<%= experience.link %>" target="_blank"><%= experience.company %></a>
+                      <%= experience.company %>
                     <% } else { %>
                       <%= experience.company %>
                     <% } %>
@@ -170,7 +170,7 @@ function month(month) {
                       <% if (project.link) { %>
                         <div>
                           <strong>> Link:</strong>
-                          <a href="<%= project.link %>" target="_blank">Click to View</a>
+                          <a href="<%= project.link %>" target="_blank"><%= project.link %></a>
                         </div>
                       <% } %>
                     </div>
@@ -230,9 +230,7 @@ function month(month) {
                       <li>
                         <% if (achievement.link) {
                           %>
-                          <a href="<%= achievement.link %>" target="_blank">
-                            <%= achievement.content %>
-                          </a>
+                          <%= achievement.content %>
                           <%
                         } else {
                           %>
@@ -259,7 +257,7 @@ function month(month) {
         Available upon request
       </section>
 
-      <section class="print-only pull-right" style="font-size: 14px;">
+      <section class="print-only pull-right" style="font-size: 10px;">
         This resume was generated from my website. For the latest version, please visit <a href="http://yingchenliu.com/resume">http://yingchenliu.com/resume</a>.
       </section>
 
