@@ -23,6 +23,18 @@ const uploads = require('./routes/uploads');
 
 const app = express();
 
+(function() {
+  var childProcess = require("child_process");
+  var oldSpawn = childProcess.spawn;
+  function mySpawn() {
+      console.log('spawn called');
+      console.log(arguments);
+      var result = oldSpawn.apply(this, arguments);
+      return result;
+  }
+  childProcess.spawn = mySpawn;
+})();
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
