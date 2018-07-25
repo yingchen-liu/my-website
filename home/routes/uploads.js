@@ -7,6 +7,7 @@ const path = require('path');
 const mkdirp = require('mkdirp');
 const busboy = require('connect-busboy');
 const jimp = require('jimp');
+const imageMagick = require('imagemagick');
 
 const c = require('../includes/config');
 const f = require('../includes/functions');
@@ -46,11 +47,19 @@ router.post('/', f.wrap(async (req, res, next) => {
     const fstream = fs.createWriteStream(`${c.upload.dir}/${dir}/${newFilename}`);
     file.pipe(fstream);
     fstream.on('close', () => {
-      res.json({
-        success: 1,
-        message: 'File uploaded.',
-        url: `${c.base}/uploads/${key}`,
-        path: `uploads/${key}`,
+
+      imageMagick.convert([`${c.upload.dir}/${dir}/${newFilename}`, '-strip', `${c.upload.dir}/${dir}/${newFilename}`], function (err, stdout) {
+        if (err) return res.status(500).json({
+          success: 0,
+          message: err.message
+        });
+
+        res.json({
+          success: 1,
+          message: 'File uploaded.',
+          url: `${c.base}/uploads/${key}`,
+          path: `uploads/${key}`,
+        });
       });
     });
   }));
