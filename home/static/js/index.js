@@ -276,7 +276,7 @@ if ($('#var-editing-mode').val() === 'true') {
 
   var initSkillDropzone = function($dropzone) {
     $dropzone.dropzone({
-      url: base + '/uploads?type=skills',
+      url: base + '/uploads?type=skills&resizeW=50&resizeH=50',
       previewsContainer: $dropzone.first().getPath(),
       maxFiles: 1,
       init: function() {

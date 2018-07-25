@@ -48,7 +48,14 @@ router.post('/', f.wrap(async (req, res, next) => {
     file.pipe(fstream);
     fstream.on('close', () => {
 
-      imageMagick.convert([`${c.upload.dir}/${dir}/${newFilename}`, '-strip', `${c.upload.dir}/${dir}/${newFilename}`], function (err, stdout) {
+      let imageMagickParams = [`${c.upload.dir}/${dir}/${newFilename}`, '-strip'];
+      if (req.query.resizeW && req.query.resizeH) {
+        imageMagickParams.push('-resize');
+        imageMagickParams.push(`${req.query.resizeW}x${req.query.resizeH}`);
+      }
+      imageMagickParams.push(`${c.upload.dir}/${dir}/${newFilename}`);
+
+      imageMagick.convert(imageMagickParams, function (err, stdout) {
         if (err) return res.status(500).json({
           success: 0,
           message: err.message
