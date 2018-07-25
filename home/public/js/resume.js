@@ -1,6 +1,1 @@
-/**
- * Printing
- */
-$('#button-print').click(function() {
-  window.print();
-});
+$("#button-print").click(function(){window.print()});

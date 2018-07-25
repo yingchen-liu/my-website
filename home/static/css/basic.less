@@ -1,0 +1,86 @@
+.my.website {
+  .logo {
+    width: auto !important;
+  }
+
+  .menu {
+    .checkbox {
+      label {
+        font-weight: normal;
+      }
+    }
+  }
+
+  .login.popup {
+    width: 340px;
+    max-width: none;
+  }
+
+  .footer.segment {
+    padding: 5em 0em;
+  }
+
+  .main {
+    margin-top: 30px;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .ui.card {
+      width: auto;
+    }
+  }
+
+  .ui.sticky {
+    padding-top: 31px;
+    z-index: 0 !important;
+    
+    .ui.vertical.menu {
+      width: auto;
+
+      .header {
+        background-color: #dddddd !important;
+      }
+    }
+  }
+
+  article.markdown-body {
+    padding: 0;
+    margin-bottom: 30px;
+
+    p {
+      line-height: 1.6;
+      font-size: 16px;
+    }
+    ul, li {
+      font-size: 16px;
+    }
+  }
+
+  .ui.form {
+    .inline-editing {
+      border: none;
+      padding: 1px 5px;
+    }
+    .sm.inline-editing {
+      padding: 0 1px;
+    }
+    .inline-editing:focus {
+      outline: none;
+      background: #eee;
+    }
+    [data-param].error {
+      background: #f5eaea;
+    }
+
+    .ui.popup.error {
+      color: red;
+      padding: 0.2rem 0.5rem;
+    }
+
+    button.inline-editing, .button.inline-editing {
+      width: 22px; 
+      height: 22px; 
+      padding: 1px 6px;
+    }
+  }
+}

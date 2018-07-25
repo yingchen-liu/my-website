@@ -1,0 +1,130 @@
+@media print {
+  .noprint {
+    position: static !important;
+    display: none !important;
+    height: 0 !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  .no-break {
+    page-break-inside: avoid;
+  }
+
+  // fix one extra blank page problem 
+  html, body { 
+    height: auto;
+  }
+}
+
+.print-only {
+  display: none;
+}
+
+.my.website .page.resume {
+
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 14px;
+
+  h1, h2, h3, h4, h5 {
+    font-family: Arial, Helvetica, sans-serif !important;
+  }
+
+  h1 {
+    font-size: 38px;
+  }
+
+  h2 {
+    font-size: 19px;
+    margin-bottom: 5px;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 17px;
+  
+    small {
+      font-weight: normal;
+      margin-left: 10px;
+    }
+  }
+
+  .main.container {
+    margin-top: 40px;
+    margin-bottom: 50px;
+
+    .into-item-name {
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    ul.top-level > li {
+      margin-bottom: 10px;
+    }
+
+    p, address, li, span {
+      line-height: 23px;
+      margin-bottom: 6px;
+    }
+
+    li {
+      margin-top: 5px;
+    }
+
+    section {
+      margin-bottom: 20px;
+    }
+  }
+
+  .print.button.contriner {
+    float: right;
+    position: relative;
+    top: 5px;
+  }
+
+  address {
+    margin-bottom: 1em;
+  }
+
+  ul {
+    margin-bottom: 5px;
+
+    li {
+      margin-bottom: 5px;
+
+      .li-container {
+        display: flex;
+
+        .li-name {
+          flex-grow: 1;
+        }
+        .li-date {
+          flex-grow: 0;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  img.skill.image {
+    width: 20px;
+    height: 20px;
+    filter: grayscale(70%);
+  }
+  img.skill.image:hover {
+    filter: grayscale(30%);
+  }
+
+  ul.three.in.a.row {
+    overflow: hidden;
+
+    li {
+      float: left;
+      width: 30%;
+      padding-right: 32px;
+    }
+  }
+
+}

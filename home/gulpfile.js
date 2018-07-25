@@ -4,6 +4,9 @@ const watch = require('gulp-watch');
 const rename = require("gulp-rename");
 const less = require('gulp-less');
 const concat = require('gulp-concat');
+const uglify = require('gulp-uglify');
+const pump = require('pump');
+const cleanCSS = require('gulp-clean-css');
 
 const vendor = {
   js: [
@@ -35,36 +38,83 @@ const vendor = {
     './bower_components/editor.md/css/editormd.css'
   ],
   cssAdmin: [
-    './bower_components/jquery-ui/themes/base/all.css',
+    // './bower_components/jquery-ui/themes/base/*.css',
     './bower_components/dropzone/dist/dropzone.css'
   ]
 };
 
-gulp.task('vendor:js', () => {
+const uglifyOptions = {
+  sourceMap: true
+};
+
+gulp.task('vendor:js', (cb) => {
+  pump([
+    gulp.src(vendor.js),
+    concat('vendor.js'),
+    uglify(uglifyOptions),
+    gulp.dest('./public/js')
+  ], cb);
+});
+
+gulp.task('vendor:jsAdmin', (cb) => {
+  pump([
+    gulp.src(vendor.jsAdmin),
+    concat('admin.js'),
+    uglify(uglifyOptions),
+    gulp.dest('./public/js')
+  ], cb);
+});
+
+gulp.task('vendor:jsMarkdown', (cb) => {
+  pump([
+    gulp.src(vendor.jsMarkdown),
+    concat('markdown.js'),
+    uglify(uglifyOptions),
+    gulp.dest('./public/js')
+  ], cb);
+});
+
+gulp.task('vendor:jsEditor', (cb) => {
   gulp
-    .src(vendor.js)
-    .pipe(concat('vendor.js'))
-    .pipe(gulp.dest('./public/js'));
-  gulp
-    .src(vendor.jsAdmin)
-    .pipe(concat('admin.js'))
-    .pipe(gulp.dest('./public/js'));
-  gulp
-    .src(vendor.jsMarkdown)
-    .pipe(concat('markdown.js'))
-    .pipe(gulp.dest('./public/js'));
-  gulp
-    .src('./bower_components/editor.md/lib/**/*.*')
+    .src([
+      './bower_components/editor.md/lib/**/*.*',
+      '!./bower_components/editor.md/lib/**/*.js'
+    ])
     .pipe(gulp.dest('./public/js/markdown/lib'));
+  pump([
+    gulp.src('./bower_components/editor.md/lib/**/*.js'),
+    uglify(uglifyOptions),
+    gulp.dest('./public/js/markdown/lib')
+  ], cb);
+});
+
+gulp.task('vendor:jsEditorPlugin', (cb) => {
   gulp
-    .src('./bower_components/editor.md/plugins/**/*.*')
-    .pipe(gulp.dest('./public/js/markdown/plugins'));
+  .src([
+    './bower_components/editor.md/plugins/**/*.*',
+    '!./bower_components/editor.md/plugins/**/*.js'
+  ])
+  .pipe(gulp.dest('./public/js/markdown/lib'));
+  pump([
+    gulp.src('./bower_components/editor.md/plugins/**/*.js'),
+    uglify(uglifyOptions),
+    gulp.dest('./public/js/markdown/plugins')
+  ], cb);
+});
+
+gulp.task('js', (cb) => {
+  pump([
+    gulp.src('./static/js/**/*.*'),
+    uglify(uglifyOptions),
+    gulp.dest('./public/js')
+  ], cb);
 });
 
 gulp.task('vendor:css', () => {
   gulp
     .src(vendor.css)
     .pipe(concat('vendor.css'))
+    .pipe(cleanCSS())
     .pipe(gulp.dest('./public/css'));
   gulp
     .src('../semantic/dist/themes/default/**/*.*')
@@ -72,6 +122,7 @@ gulp.task('vendor:css', () => {
   gulp
     .src(vendor.cssAdmin)
     .pipe(concat('admin.css'))
+    .pipe(cleanCSS())
     .pipe(gulp.dest('./public/css'));
   gulp
     .src('./bower_components/jquery-ui/themes/base/images/*.*')
@@ -88,8 +139,10 @@ gulp.task('vendor:css', () => {
 });
 
 gulp.task('less', () => {
-  return gulp.src('./public/css/**/*.less')
+  return gulp.src('./static/css/**/*.less')
     .pipe(less())
+    // .pipe(concat('all.css'))
+    .pipe(cleanCSS())
     .pipe(gulp.dest('./public/css'));
 });
 
@@ -106,19 +159,19 @@ gulp.task('server', () => {
     console.log('server reloaded');
   });
 
-  watch(vendor.css, ['vendor:css']);
-  watch(vendor.js, ['vendor:js']);
+  watch('./static/js/**/*.*', ['js']);
+  watch('./static/css/**/*.*', ['less']);
 
   watch(['./public/**/*.{css,js,png,gif,jpg}'], function (file) {
     server.notify.apply(server, [file]);
-    console.log('server reloaded');
+    // console.log('server reloaded');
   });
   watch(['./views/**/*.ejs'], function (file) {
     server.notify.apply(server, [file]);
-    console.log('server reloaded');
+    // console.log('server reloaded');
   });
 });
 
-gulp.task('default', ['vendor:css', 'vendor:js', 'server']);
+gulp.task('default', ['vendor:css', 'vendor:js', 'vendor:jsAdmin', 'vendor:jsMarkdown', 'vendor:jsEditor', 'vendor:jsEditorPlugin', 'js', 'less', 'server']);
 
-gulp.task('build', ['vendor:css', 'vendor:js', 'less']);
+gulp.task('build', ['vendor:css', 'vendor:js', 'vendor:jsAdmin', 'vendor:jsMarkdown', 'vendor:jsEditor', 'vendor:jsEditorPlugin', 'js', 'less']);
