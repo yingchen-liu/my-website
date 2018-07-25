@@ -35,7 +35,7 @@ if ($('#var-editing-mode').val() === 'true') {
     sequenceDiagram: true,
     imageUpload: true,
     imageFormats: ['jpg', 'jpeg', 'gif', 'png', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'txt', 'mp3', 'mp4', 'avi', 'wmv'],
-    imageUploadURL: base + '/uploads?type=projects',
+    imageUploadURL: base + '/uploads?type=projects&removeAlpha=true',
   });
 
   $('[name=name]').on('input', function() {

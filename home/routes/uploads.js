@@ -25,6 +25,7 @@ router.post('/', f.wrap(async (req, res, next) => {
     const dir = `${req.query.type}/${uuid().substring(0, 1)}`;
     mkdirp.sync(`${c.upload.dir}/${dir}`);
 
+    const extName = path.extname(filename).toLowerCase();
     const newFilename = `${uuid()}${path.extname(filename)}`;
 
     const results = await db.uploads
@@ -52,6 +53,16 @@ router.post('/', f.wrap(async (req, res, next) => {
       if (req.query.resizeW && req.query.resizeH) {
         imageMagickParams.push('-resize');
         imageMagickParams.push(`${req.query.resizeW}x${req.query.resizeH}`);
+      }
+      if (extName == '.png' && req.query.removeAlpha) {
+        imageMagickParams.push('-alpha');
+        imageMagickParams.push('Remove');
+      }
+      if (extName == '.jpg' || extName == '.jpeg') {
+        imageMagickParams.push('-sampling-factor');
+        imageMagickParams.push('4:2:0');
+        imageMagickParams.push('-quality');
+        imageMagickParams.push('80');
       }
       imageMagickParams.push(`${c.upload.dir}/${dir}/${newFilename}`);
 

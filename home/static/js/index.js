@@ -96,7 +96,7 @@ if ($('#var-editing-mode').val() === 'true') {
     });
 
   $('#featured-project-banner-dropzone').dropzone({
-    url: base + '/uploads?type=featuredProjects',
+    url: base + '/uploads?type=featuredProjects&removeAlpha=true',
     previewsContainer: '#featured-project-banner-dropzone',
     maxFiles: 1,
     init: function() {
@@ -276,7 +276,7 @@ if ($('#var-editing-mode').val() === 'true') {
 
   var initSkillDropzone = function($dropzone) {
     $dropzone.dropzone({
-      url: base + '/uploads?type=skills&resizeW=50&resizeH=50',
+      url: base + '/uploads?type=skills&resizeW=50&resizeH=50&&removeAlpha=true',
       previewsContainer: $dropzone.first().getPath(),
       maxFiles: 1,
       init: function() {
