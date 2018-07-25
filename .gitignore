@@ -48,7 +48,8 @@ admin/build
 
 # uploads
 home/uploads
-home/public
+home/public/js
+home/public/css
 
 # misc
 admin/.DS_Store
