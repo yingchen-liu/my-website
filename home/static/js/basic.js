@@ -209,3 +209,16 @@ if ($anchors.length > 0) {
 
 // footer: current year
 $('.current-year').text((new Date()).getFullYear());
+
+console.log(" __     ___                  _                  _      _       ");
+console.log(" \\\ \\\   / (_)                | |                | |    (_)      ");
+console.log("  \\\ \\\_/ / _ _ __   __ _  ___| |__   ___ _ __   | |     _ _   _ ");
+console.log("   \\\   / | | '_ \\\ / _` |/ __| '_ \\\ / _ \\\ '_ \\\  | |    | | | | |");
+console.log("    | |  | | | | | (_| | (__| | | |  __/ | | | | |____| | |_| |");
+console.log("    |_|  |_|_| |_|\\\__, |\\\___|_| |_|\\\___|_| |_| |______|_|\\\__,_|");
+console.log("                   __/ |                                       ");
+console.log("                  |___/                                        ");
+console.log("===============================================================");
+console.log(" If you are interested in hiring me, please send me an email to");
+console.log("                 info@yingchenliu.com                          ");
+console.log("===============================================================");
