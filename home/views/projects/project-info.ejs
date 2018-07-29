@@ -10,7 +10,7 @@
           <div class="item">
             <i class="tag icon"></i>
             <div class="content">
-                <input type="text" class="inline-editing" name="label" data-param="label" value="<%= project.label %>" placeholder="Label">
+              <input type="text" class="inline-editing" name="label" data-param="label" value="<%= project.label %>" placeholder="Label">
             </div>
           </div>
         <% } else if (project.label) { %>
@@ -102,22 +102,35 @@
         </div>
   
         <%# --- Technologies --- %>
+        <div class="item">
+          <i class="code icon"></i>
+          <div class="content">
+            <% if (locals.user && session.editingMode && enableEditing) { %>
+              <textarea class="inline-editing" name="technologies" data-param="technologies" rows="2" placeholder="Technologies"><%= project.technologies.join(', ') %></textarea>
+            <% } else if (Array.isArray(project.technologies) && project.technologies.length > 0) { %>
+              <%= project.technologies.join(', ') %>
+            <% } %>
+          </div>
+        </div>
+
         <% if (locals.user && session.editingMode && enableEditing) { %>
           <div class="item">
-            <i class="code icon"></i>
+            <i class="linkify icon"></i>
             <div class="content">
-              <textarea class="inline-editing" name="technologies" data-param="technologies" rows="2" placeholder="Technologies"><%= project.technologies.join(', ') %></textarea>
-            </div>
-          </div>
-        <% } else if (Array.isArray(project.technologies) && project.technologies.length > 0) { %>
-          <div class="item">
-            <i class="code icon"></i>
-            <div class="content">
-              <%= project.technologies.join(', ') %>
+              <input type="text" class="inline-editing" name="link" data-param="link" placeholder="Link" value="<%= project.link %>">
             </div>
           </div>
         <% } %>
-        
+
+        <% if (locals.user && session.editingMode && enableEditing) { %>
+          <div class="item">
+            <i class="eye icon"></i>
+            <div class="content">
+              <textarea class="inline-editing" name="highlights" data-param="highlights" rows="3" placeholder="Highlights"><%= project.highlights %></textarea>
+            </div>
+          </div>
+        <% } %>
+
       </div>
     </div>
   </div>

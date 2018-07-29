@@ -131,6 +131,11 @@ function month(month) {
                       <p>
                         <%= project.brief %>
                       </p>
+                      <% if (project.highlights) { %>
+                        <div>
+                          <strong>> Highlights:</strong> <%= project.highlights %>
+                        </div>
+                      <% } %>
                       <div>
                         <strong>> Roles:</strong> <% project.responsibilities.forEach((responsibility, i) => { 
                           if (i > 0) {

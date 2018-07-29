@@ -62,6 +62,8 @@ if ($('#var-editing-mode').val() === 'true') {
     var toMonth = $form.find('[name=to-month]').val();
     var toYear = $form.find('[name=to-year]').val();
     var technologies = $form.find('[name=technologies]').val();
+    var link = $form.find('[name=link]').val();
+    var highlights = $form.find('[name=highlights]').val();
     var slug = $form.find('[name=slug]').val();
     var showInResume = $form.find('[name=show-in-resume]').parent().checkbox('is checked');
     var isDraft = $form.find('[name=is-draft]').parent().checkbox('is checked');
@@ -79,6 +81,8 @@ if ($('#var-editing-mode').val() === 'true') {
       toMonth: toMonth,
       toYear: toYear,
       technologies: technologies,
+      link: link,
+      highlights: highlights,
       content: content,
       slug: slug,
       showInResume: showInResume,

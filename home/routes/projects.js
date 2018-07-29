@@ -190,6 +190,8 @@ router.post('/', validateProject, f.wrap(async (req, res, next) => {
         month: req.body.toMonth
       },
       content: req.body.content,
+      link: req.body.link,
+      highlights: req.body.highlights,
       showInResume: req.body.showInResume === 'true',
       isDraft: req.body.isDraft === 'true',
       technologies: f.arrayFromString(req.body.technologies),
@@ -372,6 +374,8 @@ router.post('/:id', validateProject, f.wrap(async (req, res, next) => {
         year: req.body.toYear,
         month: req.body.toMonth
       },
+      link: req.body.link,
+      highlights: req.body.highlights,
       content: req.body.content,
       showInResume: req.body.showInResume === 'true',
       isDraft: req.body.isDraft === 'true',
