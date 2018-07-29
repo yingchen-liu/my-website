@@ -71,27 +71,6 @@ function month(month) {
         <p><%= resume.summary %></p>
       </section>
 
-      <%# --- Technical Skills --- %>
-      <section>
-        <h2><i class="icon keyboard"></i> TECHNICAL SKILLS</h2>
-        <hr>
-          <ul class="top-level">
-            <% skillTypes.forEach((skillType) => { %>
-              <li class="no-break">
-                <h3><%= skillType.name %></h3>
-                <ul class="three in a row">
-                  <% skillType.skills.forEach((skill) => { %>
-                    <li>
-                      <img class="ui skill avatar image" title="<%= skill.name %>" src="<%= base %>/<%= skill.icon %>">
-                      <%= skill.name %>: <%= skill.fluency %>
-                    </li>
-                  <% }); %>
-                </ul>
-              </li>
-            <% }); %>
-        </ul>
-      </section>
-
       <%# --- Employment History --- %>
       <section>
         <h2><i class="icon travel"></i> EMPLOYMENT HISTORY</h2>
@@ -179,6 +158,27 @@ function month(month) {
               </ul>
             </li>
           <% }); %>
+        </ul>
+      </section>
+
+      <%# --- Technical Skills --- %>
+      <section>
+        <h2><i class="icon keyboard"></i> TECHNICAL SKILLS</h2>
+        <hr>
+          <ul class="top-level">
+            <% skillTypes.forEach((skillType) => { %>
+              <li class="no-break">
+                <h3><%= skillType.name %></h3>
+                <ul class="three in a row">
+                  <% skillType.skills.forEach((skill) => { %>
+                    <li>
+                      <img class="ui skill avatar image" title="<%= skill.name %>" src="<%= base %>/<%= skill.icon %>">
+                      <%= skill.name %>: <%= skill.fluency %>
+                    </li>
+                  <% }); %>
+                </ul>
+              </li>
+            <% }); %>
         </ul>
       </section>
 
