@@ -25,7 +25,9 @@ router.get('/', f.wrap(async (req, res, next) => {
     index: indexRecord,
     featuredProject: featuredProjectRecord,
     skillTypes: await skills.getSkills(db),
-    projectTypes: await projects.getProjects(db)
+    projectTypes: await projects.getProjects((project) => {
+      return project('right').hasFields('slug');
+    }, db)
   }, req));
 }));
 
@@ -52,7 +54,9 @@ router.get('/resume*', f.wrap(async (req, res, next) => {
   const resumeResults = await db.resume.limit(1).run(db.conn).catch(next);
   const resumeRecords = await resumeResults.toArray().catch(next);
 
-  const projectRecords = await projects.getProjects(db);
+  const projectRecords = await projects.getProjects((project) => {
+    return project('right')('showInResume').eq(true).and(project('right')('isDraft').eq(false));
+  }, db);
 
   res.render('resume', f.data({
     title: f.title('Yingchen Liu\'s Resume'),

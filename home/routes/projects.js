@@ -126,7 +126,11 @@ const validateProject = [
 router.get('/', f.wrap(async (req, res, next) => {
   const db = req.db;
 
-  const records = await projects.getProjects(db);
+  const records = await projects.getProjects(req.session.user ? (project) => {
+      return project('right').hasFields('slug');
+    } : (project) => {
+      return project('right')('isDraft').eq(false);
+    }, db);
 
   res.render('projects/index', f.data({ 
     title: f.title('Projects'),

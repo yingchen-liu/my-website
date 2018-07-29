@@ -1,10 +1,11 @@
 const f = require('../includes/functions');
 
-const getProjects = f.wrap(async (db, next) => {
+const getProjects = f.wrap(async (filter, db, next) => {
   const results = await db.projectTypes
     .outerJoin(db.projects, (type, project) => {
       return type('id').eq(project('type'));
     })
+    .filter(filter)
     .orderBy(
       db.r.desc(db.r.row('right')('from')('year')),
       db.r.desc(db.r.row('right')('from')('month'))
