@@ -52,37 +52,7 @@ router.get('/resume*', f.wrap(async (req, res, next) => {
   const resumeResults = await db.resume.limit(1).run(db.conn).catch(next);
   const resumeRecords = await resumeResults.toArray().catch(next);
 
-  const projectResults = await db.projects
-    .filter({
-      showInResume: true,
-      isDraft: false
-    })
-    .innerJoin(db.projectTypes, (project, type) => {
-      return project('type').eq(type('id'));
-    })
-    .orderBy(
-      db.r.desc(db.r.row('left')('to')('year')),
-      db.r.desc(db.r.row('left')('to')('month'))
-    ) // order by project finish time
-    .group((record) => {
-      return record.pluck('right') // group by right (project type)
-    }).map((project) => {
-      return project('left');
-    })
-    .ungroup()
-    .orderBy(db.r.row('group')('right')('sort')) // order by project type sort 
-    .map((group) => {
-      return db.r.object(
-        'id', group('group')('right')('id'),
-        'name', group('group')('right')('name'),
-        'subtitle', group('group')('right')('subtitle'),
-        'slug', group('group')('right')('slug'),
-        'icon', group('group')('right')('icon'),
-        'sort', group('group')('right')('sort'),
-        'projects', group('reduction')
-      );
-    }).run(db.conn).catch(next);
-  const projectRecords = await projectResults.toArray().catch(next);
+  const projectRecords = await projects.getProjects(db);
 
   res.render('resume', f.data({
     title: f.title('Yingchen Liu\'s Resume'),
