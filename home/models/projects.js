@@ -6,8 +6,8 @@ const getProjects = f.wrap(async (db, next) => {
       return type('id').eq(project('type'));
     })
     .orderBy(
-      db.r.desc(db.r.row('right')('to')('year')),
-      db.r.desc(db.r.row('right')('to')('month'))
+      db.r.desc(db.r.row('right')('from')('year')),
+      db.r.desc(db.r.row('right')('from')('month'))
     ) // order by project finish time
     .group((record) => {
       return record.pluck('left') // group by right (project type)
