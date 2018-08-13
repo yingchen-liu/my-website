@@ -1,0 +1,253 @@
+<%- include('header', {
+  css: [
+    `${base}/css/resume.css`
+  ]
+}); %>
+
+<%
+function month(month) {
+  var months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  return months[month];
+}
+%>
+<div class="page resume printing">
+  <div class="ui main grid container">
+    <div class="sixteen wide column">
+
+      <%# --- Personal Information --- %>
+      <section>
+        <div class="print button contriner noprint">
+          <button id="button-print" class="ui mini print button"><i class="icon print"></i> Print</button>
+        </div>
+        
+        <h1>YINGCHEN LIU</h1>
+        <hr>
+        <div style="display: flex;">
+          <div style="flex-grow: 1;">
+            <div>
+              <span class="into-item-name">[Website]</span>
+              <% resume.websites.forEach((website, i) => {
+                if (i > 0) {
+                  %> / <%
+                } %>
+                <a href="<%= website %>" target="_blank"><%= website %></a>
+              <% }); %>
+            </div>
+          </div>
+          
+          <div style="flex-grow: 1;">
+            <% for (social in resume.socials) { %>
+              <div>
+                <span class="into-item-name">[<%= social %>]</span>
+                <a href="<%= resume.socials[social] %>" target="_blank"><%= resume.socials[social] %></a>
+              </div>
+            <% } %>
+          </div>
+        </div>
+      </section>
+
+      <%# --- Summary --- %>
+      <section>
+        <h2><i class="icon file text"></i> SUMMARY</h2>
+        <hr>
+        <p><%= resume.py.summary %></p>
+      </section>
+
+      <%# --- Employment History --- %>
+      <section>
+        <h2><i class="icon travel"></i> EMPLOYMENT HISTORY</h2>
+        <hr>
+        <ul class="top-level">
+          <% resume.experiences.forEach((experience) => { %>
+            <li>
+              <div class="li-container">
+                <div class="li-name">
+                  <h3><%= experience.position %></h3>
+                  <div>
+                    at 
+                    <% if (experience.link) { %>
+                      <%= experience.company %>
+                    <% } else { %>
+                      <%= experience.company %>
+                    <% } %>
+                  </div>
+                </div>
+                <div class="li-date">
+                  <%= experience.from %><%= experience.to ? ' - ' + experience.to : '' %>
+                </div>
+              </div>
+              <ul>
+                <% experience.rules.forEach((rule) => {
+                  %>
+                  <li>
+                    <%= rule %>
+                  </li>
+                  <%
+                }); %>
+              </ul>
+            </li>
+          <% }); %>
+        </ul>
+      </section>
+
+      <%# --- Projects --- %>
+      <section>
+        <h2><i class="icon fork"></i> PROJECTS</h2>
+        <hr>
+        <ul class="top-level">
+          <% projectTypes.forEach((projectType) => { %>
+            <li>
+              <h3><%= projectType.name %></h3>
+              <ul class="top-level">
+                <% projectType.projects.forEach((project) => { %>
+                  <li class="no-break">
+                    <div class="li-container">
+                      <div class="li-name">
+                        <h3><%= project.name %></h3>
+                      </div>
+                      <div class="li-date">
+                        <%= month(project.from.month) %> <%= project.from.year %> - <%= month(project.to.month) %> <%= project.to.year %>
+                      </div>
+                    </div>
+                    <div>
+                      <p>
+                        <%= project.brief %>
+                      </p>
+                      <% if (project.highlights) { %>
+                        <div>
+                          <strong>> Highlights:</strong> <%= project.highlights %>
+                        </div>
+                      <% } %>
+                      <div>
+                        <strong>> Roles:</strong> <% project.responsibilities.forEach((responsibility, i) => { 
+                          if (i > 0) {
+                            %>, <%
+                          }
+                          %><%= responsibility %><% }); %>  <!-- must be here, to avoid extra space befor ',' -->
+                      </div>
+                      <div>
+                        <strong>> Technologies:</strong> 
+                        <% project.technologies.forEach((technology, i) => { 
+                          if (i > 0) {
+                            %>, <%
+                          }
+                          %><%= technology %><% }); %>  <!-- must be here, to avoid extra space befor ',' -->
+                      </div>
+                      <% if (project.link) { %>
+                        <div>
+                          <strong>> Link:</strong>
+                          <a href="<%= project.link %>" target="_blank"><%= project.link %></a>
+                        </div>
+                      <% } %>
+                    </div>
+                  </li>
+                <% }); %>
+              </ul>
+            </li>
+          <% }); %>
+        </ul>
+      </section>
+
+      <%# --- Technical Skills --- %>
+      <section>
+        <h2><i class="icon keyboard"></i> TECHNICAL SKILLS</h2>
+        <hr>
+          <ul class="top-level">
+            <% skillTypes.forEach((skillType) => { %>
+              <li class="no-break">
+                <h3><%= skillType.name %></h3>
+                <ul class="three in a row">
+                  <% skillType.skills.forEach((skill) => { %>
+                    <li>
+                      <img class="ui skill avatar image" title="<%= skill.name %>" src="<%= base %>/<%= skill.icon %>">
+                      <%= skill.name %>: <%= skill.fluency %>
+                    </li>
+                  <% }); %>
+                </ul>
+              </li>
+            <% }); %>
+        </ul>
+      </section>
+
+      <%# --- Personal Attributes --- %>
+      <section>
+        <h2><i class="icon heart"></i> PERSONAL ATTRIBUTES</h2>
+        <hr>
+        <ul class="top-level">
+          <% resume.py.skills.forEach((skill) => { %>
+            <li class="no-break">
+              <h3><%= skill.name %></h3>
+              <p><%= skill.desc %></p>
+            </li>
+          <% }); %>
+        </ul>
+      </section>
+      
+      <%# --- Education --- %>
+      <section>
+        <h2><i class="icon student"></i> EDUCATION</h2>
+        <hr>
+        <ul class="top-level">
+          <% resume.educations.forEach((education) => { %>
+            <li class="no-break">
+              <div class="li-container">
+                <div class="li-name">
+                  <h3><%= education.school %> <small>in <%= education.location %></small></h3> 
+                </div>
+                <div class="li-date">
+                  <%= education.from %><%= education.to ? ' - ' + education.to : '' %></br>
+                </div>
+              </div>
+              <p>
+                <% education.degrees.forEach((degree) => {
+                  %>
+                  <%= degree %></br>
+                  <%
+                }); %>
+              </p>
+              <div>
+                <% 
+                if (education.achievements) {
+                  %>
+                  <strong>> Achievements: </strong>
+                  <ul>
+                    <%
+                    education.achievements.forEach((achievement) => {
+                      %>
+                      <li>
+                        <% if (achievement.link) {
+                          %>
+                          <%= achievement.content %>
+                          <%
+                        } else {
+                          %>
+                          <%= achievement.content %>
+                          <%
+                        } %>
+                        <%= achievement.year %>
+                      </li>
+                      <%
+                    });
+                  %>
+                  </ul>
+                <% } %>
+              </div>
+            </li>
+          <% }); %>
+        </ul>
+      </section>
+
+      <%# --- Referees --- %>
+      <section>
+        <h2><i class="icon address card"></i> REFEREES</h2>
+        <hr>
+        Available upon request
+      </section>
+    </div>
+  </div>
+</div>
+<%- include('footer', {
+  js: [
+    `${base}/js/resume.js`
+  ]
+}); %>

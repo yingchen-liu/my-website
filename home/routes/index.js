@@ -66,6 +66,24 @@ router.get('/resume*', f.wrap(async (req, res, next) => {
   }, req));
 }));
 
+router.get('/py-resume', f.wrap(async (req, res, next) => {
+  const db = req.db;
+
+  const resumeResults = await db.resume.limit(1).run(db.conn).catch(next);
+  const resumeRecords = await resumeResults.toArray().catch(next);
+
+  const projectRecords = await projects.getProjects((project) => {
+    return project('right')('showInResume').eq(true).and(project('right')('isDraft').eq(false));
+  }, db);
+
+  res.render('py-resume', f.data({
+    title: f.title('Yingchen Liu\'s Resume'),
+    resume: resumeRecords[0],
+    skillTypes: await skills.getSkills(db),
+    projectTypes: projectRecords
+  }, req));
+}));
+
 // router.get(/uploads\/.*/, (req, res, next) => {
 //   let filename = req.path.split('..').join(); // clean the path
 //   filename = path.join(__dirname, '..', filename);
