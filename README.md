@@ -16,25 +16,6 @@
   Then open http://localhost:3000 (it may take a while)
 
 ## Deployment
-1. Build the project
-
-  ```
-  $ cd home
-  $ docker build -t ytxiuxiu/mywebsite .
-  $ cd ../nginx
-  $ docker build -t ytxiuxiu/mywebsite-nginx .
-  ```
-
-2. Publish to docker
-
-  ```
-  $ docker push ytxiuxiu/mywebsite
-  $ docker push ytxiuxiu/mywebsite-nginx
-  ```
-
-3. Run
-
-  ```
-  $ docker-compose pull
-  $ docker-compose up -d
-  ```
+```
+pm2 startOrRestart ecosystem.config.js --env production
+```
