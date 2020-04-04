@@ -124,7 +124,7 @@ function month(month) {
                         <h3><%= project.name %></h3>
                       </div>
                       <div class="li-date">
-                        <%= month(project.from.month) %> <%= project.from.year %> - <%= month(project.to.month) %> <%= project.to.year %>
+                        <%= month(project.from.month) %> <%= project.from.year %> - <%= (project.to && project.to.month) ? month(project.to.month) : 'Now' %> <%= (project.to && project.to.year) ? project.to.year : '' %>
                       </div>
                     </div>
                     <div>
